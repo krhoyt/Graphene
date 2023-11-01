@@ -1,0 +1,65 @@
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;  
+  src: url( './fonts/Plex/Sans/IBMPlexSans-Bold.woff2' ) format( 'woff2' );
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-weight: 600;  
+  src: url( './fonts/Plex/Sans/IBMPlexSans-SemiBold.woff2' ) format( 'woff2' );
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-weight: 500;  
+  src: url( './fonts/Plex/Sans/IBMPlexSans-Medium.woff2' ) format( 'woff2' );
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-weight: 400;  
+  src: url( './fonts/Plex/Sans/IBMPlexSans-Regular.woff2' ) format( 'woff2' );
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-weight: 400;  
+  src: url( './fonts/Plex/Mono/IBMPlexMono-Regular.woff2' ) format( 'woff2' );
+}
+
+@font-face {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  src: url( './fonts/Symbols/material-symbols-outlined.woff2' ) format( 'woff2' );
+}
+
+:root {
+  --table-background-color: #f4f4f4;
+  --table-light-background-color: #ffffff;
+
+  --table-cell-padding:  0 16px 0 16px;      
+
+  --table-row-cursor: pointer;
+  --table-row-color: #525252;
+  --table-row-hover-color: #161616;
+  --table-row-font-family: 'IBM Plex Sans', sans-serif;      
+  --table-row-font-size: 14px;      
+  --table-row-font-weight: 400;            
+  --table-row-height: 48px;
+
+  --table-row-bottom-divider-color: solid 1px #e0e0e0;
+  --table-row-top-divider-color: solid 1px transparent;      
+
+  --table-row-hover-background-color: #e8e8e8;      
+  --table-row-hover-bottom-divider-color: solid 1px #e8e8e8;            
+  --table-row-hover-top-divider-color: solid 1px #e8e8e8;            
+
+  --table-row-selected-background-color: #e0e0e0;
+  --table-row-selected-bottom-divider-color: solid 1px #c6c6c6;      
+  --table-row-selected-top-divider-color: solid 1px #e0e0e0;                 
+
+  --table-row-selected-hover-background-color: #d1d1d1;
+  --table-row-selected-hover-bottom-divider-color: solid 1px #d1d1d1;      
+  --table-row-selected-hover-top-divider-color: solid 1px #d1d1d1;         
+}
