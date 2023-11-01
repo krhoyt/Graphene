@@ -1,6 +1,6 @@
 # Graphite Components
 
-Set of standards-based web components following the [BIm Carbon Design System](https://carbondesignsystem.com).
+Set of standards-based web components following the [IBM Carbon Design System](https://carbondesignsystem.com).
 
 ## Why?
 
@@ -45,16 +45,16 @@ That is it! Nope, there is no builder required. Nope, you do not `npm install` a
 
 ## Containers
 
-- ✅ Box
-- ✅ HBox
+- ✅ Box ⚠️
+- ✅ HBox ⚠️
 - ✅ Header
-- ✅ Stack
+- ✅ Stack ⚠️
 - ✅ Tabs
-- ✅ VBox
+- ✅ VBox ⚠️
 
 ## Controls   
 
-- ✅ Avatar
+- ✅ Avatar ⚠️
 - ✅ Button
 - ✅ Icon
 - ✅ Icon Button
@@ -68,4 +68,4 @@ That is it! Nope, there is no builder required. Nope, you do not `npm install` a
 ✈️ In-flight/progress (1)  
 📆 Planned  (0)   
 ❓ To be determined (0)  
-⚠️ Not part of IBM Carbon (3)
+⚠️ Not part of IBM Carbon (5)
