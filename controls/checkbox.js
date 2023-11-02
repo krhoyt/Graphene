@@ -31,6 +31,7 @@ export default class GraphiteCheckbox extends HTMLElement {
           font-family: 'IBM Plex Sans', sans-serif;
           font-size: 14px;
           font-weight: 400;
+          gap: 4px;
           margin: 0;
           outline: none;
           padding: 0;
@@ -56,7 +57,7 @@ export default class GraphiteCheckbox extends HTMLElement {
           height: 21px;
           letter-spacing: normal;
           line-height: 1.0;
-          margin: 0 4px 0 0;
+          margin: 0;
           padding: 0;
           text-rendering: optimizeLegibility;
           text-transform: none;
