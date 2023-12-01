@@ -11,10 +11,6 @@ export default class GraphiteLabel extends HTMLElement {
           position: relative;
         }
 
-        :host( [concealed] ) {
-          visibility: hidden;
-        }
-
         :host( [hidden] ) {
           display: none;
         }
@@ -45,10 +41,7 @@ export default class GraphiteLabel extends HTMLElement {
           color: var( --label-disabled-color, #c6c6c6 );
         }                
       </style>
-      <p part="label">
-        <span></span>
-        <slot></slot>
-      </p>
+      <p part="label"></p>
     `;
 
     // Root
@@ -56,7 +49,7 @@ export default class GraphiteLabel extends HTMLElement {
     this.shadowRoot.appendChild( template.content.cloneNode( true ) );
 
     // Elements
-    this.$label = this.shadowRoot.querySelector( 'span' );
+    this.$label = this.shadowRoot.querySelector( 'p' );
   }
 
    // When attributes change
@@ -104,26 +97,6 @@ export default class GraphiteLabel extends HTMLElement {
   // Attributes
   // Reflected
   // Boolean, Number, String, null
-  get concealed() {
-    return this.hasAttribute( 'concealed' );
-  }
-
-  set concealed( value ) {
-    if( value !== null ) {
-      if( typeof value === 'boolean' ) {
-        value = value.toString();
-      }
-
-      if( value === 'false' ) {
-        this.removeAttribute( 'concealed' );
-      } else {
-        this.setAttribute( 'concealed', '' );
-      }
-    } else {
-      this.removeAttribute( 'concealed' );
-    }
-  }
-
   get disabled() {
     return this.hasAttribute( 'disabled' );
   }
@@ -163,7 +136,7 @@ export default class GraphiteLabel extends HTMLElement {
       this.removeAttribute( 'hidden' );
     }
   }   
-
+  
   get text() {
     if( this.hasAttribute( 'text' ) ) {
       return this.getAttribute( 'text' );
@@ -178,8 +151,8 @@ export default class GraphiteLabel extends HTMLElement {
     } else {
       this.removeAttribute( 'text' );
     }
-  }     
-  
+  } 
+
   get truncate() {
     return this.hasAttribute( 'truncate' );
   }

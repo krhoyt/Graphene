@@ -1,3 +1,4 @@
+import GraphiteIcon from "./icon.js";
 import GraphiteLabel from "./label.js";
 
 export default class GraphiteButton extends HTMLElement {
@@ -11,10 +12,6 @@ export default class GraphiteButton extends HTMLElement {
           box-sizing: border-box;
           display: inline-block;
           position: relative;
-        }
-
-        :host( [concealed] ) {
-          visibility: hidden;
         }
 
         :host( [hidden] ) {
@@ -62,10 +59,7 @@ export default class GraphiteButton extends HTMLElement {
           background-color: #002d9c;
         }
 
-        ::slotted( gr-icon ) {
-          pointer-events: none;
-          position: absolute;
-          right: 15px;
+        gr-icon{
           --icon-color: #ffffff;
           --icon-cursor: pointer;
         }
@@ -74,20 +68,19 @@ export default class GraphiteButton extends HTMLElement {
           height: 32px;
           padding: 0 60px 0 12px;
         }
-
         :host( [size=md] ) button {
           height: 40px;
           padding: 0 60px 0 12px;
         }
-
         :host( [size=xl] ) button {
+          align-items: flex-start;
           height: 64px;
-          padding: 0 65px 0 16px;
+          padding: 14px 65px 0 16px;
         }
-
-        :host( [size=2xl] ) button {
+        :host( [size=xxl] ) button {
+          align-items: flex-start;
           height: 80px;
-          padding: 0 65px 0 16px;
+          padding: 14px 65px 0 16px;
         }
 
         :host( [kind=secondary] ) button { background-color: #393939; }
@@ -113,12 +106,23 @@ export default class GraphiteButton extends HTMLElement {
         :host( [kind=danger] ) button:active { background-color: #750e13; }
 
         :host( [kind=ghost] ) button { background-color: transparent; }
+        :host( [kind=ghost] ) button { padding: 0 15px 0 15px; }        
         :host( [kind=ghost] ) button gr-label { --label-color: #0f62fe; }
         :host( [kind=ghost] ) button:hover { background-color: #e5e5e5e4; }
         :host( [kind=ghost] ) button:active { background-color: #8d8d8d80; }
-        :host( [kind=ghost] ) ::slotted( gr-icon ) { --icon-color: #0f62fe; }
+        :host( [kind=ghost] ) gr-icon { 
+          padding: 0 0 0 15px;
+          --icon-color: #0f62fe; 
+        }
+        :host( [kind=ghost]:not( [label] ) ) gr-icon {         
+          padding: 0;
+        }
 
-        :host( [disabled] ) ::slotted( gr-icon ) { --icon-color: #8d8d8d; }
+        :host( :not( [icon-name] ) ) gr-icon { display: none; }
+        :host( :not( [label] ) ) button { padding: 0 13px 0 13px; }
+        :host( :not( [label] ) ) gr-label { display: none; }
+
+        :host( [disabled] ) gr-icon { --icon-color: #8d8d8d; }
         :host( [disabled] ) gr-label { 
           --label-color: #8d8d8d; 
           --label-cursor: not-allowed;
@@ -134,13 +138,11 @@ export default class GraphiteButton extends HTMLElement {
         }
         :host( [disabled][kind=tertiary] ) button:hover gr-label { --label-color: #c6c6c6; }        
         :host( [disabled][kind=ghost] ) button { background-color: transparent; }        
-        :host( [disabled][kind=ghost] ) gr-label { --label-color: #8d8d8d; };
+        :host( [disabled][kind=ghost] ) gr-label { --label-color: #8d8d8d; }   
       </style>
-      <button part="button" type="button">
-        <gr-label part="label" exportparts="label: p">
-          <slot></slot>
-        </gr-label>
-        <slot name="suffix"></slot>
+      <button part="button">
+        <gr-label exportparts="label: p" part="label"></gr-label>
+        <gr-icon exportparts="font: f, image: i" part="icon" weight="200"></gr-icon>
       </button>
     `;
 
@@ -161,6 +163,7 @@ export default class GraphiteButton extends HTMLElement {
         }
     } );        
     this.$label = this.shadowRoot.querySelector( 'gr-label' );
+    this.$icon = this.shadowRoot.querySelector( 'gr-icon' );
   }
 
   blur() {
@@ -177,8 +180,10 @@ export default class GraphiteButton extends HTMLElement {
 
    // When attributes change
   _render() {
+    this.$button.type = this.type === null ? 'button' : this.type;
     this.$button.disabled = this.disabled;
     this.$label.text = this.label;
+    this.$icon.name = this.iconName;
   }
 
   // Promote properties
@@ -193,28 +198,30 @@ export default class GraphiteButton extends HTMLElement {
 
   // Setup
   connectedCallback() {
-    this._upgrade( 'concealed' );
     this._upgrade( 'disabled' );
     this._upgrade( 'hidden' );
-    this._upgrade( 'href' );    
+    this._upgrade( 'href' ); 
+    this._upgrade( 'iconName' ); 
     this._upgrade( 'kind' );
     this._upgrade( 'label' );
     this._upgrade( 'size' );
     this._upgrade( 'target' );    
+    this._upgrade( 'type' );        
     this._render();
   }
 
   // Watched attributes
   static get observedAttributes() {
     return [
-      'concealed',
       'disabled',
       'hidden',
       'href',
+      'icon-name',
       'kind',
       'label',
       'size',
-      'target'
+      'target',
+      'type'
     ];
   }
 
@@ -227,26 +234,6 @@ export default class GraphiteButton extends HTMLElement {
   // Attributes
   // Reflected
   // Boolean, Number, String, null
-  get concealed() {
-    return this.hasAttribute( 'concealed' );
-  }
-
-  set concealed( value ) {
-    if( value !== null ) {
-      if( typeof value === 'boolean' ) {
-        value = value.toString();
-      }
-
-      if( value === 'false' ) {
-        this.removeAttribute( 'concealed' );
-      } else {
-        this.setAttribute( 'concealed', '' );
-      }
-    } else {
-      this.removeAttribute( 'concealed' );
-    }
-  }
-
   get disabled() {
     return this.hasAttribute( 'disabled' );
   }
@@ -300,6 +287,22 @@ export default class GraphiteButton extends HTMLElement {
       this.setAttribute( 'href', value );
     } else {
       this.removeAttribute( 'href' );
+    }
+  }
+
+  get iconName() {
+    if( this.hasAttribute( 'icon-name' ) ) {
+      return this.getAttribute( 'icon-name' );
+    }
+
+    return null;
+  }
+
+  set iconName( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'icon-name', value );
+    } else {
+      this.removeAttribute( 'icon-name' );
     }
   }
 
@@ -365,7 +368,23 @@ export default class GraphiteButton extends HTMLElement {
     } else {
       this.removeAttribute( 'target' );
     }
-  }  
+  } 
+  
+  get type() {
+    if( this.hasAttribute( 'type' ) ) {
+      return this.getAttribute( 'type' );
+    }
+
+    return null;
+  }
+
+  set type( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'type', value );
+    } else {
+      this.removeAttribute( 'type' );
+    }
+  }   
 }
 
 window.customElements.define( 'gr-button', GraphiteButton );

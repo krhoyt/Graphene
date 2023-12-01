@@ -101,7 +101,7 @@ export default class GraphiteAvatar extends HTMLElement {
         }
       </style>
       <button part="button" type="button">
-        <slot name="icon"></slot>
+        <slot></slot>
         <gr-label exportparts="label: p" part="label"></gr-label>
       </button>
       <input accept="image/png, image/jpeg" type="file">

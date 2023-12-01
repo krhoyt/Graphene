@@ -10,21 +10,35 @@
 
     <link href="../graphite.css" rel="stylesheet">    
 
+    <style>
+      gr-button {
+        margin: 0 0 15px 0;
+      }
+    </style>
+
   </head>
   <body>
 
-    <gr-button>Button</gr-button><br>
-    <gr-button kind="danger">Button</gr-button><br>
-    <gr-button kind="ghost">Button</gr-button><br>
-    <gr-button kind="secondary">Button</gr-button><br>
-    <gr-button kind="tertiary">Button</gr-button><br>
+    <gr-button label="Button"></gr-button><br>
+    <gr-button kind="danger" label="Danger"></gr-button><br>
+    <gr-button kind="ghost" label="Ghost"></gr-button><br>
+    <gr-button kind="secondary" label="Secondary"></gr-button><br>
+    <gr-button kind="tertiary" label="Tertiary"></gr-button><br>
+    <gr-button icon-name="open_in_full" kind="ghost"></gr-button><br>
+    <gr-button size="sm" label="Small"></gr-button><br>
+    <gr-button size="md" label="Medium"></gr-button><br>
+    <gr-button label="Large"></gr-button><br>    
+    <gr-button size="xl" label="Extra Large"></gr-button><br>
+    <gr-button size="xxl" label="Extra Extra Large"></gr-button><br>
 
+    <br>
     <pre>
-&lt;gr-icon-button name="settings"&gt;&lt;/gr-icon-button&gt;
-&lt;gr-icon-button kind="danger" name="settings"&gt;&lt;/gr-icon-button&gt;
-&lt;gr-icon-button kind="ghost" name="settings"&gt;&lt;/gr-icon-button&gt;
-&lt;gr-icon-button kind="secondary" name="settings"&gt;&lt;/gr-icon-button&gt;
-&lt;gr-icon-button kind="tertiary" name="settings"&gt;&lt;/gr-icon-button&gt;
+&lt;gr-button label=&quot;Button&quot;&gt;&lt;/gr-button&gt;
+&lt;gr-button kind=&quot;danger&quot; label=&quot;Button&quot;&gt;&lt;/gr-button&gt;
+&lt;gr-button kind=&quot;ghost&quot; label=&quot;Button&quot;&gt;&lt;/gr-button&gt;
+&lt;gr-button icon-name=&quot;add&quot;&gt;&lt;/gr-button&gt;
+&lt;gr-button kind=&quot;secondary&quot; label=&quot;Button&quot;&gt;&lt;/gr-button&gt;
+&lt;gr-button kind=&quot;tertiary&quot; label=&quot;Button&quot;&gt;&lt;/gr-button&gt;
     </pre>
 
     <script src="../controls/button.js" type="module"></script>

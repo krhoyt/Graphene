@@ -14,10 +14,6 @@ export default class GraphiteIcon extends HTMLElement {
           position: relative;
         }
 
-        :host( [concealed] ) {
-          visibility: hidden;
-        }        
-
         :host( [hidden] ) {
           display: none;
         }        
@@ -37,12 +33,12 @@ export default class GraphiteIcon extends HTMLElement {
           direction: ltr;
           display: none;
           font-family: 'Material Symbols Outlined';
-          font-size: var( --icon-font-size, 20px );
+          font-size: var( --icon-size, 20px );
           font-style: normal;
           font-weight: normal;
           height: var( --icon-size, 20px );
           letter-spacing: normal;
-          line-height: var( --icon-line-height, 20px );
+          line-height: var( --icon-size, 20px );
           margin: 0;
           max-height: var( --icon-size, 20px );         
           max-width: var( --icon-size, 20px );                    
@@ -110,7 +106,6 @@ export default class GraphiteIcon extends HTMLElement {
 
   // Setup
   connectedCallback() {
-    this._upgrade( 'concealed' );    
     this._upgrade( 'filled' );                
     this._upgrade( 'hidden' );    
     this._upgrade( 'name' );        
@@ -122,7 +117,6 @@ export default class GraphiteIcon extends HTMLElement {
   // Watched attributes
   static get observedAttributes() {
     return [
-      'concealed',
       'filled',
       'hidden',
       'name',
@@ -140,26 +134,6 @@ export default class GraphiteIcon extends HTMLElement {
   // Attributes
   // Reflected
   // Boolean, Number, String, null
-  get concealed() {
-    return this.hasAttribute( 'concealed' );
-  }
-
-  set concealed( value ) {
-    if( value !== null ) {
-      if( typeof value === 'boolean' ) {
-        value = value.toString();
-      }
-
-      if( value === 'false' ) {
-        this.removeAttribute( 'concealed' );
-      } else {
-        this.setAttribute( 'concealed', '' );
-      }
-    } else {
-      this.removeAttribute( 'concealed' );
-    }
-  }
-
   get filled() {
     return this.hasAttribute( 'filled' );
   }
