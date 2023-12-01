@@ -1,8 +1,8 @@
-import GraphiteLabel from "./label.js";
+import GrapheneLabel from "./label.js";
 
 import { v4 as uuidv4 } from "../lib/uuid-9.0.0.js";
 
-export default class GraphiteAvatar extends HTMLElement {
+export default class GrapheneAvatar extends HTMLElement {
   constructor() {
     super();
 
@@ -566,4 +566,4 @@ export default class GraphiteAvatar extends HTMLElement {
   }  
 }
 
-window.customElements.define( 'gr-avatar', GraphiteAvatar );
+window.customElements.define( 'gr-avatar', GrapheneAvatar );

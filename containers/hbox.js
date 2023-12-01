@@ -1,4 +1,4 @@
-export default class GraphiteHBox extends HTMLElement {
+export default class GrapheneHBox extends HTMLElement {
   constructor() {
     super();
 
@@ -182,4 +182,4 @@ export default class GraphiteHBox extends HTMLElement {
   }     
 }
 
-window.customElements.define( 'gr-hbox', GraphiteHBox );
+window.customElements.define( 'gr-hbox', GrapheneHBox );

@@ -11,6 +11,10 @@ export default class GraphiteLabel extends HTMLElement {
           position: relative;
         }
 
+        :host( [conceealed] ) {
+          visibility: hidden;
+        }
+
         :host( [hidden] ) {
           display: none;
         }
@@ -97,6 +101,26 @@ export default class GraphiteLabel extends HTMLElement {
   // Attributes
   // Reflected
   // Boolean, Number, String, null
+  get concealed() {
+    return this.hasAttribute( 'concealed' );
+  }
+
+  set concealed( value ) {
+    if( value !== null ) {
+      if( typeof value === 'boolean' ) {
+        value = value.toString();
+      }
+
+      if( value === 'false' ) {
+        this.removeAttribute( 'concealed' );
+      } else {
+        this.setAttribute( 'concealed', '' );
+      }
+    } else {
+      this.removeAttribute( 'concealed' );
+    }
+  }  
+
   get disabled() {
     return this.hasAttribute( 'disabled' );
   }

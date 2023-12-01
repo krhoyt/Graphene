@@ -1,4 +1,4 @@
-export default class GraphiteStack extends HTMLElement {
+export default class GrapheneStack extends HTMLElement {
   constructor() {
     super();
 
@@ -131,4 +131,4 @@ export default class GraphiteStack extends HTMLElement {
   }          
 }
 
-window.customElements.define( 'gr-stack', GraphiteStack );
+window.customElements.define( 'gr-stack', GrapheneStack );

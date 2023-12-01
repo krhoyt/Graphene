@@ -1,4 +1,4 @@
-export default class AvocadoDrawer extends HTMLElement {
+export default class GrapheneDrawer extends HTMLElement {
   constructor() {
     super();
 
@@ -207,4 +207,4 @@ export default class AvocadoDrawer extends HTMLElement {
   }   
 }
 
-window.customElements.define( 'adc-drawer', AvocadoDrawer );
+window.customElements.define( 'gr-drawer', GrapheneDrawer );

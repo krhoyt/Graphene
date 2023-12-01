@@ -1,4 +1,4 @@
-export default class GraphiteBox extends HTMLElement {
+export default class GrapheneBox extends HTMLElement {
   constructor() {
     super();
 
@@ -230,4 +230,4 @@ export default class GraphiteBox extends HTMLElement {
   }     
 }
 
-window.customElements.define( 'gr-box', GraphiteBox );
+window.customElements.define( 'gr-box', GrapheneBox );

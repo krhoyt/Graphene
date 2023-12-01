@@ -1,9 +1,10 @@
-import GraphiteHBox from "../containers/hbox.js";
-import GraphiteVBox from "../containers/vbox.js";
-import GraphiteIcon from "./icon.js";
-import GraphiteLabel from "./label.js";
+import GrapheneHBox from "../containers/hbox.js";
+import GrapheneVBox from "../containers/vbox.js";
 
-export default class GraphiteInput extends HTMLElement {
+import GrapheneIcon from "./icon.js";
+import GrapheneLabel from "./label.js";
+
+export default class GrapheneInput extends HTMLElement {
   constructor() {
     super();
 
@@ -17,22 +18,18 @@ export default class GraphiteInput extends HTMLElement {
           position: relative;
         }
 
+        :host( [hidden] ) {
+          display: none;
+        }
+
         button {
           align-items: center;
           background: none;
           border: none;
           box-sizing: border-box;
-          color: #525252;
           cursor: pointer;
-          direction: ltr;        
           display: flex;
-          font-family: 'Material Symbols Outlined';
-          font-size: 18px;
-          font-style: normal;
-          font-weight: normal; 
-          height: 20px;
           justify-content: center;
-          letter-spacing: normal;          
           margin: 0;
           min-height: 20px;
           min-width: 0;
@@ -40,17 +37,18 @@ export default class GraphiteInput extends HTMLElement {
           opacity: 0;
           overflow: hidden;
           padding: 0;
-          text-transform: none;
-          text-rendering: optimizeLegibility;
           transition: 
             margin 300ms ease-out,
             min-width 300ms ease-out,
             opacity 300ms ease-out,
             width 300ms ease-out;  
-          white-space: nowrap;            
           width: 0; 
-          word-wrap: normal;          
           -webkit-tap-highlight-color: transparent;
+        }
+
+        button gr-icon {
+          --icon-color: #525252;
+          --icon-cursor: pointer;
         }
 
         div {
@@ -97,7 +95,7 @@ export default class GraphiteInput extends HTMLElement {
         input[type=search]::-webkit-search-cancel-button,
         input[type=search]::-webkit-search-results-button,
         input[type=search]::-webkit-search-results-decoration {
-          -webkit-appearance:none;
+          -webkit-appearance: none;
         }
 
         label {
@@ -119,63 +117,28 @@ export default class GraphiteInput extends HTMLElement {
           outline: solid 2px #0f62fe;
         }
 
-        p {
-          text-rendering: optimizeLegibility;          
+        gr-icon[part=invalid] {
+          --icon-color: #da1e28;
         }
 
-        p.icon {
-          box-sizing: border-box;
-          color: #da1e28;
-          cursor: default;
-          direction: ltr;
-          font-family: 'Material Symbols Outlined';
-          font-size: 18px;
-          font-style: normal;
-          font-weight: normal;
-          height: 20px;
-          letter-spacing: normal;
-          opacity: 0;
-          overflow: hidden;
-          margin: 0;
-          min-height: 20px;
-          min-width: 0;
-          padding: 0;
-          text-transform: none;
-          transition: margin 300ms ease-out;
-          white-space: nowrap;
-          width: 0;
-          word-wrap: normal;
-        }                
-
-        p.text {
-          cursor: default;
-          font-family: 'IBM Plex Sans', sans-serif;
-          font-size: 14px;
-          font-weight: 400;
-          margin: 0;
-          padding: 0;
+        gr-label[part=error] {
+          padding: 4px 0 0 0;     
+          visibility: hidden;               
+          --label-color: #6f6f6f;          
+          --label-font-size: 12px;
         }
 
-        p[part=error] {
-          color: #6f6f6f;          
-          font-size: 12px;
-          padding: 4px 0 0 0;
-          visibility: hidden;
+        gr-label[part=helper] {
+          padding: 0 0 4px 0;
+          --label-color: #6f6f6f;
+          --label-font-size: 12px;
         }
 
-        p[part=helper] {
-          color: #6f6f6f;     
-          display: none;
-          font-size: 12px;          
-          padding: 0 0 4px 0;               
-        }
-
-        p[part=label] {
-          color: #525252;          
+        gr-label[part=label] {
           flex-basis: 0;
-          flex-grow: 1;
-          font-size: 12px;
-          padding: 0;
+          flex-grow: 1;          
+          --label-color: #525252;
+          --label-font-size: 12px;
         }
 
         ::slotted( gr-icon ) {
@@ -196,24 +159,20 @@ export default class GraphiteInput extends HTMLElement {
           --link-font-size: 12px;
         }
 
-        :host( [concealed] ) {
-          visibility: hidden;
-        }
-
-        :host( [error] ) p[part=error] {
+        :host( [error] ) gr-label[part=error] {
           visibility: visible;
         }
 
-        :host( [label] ) div {
-          display: flex;
+        :host( :not( [label] ) ) gr-label[part=label] {
+          display: none;
         }
 
-        :host( [label]:not( [helper] ) ) p[part=label] {
+        :host( [label]:not( [helper] ) ) gr-label[part=label] {
           padding: 0 0 4px 0;
         } 
 
-        :host( [helper] ) p[part=helper] {
-          display: block;
+        :host( :not( [helper] ) ) gr-label[part=helper] {
+          display: none;
         }
 
         :host( [hidden] ) {
@@ -228,11 +187,11 @@ export default class GraphiteInput extends HTMLElement {
           outline: solid 2px #0f62fe;
         }
 
-        :host( [invalid] ) p[part=error] {
-          color: #da1e28;
+        :host( [invalid] ) gr-label[part=error] {
+          --label-color: #da1e28;
         }
 
-        :host( [invalid] ) p.icon {
+        :host( [invalid] ) gr-icon[part=invalid] {
           min-width: 20px;
           opacity: 1.0;
           margin: 0 12px 0 0;
@@ -265,7 +224,7 @@ export default class GraphiteInput extends HTMLElement {
           background-color: #e8e8e8;
         }        
 
-        :host( [value]:not( [read-only] ) ) label:focus-within p.icon {
+        :host( [value]:not( [read-only] ) ) label:focus-within gr-icon[part=invalid] {
           margin: 0 6px 0 0;
         }
 
@@ -320,49 +279,53 @@ export default class GraphiteInput extends HTMLElement {
           border-bottom: solid 1px transparent;
         }
 
-        :host( [disabled] ) p[part=error],
-        :host( [disabled] ) p[part=helper],
-        :host( [disabled] ) p[part=label] {
-          color: #16161640;
+        :host( [disabled] ) gr-label[part=error],
+        :host( [disabled] ) gr-label[part=helper],
+        :host( [disabled] ) gr-label[part=label] {
+          --label-color: #16161640;
         }
 
-        :host( [disabled][invalid] ) p[part=error] {
-          color: #da1e28;
+        :host( [disabled][invalid] ) gr-label[part=error] {
+          --label-color: #da1e28;
         }
       </style>
-      <div>
-        <div>
-          <p class="text" part="label"></p>
-          <p class="text" part="helper"></p>                
-        </div>
+      <gr-hbox>
+        <gr-vbox>
+          <gr-label part="label"></gr-label>
+          <gr-label part="helper"></gr-label>                
+        </gr-vbox>
         <slot></slot>        
-      </div>
+      </gr-hbox>
       <label part="field">
         <slot name="prefix"></slot>
         <input part="input" type="text">
-        <p class="icon" part="invalid">error</p>
-        <button part="reveal" type="button">visibility</button>
-        <button part="clear" type="button">close</button>
+        <gr-icon filled name="error" part="invalid"></gr-icon>
+        <button part="reveal" type="button">
+          <gr-icon name="visibility"></gr-icon>
+        </button>
+        <button part="clear" type="button">
+          <gr-icon name="close"></gr-icon>
+        </button>
       </label>
-      <p class="text" part="error"></p>
+      <gr-label label="Error" part="error"></gr-label>
     `;
 
     // Root
-    const shadowRoot = this.attachShadow( {mode: 'open'} );
-    shadowRoot.appendChild( template.content.cloneNode( true ) );
+    this.attachShadow( {mode: 'open'} );
+    this.shadowRoot.appendChild( template.content.cloneNode( true ) );
 
     // Elements
-    this.$clear = shadowRoot.querySelector( 'button[part=clear]' );
+    this.$clear = this.shadowRoot.querySelector( 'button[part=clear]' );
     this.$clear.addEventListener( 'click', () => {
       this.clear();
       this.focus();
 
       this.dispatchEvent( new CustomEvent( 'gr-clear' ) );
     } );
-    this.$error = shadowRoot.querySelector( 'p[part=error]' );    
-    this.$label = shadowRoot.querySelector( 'p[part=label]' );
-    this.$helper = shadowRoot.querySelector( 'p[part=helper]' );
-    this.$input = shadowRoot.querySelector( 'input' );
+    this.$error = this.shadowRoot.querySelector( 'gr-label[part=error]' );    
+    this.$label = this.shadowRoot.querySelector( 'gr-label[part=label]' );
+    this.$helper = this.shadowRoot.querySelector( 'gr-label[part=helper]' );
+    this.$input = this.shadowRoot.querySelector( 'input' );
     this.$input.addEventListener( 'input', ( evt ) => {
       this.value = evt.currentTarget.value;
     } );
@@ -373,16 +336,18 @@ export default class GraphiteInput extends HTMLElement {
 
         this.dispatchEvent( new CustomEvent( 'gr-enter', {
           detail: {
+            name: evt.currentTarget.name,
             value: evt.currentTarget.value
           }
         } ) );
       }
     } );
-    this.$reveal = shadowRoot.querySelector( 'button[part=reveal]' );
+    this.$reveal = this.shadowRoot.querySelector( 'button[part=reveal]' );
+    this.$reveal_icon = this.shadowRoot.querySelector( 'button[part=reveal] gr-icon' );
     this.$reveal.addEventListener( 'click', () => {
       this.$input.type = this.$input.type === 'password' ? 'text' : 'password';
       this.$input.focus();
-      this.$reveal.innerText = this.$input.type === 'password' ? 'visibility' : 'visibility_off';
+      this.$reveal_icon.name = this.$input.type === 'password' ? 'visibility' : 'visibility_off';
     } );
   }
 
@@ -401,7 +366,9 @@ export default class GraphiteInput extends HTMLElement {
 
   // When things change
   _render() {
-    this.$error.innerText = this.error === null ? '&nbsp;' : this.error;
+    this.$label.text = this.label;
+    this.$helper.text = this.helper;
+
     this.$input.disabled = this.disabled;
     this.$input.inputMode = this.mode === null ? 'text' : this.mode;
     this.$input.placeholder = this.placeholder === null ? '' : this.placeholder;
@@ -414,8 +381,7 @@ export default class GraphiteInput extends HTMLElement {
       this.$input.type = this.type === null ? 'text' : this.type;      
     }
 
-    this.$label.innerText = this.label === null ? '' : this.label;
-    this.$helper.innerText = this.helper === null ? '' : this.helper;
+    this.$error.text = this.error;
   }
 
   // Promote properties
@@ -430,7 +396,6 @@ export default class GraphiteInput extends HTMLElement {
 
   // Setup
   connectedCallback() {
-    this._upgrade( 'concealed' );
     this._upgrade( 'disabled' );
     this._upgrade( 'error' );
     this._upgrade( 'helper' );
@@ -439,6 +404,7 @@ export default class GraphiteInput extends HTMLElement {
     this._upgrade( 'label' );
     this._upgrade( 'light' );
     this._upgrade( 'mode' );
+    this._upgrade( 'name' );
     this._upgrade( 'placeholder' );
     this._upgrade( 'readOnly' );
     this._upgrade( 'type' );
@@ -449,7 +415,6 @@ export default class GraphiteInput extends HTMLElement {
   // Watched attributes
   static get observedAttributes() {
     return [
-      'concealed',
       'disabled',
       'error',
       'helper',
@@ -458,6 +423,7 @@ export default class GraphiteInput extends HTMLElement {
       'label',
       'light',
       'mode',
+      'name',
       'placeholder',
       'read-only',
       'type',
@@ -473,26 +439,6 @@ export default class GraphiteInput extends HTMLElement {
 
   // Reflect attributes
   // Return typed value (Number, Boolean, String, null)
-  get concealed() {
-    return this.hasAttribute( 'concealed' );
-  }
-
-  set concealed( value ) {
-    if( value !== null ) {
-      if( typeof value === 'boolean' ) {
-        value = value.toString();
-      }
-
-      if( value === 'false' ) {
-        this.removeAttribute( 'concealed' );
-      } else {
-        this.setAttribute( 'concealed', '' );
-      }
-    } else {
-      this.removeAttribute( 'concealed' );
-    }
-  }
-
   get disabled() {
     return this.hasAttribute( 'disabled' );
   }
@@ -637,6 +583,22 @@ export default class GraphiteInput extends HTMLElement {
     }
   }
 
+  get name() {
+    if( this.hasAttribute( 'name' ) ) {
+      return this.getAttribute( 'name' );
+    }
+
+    return null;
+  }
+
+  set name( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'name', value );
+    } else {
+      this.removeAttribute( 'name' );
+    }
+  }
+
   get placeholder() {
     if( this.hasAttribute( 'placeholder' ) ) {
       return this.getAttribute( 'placeholder' );
@@ -714,4 +676,4 @@ export default class GraphiteInput extends HTMLElement {
   }
 }
 
-window.customElements.define( 'gr-input', GraphiteInput );
+window.customElements.define( 'gr-input', GrapheneInput );

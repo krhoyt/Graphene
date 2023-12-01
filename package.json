@@ -1,20 +1,20 @@
 {
-  "name": "graphite-web-components",
+  "name": "graphene-web-components",
   "version": "0.0.13",
   "description": "Set of standard web components (Vanilla) based on the IBM Carbon Design System.",
-  "main": "graphite.js",
+  "main": "graphene.js",
   "keywords": [],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/krhoyt/Graphite.git"
+    "url": "git+https://github.com/krhoyt/Graphene.git"
   },
   "author": "Kevin Hoyt <parkerkrhoyt@gmail.com> (http://kevinhoyt.com)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/krhoyt/Graphite/issues"
+    "url": "https://github.com/krhoyt/Graphene/issues"
   },
-  "homepage": "https://github.com/krhoyt/Graphite#readme"
+  "homepage": "https://github.com/krhoyt/Graphene#readme"
 }

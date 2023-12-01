@@ -1,4 +1,4 @@
-export default class GraphiteVBox extends HTMLElement {
+export default class GrapheneVBox extends HTMLElement {
   constructor() {
     super();
 
@@ -182,4 +182,4 @@ export default class GraphiteVBox extends HTMLElement {
   }     
 }
 
-window.customElements.define( 'gr-vbox', GraphiteVBox );
+window.customElements.define( 'gr-vbox', GrapheneVBox );

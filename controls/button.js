@@ -1,7 +1,7 @@
-import GraphiteIcon from "./icon.js";
-import GraphiteLabel from "./label.js";
+import GrapheneIcon from "./icon.js";
+import GrapheneLabel from "./label.js";
 
-export default class GraphiteButton extends HTMLElement {
+export default class GrapheneButton extends HTMLElement {
   constructor() {
     super();
 
@@ -387,4 +387,4 @@ export default class GraphiteButton extends HTMLElement {
   }   
 }
 
-window.customElements.define( 'gr-button', GraphiteButton );
+window.customElements.define( 'gr-button', GrapheneButton );

@@ -1,10 +1,10 @@
-import GraphiteHBox from "./hbox.js";
-import GraphiteStack from "./stack.js";
+import GrapheneHBox from "./hbox.js";
+import GrapheneStack from "./stack.js";
 
-import GraphiteIconButton from "../controls/icon-button.js";
-import GraphiteTab from "../controls/tab.js";
+import GrapheneButton from "../controls/button.js";
+import GrapheneTab from "../controls/tab.js";
 
-export default class GraphiteTabs extends HTMLElement {
+export default class GrapheneTabs extends HTMLElement {
   constructor() {
     super();
 
@@ -342,4 +342,4 @@ export default class GraphiteTabs extends HTMLElement {
   }
 }
 
-window.customElements.define( 'gr-tabs', GraphiteTabs );
+window.customElements.define( 'gr-tabs', GrapheneTabs );

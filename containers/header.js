@@ -1,6 +1,6 @@
-import GraphiteHBox from "../containers/hbox.js";
+import GrapheneHBox from "../containers/hbox.js";
 
-export default class GraphiteHeader extends HTMLElement {
+export default class GrapheneHeader extends HTMLElement {
   constructor() {
     super();
 
@@ -143,4 +143,4 @@ export default class GraphiteHeader extends HTMLElement {
   }      
 }
 
-window.customElements.define( 'gr-header', GraphiteHeader );
+window.customElements.define( 'gr-header', GrapheneHeader );

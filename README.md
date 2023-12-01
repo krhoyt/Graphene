@@ -1,4 +1,4 @@
-# Graphite Components
+# Graphene Components
 
 Set of standards-based web components following the [IBM Carbon Design System](https://carbondesignsystem.com).
 
