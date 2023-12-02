@@ -51,20 +51,13 @@ export default class GrapheneInput extends HTMLElement {
           --icon-cursor: pointer;
         }
 
-        div {
-          align-items: flex-end;
-          display: none;
-          flex-basis: 0;
-          flex-direction: row;
-          flex-grow: 1;
-          margin: 0;
-          padding: 0;
+        gr-hbox {
+          align-items: flex-end;          
         }
 
-        div > div {
-          align-items: flex-start;
-          display: flex;
-          flex-direction: column;
+        gr-vbox {
+          flex-basis: 0;
+          flex-grow: 1;
         }
 
         input {
@@ -118,6 +111,16 @@ export default class GrapheneInput extends HTMLElement {
         }
 
         gr-icon[part=invalid] {
+          margin: 0;
+          min-width: 0;
+          opacity: 0;
+          overflow: hidden;
+          transition:
+            margin 300ms ease-out,
+            min-width 300ms ease-out,
+            opacity 300ms ease-out,
+            width 300ms ease-out;              
+          width: 0;
           --icon-color: #da1e28;
         }
 
@@ -301,10 +304,10 @@ export default class GrapheneInput extends HTMLElement {
         <input part="input" type="text">
         <gr-icon filled name="error" part="invalid"></gr-icon>
         <button part="reveal" type="button">
-          <gr-icon name="visibility"></gr-icon>
+          <gr-icon name="visibility" weight="200"></gr-icon>
         </button>
         <button part="clear" type="button">
-          <gr-icon name="close"></gr-icon>
+          <gr-icon name="close" weight="200"></gr-icon>
         </button>
       </label>
       <gr-label label="Error" part="error"></gr-label>
@@ -376,12 +379,12 @@ export default class GrapheneInput extends HTMLElement {
     this.$input.value = this.value === null ? '' : this.value;
 
     if( this.type === 'password' ) {
-      this.$input.type = this.$reveal.innerText === 'visibility' ? 'password' : 'type';      
+      this.$input.type = this.$reveal_icon.name === 'visibility' ? 'password' : 'text';      
     } else {
       this.$input.type = this.type === null ? 'text' : this.type;      
     }
 
-    this.$error.text = this.error;
+    this.$error.text = this.error === null ? 'x' : this.error;
   }
 
   // Promote properties
