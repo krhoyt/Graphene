@@ -1,4 +1,4 @@
-export default class GraphiteLabel extends HTMLElement {
+export default class GrapheneLabel extends HTMLElement {
   constructor() {
     super();
 
@@ -198,4 +198,4 @@ export default class GraphiteLabel extends HTMLElement {
   }  
 }
 
-window.customElements.define( 'gr-label', GraphiteLabel );
+window.customElements.define( 'gr-label', GrapheneLabel );

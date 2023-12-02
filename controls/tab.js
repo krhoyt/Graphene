@@ -1,9 +1,9 @@
-import GraphiteHBox from "../containers/hbox.js";
+import GrapheneHBox from "../containers/hbox.js";
 
-import GraphiteIcon from "./icon.js";
-import GraphiteLabel from "./label.js";
+import GrapheneIcon from "./icon.js";
+import GrapheneLabel from "./label.js";
 
-export default class GraphiteTab extends HTMLElement {
+export default class GrapheneTab extends HTMLElement {
   constructor() {
     super();
 
@@ -323,4 +323,4 @@ export default class GraphiteTab extends HTMLElement {
   }
 }
 
-window.customElements.define( 'gr-tab', GraphiteTab );
+window.customElements.define( 'gr-tab', GrapheneTab );

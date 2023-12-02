@@ -1,4 +1,4 @@
-export default class GraphiteSpacer extends HTMLElement {
+export default class GrapheneSpacer extends HTMLElement {
   constructor() {
     super();
 
@@ -83,4 +83,4 @@ export default class GraphiteSpacer extends HTMLElement {
   }   
 }
 
-window.customElements.define( 'gr-spacer', GraphiteSpacer );
+window.customElements.define( 'gr-spacer', GrapheneSpacer );

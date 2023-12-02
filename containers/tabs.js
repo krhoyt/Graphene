@@ -178,7 +178,6 @@ export default class GrapheneTabs extends HTMLElement {
   connectedCallback() {
     // Check data property before render
     // May be assigned before module is loaded
-    this._upgrade( 'concealed' );
     this._upgrade( 'expandable' );
     this._upgrade( 'expanded' );
     this._upgrade( 'hidden' );
@@ -191,7 +190,6 @@ export default class GrapheneTabs extends HTMLElement {
   // Watched attributes
   static get observedAttributes() {
     return [
-      'concealed',
       'expandable',
       'expanded',
       'hidden',
@@ -209,26 +207,6 @@ export default class GrapheneTabs extends HTMLElement {
 
   // Reflect attributes
   // Return typed value (Number, Boolean, String, null)
-  get concealed() {
-    return this.hasAttribute( 'concealed' );
-  }
-
-  set concealed( value ) {
-    if( value !== null ) {
-      if( typeof value === 'boolean' ) {
-        value = value.toString();
-      }
-
-      if( value === 'false' ) {
-        this.removeAttribute( 'concealed' );
-      } else {
-        this.setAttribute( 'concealed', '' );
-      }
-    } else {
-      this.removeAttribute( 'concealed' );
-    }
-  }
-
   get expandable() {
     return this.hasAttribute( 'expandable' );
   }

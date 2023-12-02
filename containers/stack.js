@@ -11,10 +11,6 @@ export default class GrapheneStack extends HTMLElement {
           position: relative;
         }
 
-        :host( [concealed] ) {
-          visibility: hidden;
-        }
-
         :host( [hidden] ) {
           display: none;
         }
@@ -50,7 +46,6 @@ export default class GrapheneStack extends HTMLElement {
 
   // Setup
   connectedCallback() {
-    this._upgrade( 'concealed' );        
     this._upgrade( 'hidden' );    
     this._upgrade( 'selectedIndex' );        
     this._render();
@@ -59,7 +54,6 @@ export default class GrapheneStack extends HTMLElement {
   // Watched attributes
   static get observedAttributes() {
     return [
-      'concealed',
       'hidden',
       'selected-index'
     ];
@@ -74,26 +68,6 @@ export default class GrapheneStack extends HTMLElement {
   // Attributes
   // Reflected
   // Boolean, Number, String, null
-  get concealed() {
-    return this.hasAttribute( 'concealed' );
-  }
-
-  set concealed( value ) {
-    if( value !== null ) {
-      if( typeof value === 'boolean' ) {
-        value = value.toString();
-      }
-
-      if( value === 'false' ) {
-        this.removeAttribute( 'concealed' );
-      } else {
-        this.setAttribute( 'concealed', '' );
-      }
-    } else {
-      this.removeAttribute( 'concealed' );
-    }
-  }
-
   get hidden() {
     return this.hasAttribute( 'hidden' );
   }

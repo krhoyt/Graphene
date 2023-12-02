@@ -1,4 +1,4 @@
-export default class GraphiteIcon extends HTMLElement {
+export default class GrapheneIcon extends HTMLElement {
   constructor() {
     super();
 
@@ -223,4 +223,4 @@ export default class GraphiteIcon extends HTMLElement {
   }  
 }
 
-window.customElements.define( 'gr-icon', GraphiteIcon );
+window.customElements.define( 'gr-icon', GrapheneIcon );
