@@ -15,3 +15,4 @@ import GrapheneLabel from "./controls/label.js";
 import GrapheneSpacer from "./controls/spacer.js";
 import GrapheneTab from "./controls/tab.js";
 import GraphiteTable from "./controls/table.js";
+import GrapheneTextarea from "./controls/textarea.js";
