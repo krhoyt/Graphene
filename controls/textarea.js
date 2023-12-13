@@ -30,6 +30,8 @@ export default class GrapheneTextarea extends HTMLElement {
 
         gr-vbox {
           align-items: flex-start;
+          flex-basis: 0;
+          flex-grow: 1;
         }
 
         label {
@@ -50,41 +52,6 @@ export default class GrapheneTextarea extends HTMLElement {
 
         label:focus-within {
           outline: solid 2px #0f62fe;
-        }
-
-        p.icon {
-          color: #da1e28;
-          cursor: default;
-          direction: ltr;
-          font-family: 'Material Symbols Outlined';
-          font-size: 18px;
-          font-style: normal;
-          font-weight: normal;
-          height: 20px;
-          letter-spacing: normal;
-          margin: 0;
-          min-height: 20px;
-          min-width: 0;          
-          opacity: 0;
-          overflow: hidden;
-          padding: 0;
-          position: absolute;
-          right: 12px;
-          text-transform: none;
-          top: 12px;
-          white-space: nowrap;
-          width: 0;
-          word-wrap: normal;
-        }                
-
-        p.text {
-          cursor: default;
-          font-family: 'IBM Plex Sans', sans-serif;
-          font-size: 14px;
-          font-weight: 400;
-          margin: 0;
-          padding: 0;
-          text-rendering: optimizeLegibility;
         }
 
         gr-label[part=error] {
@@ -165,7 +132,15 @@ export default class GrapheneTextarea extends HTMLElement {
         :host( [invalid] ) gr-icon {
           min-width: 20px;
           opacity: 1.0;
+          position: absolute;
+          right: 12px;       
+          top: 12px;   
           width: 20px;
+          --icon-color: #da1e28;
+        }
+
+        :host( :not( [invalid] ) ) gr-icon {
+          display: none;
         }
 
         :host( [light] ) label {
@@ -212,7 +187,7 @@ export default class GrapheneTextarea extends HTMLElement {
       </gr-hbox>
       <label part="field">
         <textarea part="input"></textarea>
-        <gr-icon part="invalid">error</gr-icon>        
+        <gr-icon filled name="error" part="invalid"></gr-icon>        
       </label>
       <gr-label part="error"></gr-label>
     `;
@@ -255,7 +230,7 @@ export default class GrapheneTextarea extends HTMLElement {
     this.$textarea.readOnly = this.readOnly;
     this.$textarea.value = this.value === null ? '' : this.value;
 
-    this.$error.text = this.error === null ? 'x' : this.error;    
+    this.$error.text = this.error === null ? '&nbsp;' : this.error;    
   }
 
   // Promote properties

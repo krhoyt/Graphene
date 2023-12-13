@@ -56,7 +56,9 @@ That is it! Nope, there is no builder required. Nope, you do not `npm install` a
 
 - ✅ Avatar ⚠️
 - ✅ Button
+- ✈️ Calendar
 - ✅ Checkbox
+- ✈️ Date Picker
 - ✅ Icon
 - ✅ Icon Button
 - ✅ Input
@@ -65,7 +67,7 @@ That is it! Nope, there is no builder required. Nope, you do not `npm install` a
 - ✅ Spacer
 - ✅ Tab
 - ✅ Tag
-- ✈️ Text Area
+- ✅ Text Area
 
 ✅ Implemented (14)   
 ✈️ In-flight/progress (1)  
