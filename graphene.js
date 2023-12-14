@@ -7,6 +7,7 @@ import GrapheneVBox from "./containers/vbox.js";
 
 import GrapheneAvatar from "./controls/avatar.js";
 import GrapheneButton from "./controls/button.js";
+import GrapheneCalendar from "./controls/calendar.js";
 import GrapheneCheckbox from "./controls/checkbox.js";
 import GraphiteColumn from "./controls/column.js";
 import GrapheneIcon from "./controls/icon.js";

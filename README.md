@@ -56,7 +56,7 @@ That is it! Nope, there is no builder required. Nope, you do not `npm install` a
 
 - ✅ Avatar ⚠️
 - ✅ Button
-- ✈️ Calendar
+- ✅ Calendar
 - ✅ Checkbox
 - ✈️ Date Picker
 - ✅ Icon
