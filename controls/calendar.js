@@ -73,8 +73,42 @@ export default class GrapheneCalendar extends HTMLElement {
           -webkit-tap-highlight-color: transparent;
         }
 
-        button:not( .selected ):hover {
+        div[part=calendar] button:not( .selected ):hover {
           background-color: #e8e8e8;
+        }
+        
+        div[part=calendar] button.today {
+          color: var( --calendar-today-color, #0f62fe );
+          font-weight: 600;
+        }
+
+        div[part=calendar] button.today::after {
+          background-color: var( --calendar-today-color, #0f62fe );
+          bottom: 6px;
+          content: ' ';
+          height: 4px;
+          position: absolute;
+          left: calc( 50% - 2px );
+          width: 4px;
+        }
+
+        div[part=calendar] button.selected.today {
+          background-color: var( --calendar-selected-color, #0f62fe );
+          color: #ffffff;
+          font-weight: 600;
+        }
+
+        div[part=calendar] button.selected.today::after {
+          background-color: #ffffff;
+        }        
+
+        div[part=calendar] button.outside {
+          color: var( --calendar-outside-color, #6f6f6f );
+        }
+
+        div[part=calendar] button.selected {
+          background-color: var( --calendar-selected-color, #0f62fe );
+          color: #ffffff;
         }        
 
         gr-hbox > gr-hbox {
@@ -124,40 +158,6 @@ export default class GrapheneCalendar extends HTMLElement {
           background-color: #e8e8e8;          
           cursor: text;
           outline: solid 2px #0f62fe;          
-        }
-
-        .today {
-          color: var( --calendar-today-color, #0f62fe );
-          font-weight: 600;
-        }
-
-        .today::after {
-          background-color: var( --calendar-today-color, #0f62fe );
-          bottom: 6px;
-          content: ' ';
-          height: 4px;
-          position: absolute;
-          left: calc( 50% - 2px );
-          width: 4px;
-        }
-
-        .selected.today {
-          background-color: var( --calendar-selected-color, #0f62fe );
-          color: #ffffff;
-          font-weight: 600;
-        }
-
-        .selected.today::after {
-          background-color: #ffffff;
-        }        
-
-        .outside {
-          color: var( --calendar-outside-color, #6f6f6f );
-        }
-
-        .selected {
-          background-color: var( --calendar-selected-color, #0f62fe );
-          color: #ffffff;
         }
       </style>
       <gr-hbox>
