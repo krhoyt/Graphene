@@ -1,6 +1,6 @@
-import GraphiteLabelLabel from "./label.js";
+import GrapheneLabel from "./label.js";
 
-export default class GraphiteLink extends HTMLElement {
+export default class GrapheneLink extends HTMLElement {
   constructor() {
     super();
 
@@ -277,4 +277,4 @@ export default class GraphiteLink extends HTMLElement {
   }  
 }
 
-window.customElements.define( 'gr-link', GraphiteLink );
+window.customElements.define( 'gr-link', GrapheneLink );
