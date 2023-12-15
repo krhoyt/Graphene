@@ -13,6 +13,7 @@ import GraphiteColumn from "./controls/column.js";
 import GrapheneIcon from "./controls/icon.js";
 import GrapheneInput from "./controls/input.js";
 import GrapheneLabel from "./controls/label.js";
+import GrapheneLink from "./controls/link.js";
 import GrapheneSpacer from "./controls/spacer.js";
 import GrapheneTab from "./controls/tab.js";
 import GrapheneTag from "./controls/tag.js";
