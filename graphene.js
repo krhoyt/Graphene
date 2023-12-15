@@ -10,6 +10,7 @@ import GrapheneButton from "./controls/button.js";
 import GrapheneCalendar from "./controls/calendar.js";
 import GrapheneCheckbox from "./controls/checkbox.js";
 import GraphiteColumn from "./controls/column.js";
+import GrapheneDatePicker from "./controls/date-picker.js";
 import GrapheneIcon from "./controls/icon.js";
 import GrapheneInput from "./controls/input.js";
 import GrapheneLabel from "./controls/label.js";
