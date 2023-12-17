@@ -216,7 +216,7 @@ export default class GrapheneCalendar extends HTMLElement {
     );
 
     this.value = selected;
-    this.dispatchEvent( new CustomEvent( 'change', {
+    this.dispatchEvent( new CustomEvent( 'gr-change', {
       detail: new Date( selected.getTime() )
     } ) );
   }
@@ -237,7 +237,7 @@ export default class GrapheneCalendar extends HTMLElement {
     );
     this._render();
 
-    this.dispatchEvent( new CustomEvent( 'previous', {
+    this.dispatchEvent( new CustomEvent( 'gr-previous', {
       detail: new Date( displayed.getTime() )
     } ) );
   }
@@ -258,7 +258,7 @@ export default class GrapheneCalendar extends HTMLElement {
     );
     this._render();
 
-    this.dispatchEvent( new CustomEvent( 'next', {
+    this.dispatchEvent( new CustomEvent( 'gr-next', {
       detail: new Date( displayed.getTime() )
     } ) );
   }

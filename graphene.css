@@ -64,7 +64,9 @@
   --table-row-selected-hover-top-divider-color: solid 1px #d1d1d1;         
 }
 
-gr-calendar {
+gr-calendar[data-picker] {
   box-shadow: rgba( 0, 0, 0, 0.30 ) 0px 2px 6px 0px;
+  left: 0;
   position: absolute;
+  top: 0;
 }

@@ -23,6 +23,35 @@ export default class GrapheneDatePicker extends HTMLElement {
           display: none;
         }
 
+        button {
+          align-items: center;
+          background: none;
+          border: none;
+          box-sizing: border-box;
+          cursor: pointer;
+          display: flex;
+          height: 20px;
+          justify-content: center;
+          margin: 0;
+          min-height: 20px;
+          min-width: 20px;
+          margin: 0 12px 0 0;
+          overflow: hidden;
+          padding: 0;
+          transition:
+            margin 300ms ease-out,
+            min-width 300ms ease-out,
+            opacity 300ms ease-out,
+            width 300ms ease-out;
+          width: 20px;          
+          -webkit-tap-highlight-color: transparent;          
+        }
+
+        button gr-icon {
+          --icon-color: #525252;
+          --icon-cursor: pointer;
+        }
+
         gr-hbox[part=header] {
           align-items: flex-end;
           flex-basis: 0;
@@ -34,6 +63,15 @@ export default class GrapheneDatePicker extends HTMLElement {
           flex-basis: 0;
           flex-grow: 1;
         }        
+
+        gr-icon[part=invalid] {
+          margin: 0 12px 0 0;                    
+          transition:
+            margin 300ms ease-out,
+            opacity 300ms ease-out,
+            width 300ms ease-out;
+          --icon-color: #da1e28;
+        }
 
         gr-label {
           --label-font-size: 12px;
@@ -59,7 +97,7 @@ export default class GrapheneDatePicker extends HTMLElement {
           background: none;
           border: none;
           box-sizing: border-box;
-          color: #c6c6c6;
+          color: #161616;
           cursor: pointer;
           flex-basis: 0;
           flex-grow: 1;
@@ -69,9 +107,9 @@ export default class GrapheneDatePicker extends HTMLElement {
           height: 40px;
           margin: 0;
           min-height: 40px;
-          min-width: 100px;
+          min-width: 125px;
           outline: none;
-          padding: 0 16px 0 16px;
+          padding: 0 0 0 16px;
           text-align: left;
           text-rendering: optimizeLegibility;
           width: 0;
@@ -115,10 +153,9 @@ export default class GrapheneDatePicker extends HTMLElement {
           visibility: visible;
         }                
 
-        :host( [invalid] ) gr-label[part=invalid] {
+        :host( [invalid] ) gr-icon[part=invalid] {
           min-width: 20px;
           opacity: 1.0;
-          margin: 0 12px 0 0;
           width: 20px;
         }        
 
@@ -130,16 +167,50 @@ export default class GrapheneDatePicker extends HTMLElement {
           --label-color: #da1e28;
         }
 
-        :host( [invalid] ) p.icon {
-          min-width: 20px;
-          opacity: 1.0;
-          margin: 0 6px 0 0;
-          width: 20px;
-        }        
+        :host( :not( [invalid] ) ) gr-icon[part=invalid] {
+          margin: 0;
+          opacity: 0;
+          width: 0;
+        }
 
         :host( [light] ) label {
           background-color: #ffffff;
         }        
+
+        :host( [read-only] ) button[part=button] {
+          min-width: 0;
+          margin: 0;
+          opacity: 0;
+          width: 0;
+        }
+
+        :host( [read-only] ) input {
+          cursor: default;
+        }        
+
+        :host( [read-only] ) label {
+          border-bottom: solid 1px transparent;
+          cursor: default;
+        }        
+
+        :host( [read-only] ) label:hover {
+          background-color: #f4f4f4;
+        }                
+        
+        :host( [read-only][light] ) label:hover {
+          background-color: #ffffff;
+        }                        
+
+        :host( [read-only] ) label:focus-within {        
+          outline: solid 2px transparent;
+        }                
+
+        :host( :not( [read-only] ) ) button[part=clear] {
+          min-width: 0;
+          opacity: 0;
+          margin: 0;
+          width: 0;                    
+        }
 
         /*
         button {
@@ -241,17 +312,6 @@ export default class GrapheneDatePicker extends HTMLElement {
           cursor: pointer;
         }
 
-        :host( [value]:not( [read-only] ) ) label:focus-within p.icon {
-          margin: 0 6px 0 0;
-        }
-
-        :host( [value]:not( [read-only] ) ) label:focus-within button[part=clear] {
-          min-width: 20px;
-          opacity: 1.0;
-          margin: 0 12px 0 0;
-          width: 20px;
-        }
-
         :host( [read-only] ) button[part=button],
         :host( [read-only] ) button[part=clear] {
           min-width: 0;
@@ -259,27 +319,6 @@ export default class GrapheneDatePicker extends HTMLElement {
           margin: 0;
           width: 0;                    
         }
-
-        :host( [read-only] ) input {
-          cursor: default;
-        }        
-
-        :host( [read-only] ) label {
-          border-bottom: solid 1px transparent;
-          cursor: default;
-        }        
-
-        :host( [read-only] ) label:hover {
-          background-color: #f4f4f4;
-        }                
-        
-        :host( [read-only][light] ) label:hover {
-          background-color: #ffffff;
-        }                        
-
-        :host( [read-only] ) label:focus-within {        
-          outline: solid 2px transparent;
-        }        
         */
       </style>
       <gr-hbox part="header">
@@ -291,7 +330,7 @@ export default class GrapheneDatePicker extends HTMLElement {
       </gr-hbox>
       <label part="field">
         <input part="input" type="button" />
-        <gr-icon name="error" part="invalid"></gr-icon>
+        <gr-icon filled name="error" part="invalid"></gr-icon>
         <button part="clear" type="button">
           <gr-icon name="close"></gr-icon>
         </button>
@@ -326,12 +365,12 @@ export default class GrapheneDatePicker extends HTMLElement {
   }
 
   doCalendarChange( evt ) {
-    this._calendar.hide();
-    this._calendar.removeEventListener( 'change', this.doCalendarChange );    
+    this._calendar.hidden = true;
+    this._calendar.removeEventListener( 'gr-change', this.doCalendarChange );    
     
     this.value = evt.detail;
 
-    this.dispatchEvent( new CustomEvent( 'change', {
+    this.dispatchEvent( new CustomEvent( 'gr-change', {
       detail: new Date( this.value.getTime() )
     } ) );
   }
@@ -342,15 +381,13 @@ export default class GrapheneDatePicker extends HTMLElement {
     this._calendar.style.left = `${bounds.x}px`;
     this._calendar.style.top = `${bounds.top + bounds.height}px`;
 
-
-    if( this._calendar.opened ) {
-      this._calendar.hide();
-      this._calendar.removeEventListener( 'change', this.doCalendarChange );
-    } else {
-      this._calendar.addEventListener( 'change', this.doCalendarChange );
-      this._calendar.today = true;      
+    if( this._calendar.hidden ) {
+      this._calendar.addEventListener( 'gr-change', this.doCalendarChange );
       this._calendar.value = this.value;
-      this._calendar.show( this );
+      this._calendar.hidden = false;                  
+    } else {
+      this._calendar.hidden = true;      
+      this._calendar.removeEventListener( 'gr-change', this.doCalendarChange );
     }
   }
 
@@ -371,7 +408,7 @@ export default class GrapheneDatePicker extends HTMLElement {
         const formatted = new Intl.DateTimeFormat( navigator.language, {
           month: '2-digit',
           day: '2-digit',
-          year: '2-digit'
+          year: 'numeric'
         } ).format( this._value );    
         this.$input.value = formatted;
       } else {
@@ -403,14 +440,15 @@ export default class GrapheneDatePicker extends HTMLElement {
 
   // Setup
   connectedCallback() {
-    // this._calendar = document.body.querySelector( 'gr-calendar' );
+    this._calendar = document.body.querySelector( 'gr-calendar' );
 
     if( this._calendar === null ) {
       this._calendar = document.createElement( 'gr-calendar' );
+      this._calendar.setAttribute( 'data-picker', true );
+      this._calendar.hidden = true;
       document.body.appendChild( this._calendar );
     }
 
-    this._upgrade( 'editable' );    
     this._upgrade( 'error' );
     this._upgrade( 'formatFunction' );    
     this._upgrade( 'helper' );
@@ -428,7 +466,6 @@ export default class GrapheneDatePicker extends HTMLElement {
   // Watched attributes
   static get observedAttributes() {
     return [
-      'editable',
       'error',
       'helper',
       'hidden',
@@ -478,26 +515,6 @@ export default class GrapheneDatePicker extends HTMLElement {
   // Attributes
   // Reflected
   // Boolean, Number, String, null
-  get editable() {
-    return this.hasAttribute( 'editable' );
-  }
-
-  set editable( value ) {
-    if( value !== null ) {
-      if( typeof value === 'boolean' ) {
-        value = value.toString();
-      }
-
-      if( value === 'false' ) {
-        this.removeAttribute( 'editable' );
-      } else {
-        this.setAttribute( 'editable', '' );
-      }
-    } else {
-      this.removeAttribute( 'editable' );
-    }
-  }  
-
   get error() {
     if( this.hasAttribute( 'error' ) ) {
       return this.getAttribute( 'error' );
