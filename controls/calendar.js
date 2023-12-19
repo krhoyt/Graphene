@@ -11,7 +11,7 @@ export default class GrapheneCalendar extends HTMLElement {
     template.innerHTML = /* template */ `
       <style>
         :host {
-          background-color: #ffffff;
+          background-color: #f4f4f4;
           box-sizing: border-box;
           display: inline-flex;
           flex-direction: column;
@@ -162,14 +162,14 @@ export default class GrapheneCalendar extends HTMLElement {
       </style>
       <gr-hbox>
         <button part="left">
-          <gr-icon name="chevron_left"></gr-icon>
+          <gr-icon name="chevron_left" weight="200"></gr-icon>
         </button>
         <gr-hbox>
           <gr-label part="month"></gr-label>
           <input min="0" part="year" step="1" type="number">
         </gr-hbox>
         <button part="right">
-          <gr-icon name="chevron_right"></gr-icon>
+          <gr-icon name="chevron_right" weight="200"></gr-icon>
         </button>
       </gr-hbox>
       <gr-hbox part="days">
@@ -186,6 +186,7 @@ export default class GrapheneCalendar extends HTMLElement {
 
     // Private
     this._displayed = null;
+    this._owner = null;
     this._value = null;
 
     // Root
@@ -353,6 +354,7 @@ export default class GrapheneCalendar extends HTMLElement {
   // Setup
   connectedCallback() {
     this._upgrade( 'hidden' );
+    this._upgrade( 'owner' );    
     this._upgrade( 'value' );
     this._render();
   }
@@ -381,6 +383,14 @@ export default class GrapheneCalendar extends HTMLElement {
     this._displayed = date === null ? null : new Date( date.getTime() );
     this._render();
   }
+
+  get owner() {
+    return this._owner;
+  }
+
+  set owner( comp ) {
+    this._owner = comp;
+  }  
 
   get value() {
     return this._value;

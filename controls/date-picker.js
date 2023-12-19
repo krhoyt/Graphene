@@ -24,302 +24,94 @@ export default class GrapheneDatePicker extends HTMLElement {
         }
 
         button {
-          align-items: center;
           background: none;
-          border: none;
           box-sizing: border-box;
+          border: none;
           cursor: pointer;
-          display: flex;
-          height: 20px;
-          justify-content: center;
           margin: 0;
-          min-height: 20px;
-          min-width: 20px;
-          margin: 0 12px 0 0;
-          overflow: hidden;
           padding: 0;
-          transition:
-            margin 300ms ease-out,
-            min-width 300ms ease-out,
-            opacity 300ms ease-out,
-            width 300ms ease-out;
-          width: 20px;          
           -webkit-tap-highlight-color: transparent;          
         }
 
-        button gr-icon {
-          --icon-color: #525252;
+        button[part=clear] {
+          align-items: center;
+          display: flex;
+          height: 39px;
+          justify-content: center;
+          width: 40px;
+        }
+
+        button[part=icon] {          
+          align-items: center;
+          display: flex;
+          height: 39px;
+          justify-content: center;
+          width: 20px;
+        }
+
+        button[part=input] {
+          height: 39px;
+          padding: 0 0 0 16px;
+          text-align: left;
+          width: 125px;
+        }
+
+        gr-icon {
+          --icon-color: #161616;
           --icon-cursor: pointer;
         }
 
-        gr-hbox[part=header] {
-          align-items: flex-end;
-          flex-basis: 0;
-          flex-grow: 1;
-        }
-
-        gr-hbox[part=header] > gr-vbox {
-          align-items: flex-start;
-          flex-basis: 0;
-          flex-grow: 1;
-        }        
-
         gr-icon[part=invalid] {
-          margin: 0 12px 0 0;                    
-          transition:
-            margin 300ms ease-out,
-            opacity 300ms ease-out,
-            width 300ms ease-out;
           --icon-color: #da1e28;
         }
 
-        gr-label {
+        gr-label[part=error] {
+          padding: 4px 0 0 0;     
+          visibility: hidden;               
+          --label-color: #6f6f6f;          
           --label-font-size: 12px;
         }
 
-        gr-label[part=error] {
-          color: #6f6f6f;
-          padding: 4px 0 0 0;
-          visibility: hidden;
-        }
-
         gr-label[part=helper] {
-          color: #6f6f6f;
           padding: 0 0 4px 0;
-        }
-
-        gr-label[part=label] {
-          color: #525252;
-        }        
-
-        input {
-          appearance: none;
-          background: none;
-          border: none;
-          box-sizing: border-box;
-          color: #161616;
-          cursor: pointer;
-          flex-basis: 0;
-          flex-grow: 1;
-          font-family: 'IBM Plex Sans', sans-serif;
-          font-size: 14px;
-          font-weight: 400;
-          height: 40px;
-          margin: 0;
-          min-height: 40px;
-          min-width: 125px;
-          outline: none;
-          padding: 0 0 0 16px;
-          text-align: left;
-          text-rendering: optimizeLegibility;
-          width: 0;
-          -webkit-appearance: none;          
-          -webkit-tap-highlight-color: transparent;
-        }
-
-        input::placeholder {
-          color: #a8a8a8;
-        }                         
-
-        label {
-          align-items: center;
-          background-color: #f4f4f4;
-          border-bottom: solid 1px #8d8d8d;          
-          box-sizing: border-box;
-          cursor: pointer;
-          display: inline-flex;
-          flex-basis: 0;
-          flex-direction: row;
-          flex-grow: 1;
-          margin: 0;
-          outline: solid 2px transparent;
-          outline-offset: -2px;
-          padding: 0;
-          transition: background-color 150ms ease-in-out;
-          width: 100%;
-          -webkit-tap-highlight-color: transparent;
-        }
-
-        label:focus-within {
-          outline: solid 2px #0f62fe;
-        }
-
-        ::slotted( gr-link ) {
-          margin: 0 0 2px 0;
-          --link-font-size: 12px;
-        }
-        
-        :host( [error] ) gr-label[part=error] {
-          visibility: visible;
-        }                
-
-        :host( [invalid] ) gr-icon[part=invalid] {
-          min-width: 20px;
-          opacity: 1.0;
-          width: 20px;
-        }        
-
-        :host( [invalid] ) label {
-          outline: solid 2px #da1e28;
-        }
-
-        :host( [invalid] ) gr-label[part=error] {
-          --label-color: #da1e28;
-        }
-
-        :host( :not( [invalid] ) ) gr-icon[part=invalid] {
-          margin: 0;
-          opacity: 0;
-          width: 0;
-        }
-
-        :host( [light] ) label {
-          background-color: #ffffff;
-        }        
-
-        :host( [read-only] ) button[part=button] {
-          min-width: 0;
-          margin: 0;
-          opacity: 0;
-          width: 0;
-        }
-
-        :host( [read-only] ) input {
-          cursor: default;
-        }        
-
-        :host( [read-only] ) label {
-          border-bottom: solid 1px transparent;
-          cursor: default;
-        }        
-
-        :host( [read-only] ) label:hover {
-          background-color: #f4f4f4;
-        }                
-        
-        :host( [read-only][light] ) label:hover {
-          background-color: #ffffff;
-        }                        
-
-        :host( [read-only] ) label:focus-within {        
-          outline: solid 2px transparent;
-        }                
-
-        :host( :not( [read-only] ) ) button[part=clear] {
-          min-width: 0;
-          opacity: 0;
-          margin: 0;
-          width: 0;                    
-        }
-
-        /*
-        button {
-          align-items: center;
-          background: none;
-          border: none;
-          box-sizing: border-box;
-          color: #525252;
-          cursor: pointer;
-          direction: ltr;
-          display: flex;
-          font-family: 'Material Symbols Outlined';
-          font-size: 18px;
-          font-style: normal;
-          font-weight: normal;
-          height: 20px;
-          justify-content: center;
-          letter-spacing: normal;
-          margin: 0;
-          min-height: 20px;
-          min-width: 20px;
-          margin: 0;
-          overflow: hidden;
-          padding: 0;
-          text-transform: none;
-          text-rendering: optimizeLegibility;
-          transition:
-            margin 300ms ease-out,
-            min-width 300ms ease-out,
-            opacity 300ms ease-out,
-            width 300ms ease-out;
-          white-space: nowrap;
-          width: 20px;          
-          word-wrap: normal;
-          -webkit-tap-highlight-color: transparent;
-        }
-
-        button[part=clear] {
-          opacity: 0;
-          min-width: 0;
-          width: 0;
-        }
-
-        button[part=button] {
-          margin: 0 12px 0 6px;
-        }
-
-        input.filled {
-          color: #161616;
-        }
-
-        p {
-          box-sizing: border-box;          
-          cursor: default;
-          font-family: 'IBM Plex Sans', sans-serif;
-          font-size: 14px;
-          font-weight: 400;
-          margin: 0;
-          padding: 0;
-          text-rendering: optimizeLegibility;
-        }
-
-        p.icon {
-          color: #da1e28;
-          cursor: default;
-          direction: ltr;
-          font-family: 'Material Symbols Outlined';
-          font-size: 18px;
-          font-style: normal;
-          font-weight: normal;
-          height: 20px;
-          letter-spacing: normal;
-          line-height: 20px;
-          opacity: 0;
-          overflow: hidden;
-          margin: 0;
-          min-height: 20px;
-          min-width: 0;
-          padding: 0;
-          text-rendering: optimizeLegibility;
-          text-transform: none;
-          transition:
-            margin 300ms ease-out,
-            opacity 300ms ease-out,
-            width 300ms ease-out
-          white-space: nowrap;
-          width: 0;
-          word-wrap: normal;
-        }
-
-        ::slotted( adc-label ) {
-          margin: 0 0 4px 0;
           --label-color: #6f6f6f;
           --label-font-size: 12px;
         }
 
-        :host( [editable] ) input {
-          color: #161616;
-          cursor: pointer;
+        gr-label[part=label] {
+          flex-basis: 0;
+          flex-grow: 1;          
+          --label-color: #525252;
+          --label-font-size: 12px;
         }
 
-        :host( [read-only] ) button[part=button],
-        :host( [read-only] ) button[part=clear] {
-          min-width: 0;
-          opacity: 0;
+        label {
+          align-items: center;
+          background-color: #f4f4f4;
+          border-bottom: solid 1px #8d8d8d;
+          box-sizing: border-box;
+          cursor: pointer;
+          display: flex;
+          flex-direction: row;
           margin: 0;
-          width: 0;                    
+          outline: solid 2px transparent;
+          outline-offset: -2px;
+          padding: 0 12px 0 0;
+          -webkit-tap-highlight-color: transparent;
         }
-        */
+
+        label:focus-within {
+          outline: solid 2px #0f62fe;          
+        }
+
+        label:not( filled ) button[part=clear] {
+          min-width: 0;
+          width: 0;
+        }
+
+        :host( :not( [invalid] ) ) gr-icon[part=invalid] {
+          display: none;
+        }
       </style>
       <gr-hbox part="header">
         <gr-vbox>
@@ -329,46 +121,50 @@ export default class GrapheneDatePicker extends HTMLElement {
         <slot></slot>
       </gr-hbox>
       <label part="field">
-        <input part="input" type="button" />
-        <gr-icon filled name="error" part="invalid"></gr-icon>
+        <button part="input" type="button" />
         <button part="clear" type="button">
-          <gr-icon name="close"></gr-icon>
+          <gr-icon name="close" weight="200"></gr-icon>
         </button>
-        <button part="button" type="button">
-          <gr-icon name="calendar_month"></gr-icon>
+        <gr-icon filled name="error" part="invalid"></gr-icon>        
+        <button part="icon" type="button">
+          <gr-icon name="calendar_month" weight="200"></gr-icon>
         </button>
       </label>
       <gr-label part="error"></gr-label>
     `;
+
+    // Events
+    this.doCalendarChange = this.doCalendarChange.bind( this );
 
     // Private
     this._calendar = null;
     this._format = null;
     this._value = null;
 
-    // Removable events
-    this.doCalendarChange = this.doCalendarChange.bind( this );
-
     // Root
     this.attachShadow( {mode: 'open'} );
     this.shadowRoot.appendChild( template.content.cloneNode( true ) );
 
     // Elements
-    this.$calendar = this.shadowRoot.querySelector( 'button[part=button]' );
-    this.$calendar.addEventListener( 'click', () => this.doCalendarClick() );    
+    this.$calendar = this.shadowRoot.querySelector( 'button[part=icon]' );
+    this.$calendar.addEventListener( 'click', () => this.doCalendarClick() ); 
+    this.$clear = this.shadowRoot.querySelector( 'button[part=clear]' );
+    this.$clear.addEventListener( 'click', () => this.value = null );        
     this.$error = this.shadowRoot.querySelector( 'gr-label[part=error]' );
     this.$field = this.shadowRoot.querySelector( 'label' );
     this.$helper = this.shadowRoot.querySelector( 'gr-label[part=helper]' );
-    this.$input = this.shadowRoot.querySelector( 'input[part=input]' );
-    this.$input.addEventListener( this._touch, () => this.doInputClick() );
+    this.$input = this.shadowRoot.querySelector( 'button[part=input]' );
+    this.$input.addEventListener( 'click', () => this.doCalendarClick() );
     this.$label = this.shadowRoot.querySelector( 'gr-label[part=label]' );
   }
 
   doCalendarChange( evt ) {
     this._calendar.hidden = true;
+    this._calendar.owner = null;
     this._calendar.removeEventListener( 'gr-change', this.doCalendarChange );    
     
-    this.value = evt.detail;
+    this.value = new Date( evt.detail.getTime() );
+    this.$input.focus();  
 
     this.dispatchEvent( new CustomEvent( 'gr-change', {
       detail: new Date( this.value.getTime() )
@@ -376,32 +172,34 @@ export default class GrapheneDatePicker extends HTMLElement {
   }
 
   doCalendarClick() {
-    const bounds = this.$field.getBoundingClientRect();
-
-    this._calendar.style.left = `${bounds.x}px`;
-    this._calendar.style.top = `${bounds.top + bounds.height}px`;
-
     if( this._calendar.hidden ) {
       this._calendar.addEventListener( 'gr-change', this.doCalendarChange );
+      this._calendar.owner = this;
       this._calendar.value = this.value;
       this._calendar.hidden = false;                  
     } else {
-      this._calendar.hidden = true;      
-      this._calendar.removeEventListener( 'gr-change', this.doCalendarChange );
-    }
-  }
+      if( this._calendar.owner === this ) {
+        this._calendar.hidden = true;
+        this._calendar.owner = null;
+      } else {
+        this._calendar.owner = this;
+      }
 
-  doInputClick() {
-    if( this.editable ) return;
-    if( this.readOnly ) return;
-    this.doCalendarClick();
+      this._calendar.removeEventListener( 'gr-change', this.doCalendarChange );      
+    }
+
+    const bounds = this.$field.getBoundingClientRect();
+    this._calendar.style.left = ( bounds.right + this._calendar.clientWidth ) > window.innerWidth ? `${(bounds.right - this._calendar.clientWidth)}px` : `${bounds.x}px`;
+    this._calendar.style.top = `${bounds.top + bounds.height}px`;          
   }
 
    // When attributes change
   _render() {
-    this.$error.text = this.error === null ? 'X' : this.error;
+    this.$error.text = this.error === null ? ' ' : this.error;
     this.$helper.text = this.helper;
     this.$label.text = this.label;
+
+    this.$input.disabled = this.readOnly;
 
     if( this._value !== null ) {
       if( this._format === null ) {
@@ -410,21 +208,15 @@ export default class GrapheneDatePicker extends HTMLElement {
           day: '2-digit',
           year: 'numeric'
         } ).format( this._value );    
-        this.$input.value = formatted;
+        this.$input.innerText = formatted;
       } else {
-        this.$input.value = this._format( this._value );
+        this.$input.innerText = this._format( this._value );
       }
       
-      this.$input.classList.add( 'filled' );
+      this.$field.classList.add( 'filled' );
     } else {
-      this.$input.classList.remove( 'filled' );
-
-      if( this.editable ) {
-        this.$input.value = null;        
-        this.$input.placeholder = this.placeholder;
-      } else {
-        this.$input.value = this.placeholder === null ? '' : this.placeholder;
-      }
+      this.$field.classList.remove( 'filled' );
+      this.$input.value = this.placeholder === null ? '' : this.placeholder;
     }
   }
 
@@ -445,6 +237,7 @@ export default class GrapheneDatePicker extends HTMLElement {
     if( this._calendar === null ) {
       this._calendar = document.createElement( 'gr-calendar' );
       this._calendar.setAttribute( 'data-picker', true );
+      this._calendar.setAttribute( 'data-open', false );
       this._calendar.hidden = true;
       document.body.appendChild( this._calendar );
     }
