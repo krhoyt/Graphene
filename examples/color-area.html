@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Set of standard web components (Vanilla) based on the IBM Carbon Design System.">
+
+    <title>Color Area - Graphene</title>
+
+    <link href="../graphene.css" rel="stylesheet">    
+
+  </head>
+  <body>
+
+    <div style="display: inline-flex; flex-direction: column; gap: 16px; margin: 16px; min-width: 280px;">
+      <gr-color-area style="width: 100%;"></gr-color-area>      
+      <div style="display: inline-flex; flex-direction: row; gap: 16px;"> 
+        <gr-color-slider direction="horizontal" style="flex-basis: 0; flex-grow: 1;"></gr-color-slider>      
+        <div id="result" style="background-color: red; box-shadow: rgba( 0, 0, 0, 0.20 ) 0px 0px 0px 1px inset; box-sizing: border-box; height: 24px; width: 24px;"></div>
+      </div>
+      <div style="display: inline-flex; flex-direction: row; gap: 16px;">
+        <gr-form-field label="Color" style="width: 100%;">
+          <gr-link label="Copy" slot="top"></gr-link>
+          <gr-input read-only style="width: 100%;" value="hsl( 0 0 100% )"></gr-input>
+        </gr-form-field>
+        <gr-form-field label="Format">
+          <gr-select>
+            <gr-select-option label="RGB" value="rgb"></gr-select-option>
+            <gr-select-option label="HSL" value="hsl"></gr-select-option>
+          </gr-select>
+        </gr-form-field>
+      </div>
+    </div>
+    
+    <pre>
+&lt;gr-color-area&gt;&lt;/gr-color-area&gt;
+    </pre>
+
+    <script src="../components/color-area.js" type="module"></script>
+    <script src="../components/color-slider.js" type="module"></script>    
+    <script src="../components/input.js" type="module"></script>    
+    <script src="../components/select.js" type="module"></script>        
+    <script src="../components/form-field.js" type="module"></script>            
+    <script src="../components/link.js" type="module"></script>                
+
+    <script>
+      const input = document.querySelector( 'gr-input' );
+      const area = document.querySelector( 'gr-color-area' );
+      area.addEventListener( 'gr-change', ( evt ) => {
+        console.log( area.valueAsHSL );
+        result.style.backgroundColor = area.valueAsHex;
+        input.value = area.valueAsHex;
+      } );
+      const result = document.querySelector( '#result' );
+      const slider = document.querySelector( 'gr-color-slider' );
+      slider.addEventListener( 'gr-change', ( evt ) => {
+        area.hue = evt.detail.value;
+        result.style.backgroundColor = area.valueAsHex;
+        input.value = area.valueAsHex;
+      } );
+    </script>
+
+  </body>
+</html>

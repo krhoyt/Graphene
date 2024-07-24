@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Set of standard web components (Vanilla) based on the IBM Carbon Design System.">
+
+    <title>Stack - Graphene</title>
+
+    <link href="../graphene.css" rel="stylesheet">    
+
+    <style>
+      gr-stack { margin: 0 0 16px 0; }
+    </style>
+
+  </head>
+  <body>
+
+    <gr-stack>
+      <gr-label text="One"></gr-label>      
+      <gr-label text="Two"></gr-label>      
+      <gr-label text="Three"></gr-label>      
+    </gr-stack>
+
+    <gr-stack selected-index="1">
+      <gr-label text="One"></gr-label>      
+      <gr-label text="Two"></gr-label>      
+      <gr-label text="Three"></gr-label>      
+    </gr-stack>    
+ 
+    <pre>
+&lt;gr-stack&gt;
+  &lt;gr-label text=&quot;One&quot;&gt;&lt;/gr-label&gt;      
+  &lt;gr-label text=&quot;Two&quot;&gt;&lt;/gr-label&gt;      
+  &lt;gr-label text=&quot;Three&quot;&gt;&lt;/gr-label&gt;      
+&lt;/gr-stack&gt;
+
+&lt;gr-stack selected-index=&quot;1&quot;&gt;
+  &lt;gr-label text=&quot;One&quot;&gt;&lt;/gr-label&gt;      
+  &lt;gr-label text=&quot;Two&quot;&gt;&lt;/gr-label&gt;      
+  &lt;gr-label text=&quot;Three&quot;&gt;&lt;/gr-label&gt;      
+&lt;/gr-stack&gt;    
+    </pre>
+
+    <script src="../components/stack.js" type="module"></script>
+    <script src="../components/label.js" type="module"></script>    
+
+  </body>
+</html>

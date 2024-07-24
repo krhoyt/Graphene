@@ -1,6 +1,6 @@
 {
   "name": "graphene-web-components",
-  "version": "0.0.19",
+  "version": "0.1.0",
   "description": "Set of standard web components (Vanilla) based on the IBM Carbon Design System.",
   "main": "graphene.js",
   "keywords": [],

@@ -34,39 +34,100 @@
   src: url( './fonts/Symbols/material-symbols-outlined.woff2' ) format( 'woff2' );
 }
 
-:root {
-  --table-background-color: #f4f4f4;
-  --table-light-background-color: #ffffff;
-
-  --table-cell-padding:  0 16px 0 16px;      
-
-  --table-row-cursor: pointer;
-  --table-row-color: #525252;
-  --table-row-hover-color: #161616;
-  --table-row-font-family: 'IBM Plex Sans', sans-serif;      
-  --table-row-font-size: 14px;      
-  --table-row-font-weight: 400;            
-  --table-row-height: 48px;
-
-  --table-row-bottom-divider-color: solid 1px #e0e0e0;
-  --table-row-top-divider-color: solid 1px transparent;      
-
-  --table-row-hover-background-color: #e8e8e8;      
-  --table-row-hover-bottom-divider-color: solid 1px #e8e8e8;            
-  --table-row-hover-top-divider-color: solid 1px #e8e8e8;            
-
-  --table-row-selected-background-color: #e0e0e0;
-  --table-row-selected-bottom-divider-color: solid 1px #c6c6c6;      
-  --table-row-selected-top-divider-color: solid 1px #e0e0e0;                 
-
-  --table-row-selected-hover-background-color: #d1d1d1;
-  --table-row-selected-hover-bottom-divider-color: solid 1px #d1d1d1;      
-  --table-row-selected-hover-top-divider-color: solid 1px #d1d1d1;         
+gr-avatar gr-icon::part( font ) {
+  cursor: pointer;
+  font-variation-settings: 
+    "FILL" 1,
+    "wght" 200;  
+  pointer-events: none;  
 }
 
-gr-calendar[data-picker] {
-  box-shadow: rgba( 0, 0, 0, 0.30 ) 0px 2px 6px 0px;
-  left: 0;
-  position: absolute;
-  top: 0;
+gr-avatar[src] gr-icon {
+  display: none;
 }
+
+gr-avatar[read-only] gr-icon::part( font ) {
+  color: #a8a8a8;
+}
+
+gr-avatar[disabled] gr-icon::part( font ) {
+  color: #c6c6c6;
+}
+
+gr-button gr-icon::part( font ) {
+  color: #ffffff;
+  cursor: pointer;
+  font-variation-settings: 'wght' 200;
+}
+
+gr-button[disabled] gr-icon::part( font ) {
+  color: #8d8d8d;
+  cursor: not-allowed;
+}
+
+gr-button[kind=ghost] gr-icon::part( font ) {
+  color: #0f62fe;     
+  padding: 0 0 0 15px;
+}
+
+gr-drawer-item gr-icon {
+  padding: 0 0 0 16px;
+}
+
+gr-drawer-item gr-icon::part( font ) {
+  color: #f4f4f4;
+  font-size: 20px;
+}
+
+gr-form-field gr-link::part( label ),
+gr-form-field gr-label::part( label ) {
+  font-size: 12px;
+}
+
+gr-form-field gr-label::part( label ) {
+  color: #6f6f6f;
+}
+
+gr-header gr-label::part( label ) {
+  color: #ffffff;
+}
+
+gr-header gr-label[slot=brand]::part( label ) {
+  font-weight: 700;
+  margin: 0 6px 0 0;
+}
+
+gr-list gr-label::part( label ) {
+  color: #525252;
+}
+
+gr-tag gr-icon {
+  max-width: 18px;
+  margin: 0 0 0 -2px;
+}
+
+gr-tag gr-icon::part( font ) {
+  color: #161616;
+  font-size: 18px;
+  font-variation-settings: "wght" 200;  
+  height: 18px;
+  line-height: 18px;
+  max-height: 18px;
+  max-width: 18px;
+  min-height: 18px;
+  min-width: 18px;
+  margin: 0 2px 0 0;
+  width: 18px;
+}
+
+gr-tag[type=red] gr-icon::part( font ) { color: #750e13; }
+gr-tag[type=magenta] gr-icon::part( font ) { color: #740937; }
+gr-tag[type=purple] gr-icon::part( font ) { color: #491d8b; }
+gr-tag[type=blue] gr-icon::part( font ) { color: #002d9c; }
+gr-tag[type=cyan] gr-icon::part( font ) { color: #003a6d; }
+gr-tag[type=teal] gr-icon::part( font ) { color: #004144; }
+gr-tag[type=green] gr-icon::part( font ) { color: #044317; }
+gr-tag[type=cool-gray] gr-icon::part( font ) { color: #343a3f; }
+gr-tag[type=warm-gray] gr-icon::part( font ) { color: #3c3838; }
+gr-tag[type=high-contrast] gr-icon::part( font ) { color: #ffffff; }
+gr-tag[disabled] gr-icon::part( font ) { color: #c6c6c6; }

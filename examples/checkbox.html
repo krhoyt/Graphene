@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Set of standard web components (Vanilla) based on the IBM Carbon Design System.">
+
+    <title>Checkbox - Graphene</title>
+
+    <link href="../graphene.css" rel="stylesheet">    
+
+    <style>
+      gr-checkbox { margin: 0 0 16px 0; }
+    </style>
+
+  </head>
+  <body>
+
+    <gr-checkbox 
+      checked 
+      helper="Helper text goes here" 
+      label="Checkbox label">
+    </gr-checkbox><br>
+
+    <gr-checkbox 
+      helper="Helper text goes here" 
+      label="Checkbox label">
+    </gr-checkbox><br>    
+
+    <gr-checkbox 
+      disabled 
+      label="Checkbox label">
+    </gr-checkbox>
+
+    <pre>
+&lt;gr-checkbox 
+  checked 
+  helper=&quot;Helper text goes here&quot; 
+  label=&quot;Checkbox label&quot;&gt;
+&lt;/gr-checkbox&gt;
+
+&lt;gr-checkbox 
+  helper=&quot;Helper text goes here&quot; 
+  label=&quot;Checkbox label&quot;&gt;
+&lt;/gr-checkbox&gt;  
+
+&lt;gr-checkbox 
+  disabled 
+  label=&quot;Checkbox label&quot;&gt;
+&lt;/gr-checkbox&gt;
+    </pre>
+
+    <script src="../components/checkbox.js" type="module"></script>
+
+  </body>
+</html>

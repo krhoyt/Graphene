@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Set of standard web components (Vanilla) based on the IBM Carbon Design System.">
+
+    <title>Button - Graphene</title>
+
+    <link href="../graphene.css" rel="stylesheet">    
+
+    <style>
+      gr-button {
+        margin: 0 0 16px 0;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <!-- Default -->
+    <gr-button label="Button"></gr-button>
+
+    <pre>
+&lt;gr-button label=&quot;Button&quot;&gt;&lt;/gr-button&gt;    
+    </pre>
+
+    <!-- Danger -->
+    <gr-button kind="danger" label="Button"></gr-button>
+    <gr-button kind="danger-tertiary" label="Tertiary Danger Button"></gr-button>
+    <gr-button kind="danger-ghost" label="Ghost Danger Button"></gr-button>
+
+    <pre>
+&lt;gr-button kind=&quot;danger&quot; label=&quot;Button&quot;&gt;&lt;/gr-button&gt;
+&lt;gr-button kind=&quot;danger-tertiary&quot; label=&quot;Tertiary Danger Button&quot;&gt;&lt;/gr-button&gt;
+&lt;gr-button kind=&quot;danger-ghost&quot; label=&quot;Ghost Danger Button&quot;&gt;&lt;/gr-button&gt;
+    </pre>
+
+    <!-- Ghost -->
+    <gr-button kind="ghost" label="Button"></gr-button>
+
+    <pre>
+&lt;gr-button kind=&quot;ghost&quot; label=&quot;Button&quot;&gt;&lt;/gr-button&gt;      
+    </pre>
+
+    <!-- Icon -->
+    <gr-button>
+      <gr-icon name="add"></gr-icon>
+    </gr-button>
+    <gr-button label="Loading">
+      <gr-spinner light></gr-spinner>
+    </gr-button>    
+
+    <pre>
+&lt;gr-button&gt;
+  &lt;gr-icon name=&quot;add&quot;&gt;&lt;/gr-icon&gt;
+&lt;/gr-button&gt;
+&lt;gr-button label=&quot;Loading&quot;&gt;
+  &lt;gr-spinner light&gt;&lt;/gr-spinner&gt;
+&lt;/gr-button&gt;
+    </pre>
+
+    <!-- Secondary -->
+    <gr-button kind="secondary" label="Button"></gr-button>
+
+    <pre>
+&lt;gr-button kind=&quot;secondary&quot; label=&quot;Button&quot;&gt;&lt;/gr-button&gt;      
+    </pre>
+
+    <!-- Tertiary -->
+    <gr-button kind="tertiary" label="Button"></gr-button>
+
+    <pre>
+&lt;gr-button kind=&quot;tertiary&quot; label=&quot;Button&quot;&gt;&lt;/gr-button&gt;
+    </pre>
+
+    <script src="../components/button.js" type="module"></script>
+    <script src="../components/icon.js" type="module"></script>    
+    <script src="../components/spinner.js" type="module"></script>    
+
+  </body>
+</html>

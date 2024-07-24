@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Set of standard web components (Vanilla) based on the IBM Carbon Design System.">
+
+    <title>Header - Graphene</title>
+
+    <link href="../graphene.css" rel="stylesheet">    
+
+    <style>
+      gr-header { margin: 0 0 16px 0; }
+    </style>
+
+  </head>
+  <body>
+
+    <gr-header>
+      <gr-label slot="brand" text="Avocado"></gr-label>      
+      <gr-label text="Remote Manager"></gr-label>
+    </gr-header>
+ 
+    <pre>
+&lt;gr-header&gt;
+  &lt;gr-label slot=&quot;brand&quot; text=&quot;Avocado&quot;&gt;&lt;/gr-label&gt;      
+  &lt;gr-label text=&quot;Remote Manager&quot;&gt;&lt;/gr-label&gt;
+&lt;/gr-header&gt;
+    </pre>
+
+    <script src="../components/header.js" type="module"></script>
+    <script src="../components/label.js" type="module"></script>    
+
+  </body>
+</html>

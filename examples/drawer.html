@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Set of standard web components (Vanilla) based on the IBM Carbon Design System.">
+
+    <title>Drawer - Graphene</title>
+
+    <link href="../graphene.css" rel="stylesheet">    
+
+    <style>
+      gr-drawer {
+        min-height: 300px;
+        width: 300px;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <gr-drawer name="menu">
+      <gr-drawer-item label="Person" count="0" class="selected">
+        <gr-icon name="person" weight="100"></gr-icon>
+      </gr-drawer-item>
+      <gr-drawer-item label="Meeting" count="0">
+        <gr-icon name="groups" weight="100"></gr-icon>        
+      </gr-drawer-item>      
+      <gr-drawer-item label="1:1" count="0">
+        <gr-icon name="handshake" weight="100"></gr-icon>        
+      </gr-drawer-item>            
+      <gr-drawer-item label="Situation" count="0">
+        <gr-icon name="pin_drop" weight="100"></gr-icon>                
+      </gr-drawer-item>      
+      <gr-drawer-item label="Growth" count="0">
+        <gr-icon name="spa" weight="100"></gr-icon>                        
+      </gr-drawer-item>      
+      <gr-drawer-item label="Action" count="0">
+        <gr-icon name="checklist" weight="100"></gr-icon>                        
+      </gr-drawer-item>            
+      <gr-drawer-item label="Document" count="0">
+        <gr-icon name="description" weight="100"></gr-icon>                        
+      </gr-drawer-item>            
+      <gr-drawer-item label="Link" count="0">
+        <gr-icon name="link" weight="100"></gr-icon>                        
+      </gr-drawer-item>            
+      <gr-drawer-item label="Attachment" count="0">
+        <gr-icon name="attachment" weight="100"></gr-icon>                        
+      </gr-drawer-item>            
+      <!--
+      <gr-drawer-item label="Resources">
+        <gr-icon name="inventor" weight="100"></gr-icon>                        
+      </gr-drawer-item>                  
+      -->      
+    </gr-drawer>
+
+    <pre>
+&lt;gr-list label-field=&quot;name&quot;&gt;
+  &lt;gr-label text=&quot;Nothing to see here.&quot;&gt;&lt;/gr-label&gt;
+&lt;/gr-list&gt;
+    </pre>
+
+    <script src="../components/drawer.js" type="module"></script>
+    <script src="../components/icon.js" type="module"></script>
+
+  </body>
+</html>

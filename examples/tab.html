@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Set of standard web components (Vanilla) based on the IBM Carbon Design System.">
+
+    <title>Tab - Graphene</title>
+
+    <link href="../graphene.css" rel="stylesheet">    
+
+    <style>
+      gr-tab-group { margin: 0 0 16px 0; }
+    </style>
+
+  </head>
+  <body>
+
+    <gr-tab-group expandable>
+      <gr-tab-panel helper="(21/25)" icon="assignment_turned_in" label="Engage">
+        <gr-label text="Tab Panel 1"></gr-label>
+      </gr-tab-panel>
+      <gr-tab-panel helper="(12/16)" icon="search" label="Analyze">
+        <gr-label text="Tab Panel 2"></gr-label>
+      </gr-tab-panel>
+      <gr-tab-panel disabled helper="(0/7)" icon="refresh" label="Remidiate">
+        <gr-label text="Tab Panel 3"></gr-label>
+      </gr-tab-panel>            
+      <gr-tab-panel helper="(4/12)" icon="package" label="Asset">
+        <gr-label text="Tab Panel 4"></gr-label>
+      </gr-tab-panel>                  
+      <gr-tab-panel helper="(1/23)" icon="monitor_heart" label="Monitoring">
+        <gr-label text="Tab Panel 5"></gr-label>
+      </gr-tab-panel>                        
+    </gr-tab-group>
+
+    <pre>
+&lt;gr-tab-group expandable&gt;
+  &lt;gr-tab-panel helper=&quot;(21/25)&quot; icon=&quot;assignment_turned_in&quot; label=&quot;Engage&quot;&gt;
+    &lt;gr-label text=&quot;Tab Panel 1&quot;&gt;&lt;/gr-label&gt;
+  &lt;/gr-tab-panel&gt;
+  &lt;gr-tab-panel helper=&quot;(12/16)&quot; icon=&quot;search&quot; label=&quot;Analyze&quot;&gt;
+    &lt;gr-label text=&quot;Tab Panel 2&quot;&gt;&lt;/gr-label&gt;
+  &lt;/gr-tab-panel&gt;
+  &lt;gr-tab-panel disabled helper=&quot;(0/7)&quot; icon=&quot;refresh&quot; label=&quot;Remidiate&quot;&gt;
+    &lt;gr-label text=&quot;Tab Panel 3&quot;&gt;&lt;/gr-label&gt;
+  &lt;/gr-tab-panel&gt;            
+  &lt;gr-tab-panel helper=&quot;(4/12)&quot; icon=&quot;package&quot; label=&quot;Asset&quot;&gt;
+    &lt;gr-label text=&quot;Tab Panel 4&quot;&gt;&lt;/gr-label&gt;
+  &lt;/gr-tab-panel&gt;                  
+  &lt;gr-tab-panel helper=&quot;(1/23)&quot; icon=&quot;monitor_heart&quot; label=&quot;Monitoring&quot;&gt;
+    &lt;gr-label text=&quot;Tab Panel 5&quot;&gt;&lt;/gr-label&gt;
+  &lt;/gr-tab-panel&gt;                        
+&lt;/gr-tab-group&gt;
+    </pre>
+
+    <script src="../components/tab-group.js" type="module"></script>
+    <script src="../components/label.js" type="module"></script>
+
+  </body>
+</html>

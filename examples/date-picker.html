@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Set of standard web components (Vanilla) based on the IBM Carbon Design System.">
+
+    <title>Date Picker - Graphene</title>
+
+    <link href="../graphene.css" rel="stylesheet">    
+
+  </head>
+  <body>
+
+    <gr-date-picker 
+      error="Error" 
+      label="Label" 
+      helper="Helper"
+      placeholder="Birth date">
+      <gr-link></gr-link>
+    </gr-date-picker>  
+    
+    <pre>
+&lt;gr-date-picker&gt;&lt;/gr-date-picker&gt;
+    </pre>
+
+    <script src="../components/date-picker.js" type="module"></script>
+    <script src="../components/link.js" type="module"></script>
+
+    <script>
+      // https://stackoverflow.com/questions/67373795/how-to-use-intl-formatrelativetime-in-the-correct-way
+      function distance( date ) {
+        const YEAR_IN_MILLIS = 3.154e10;
+        const MONTH_IN_MILLIS = 2.628e9;
+        const WEEK_IN_MILLIS = 6.048e8;
+        const DAY_IN_MILLIS = 8.64e7;
+        const HOUR_IN_MILLIS = 3.6e6;
+        const MIN_IN_MILLIS = 6e4;
+        const SEC_IN_MILLIS = 1e3;
+
+        const formatter = new Intl.RelativeTimeFormat( navigator.language, {
+          style: 'short'
+        } );        
+        const millis = date.getTime();
+        const difference = millis - Date.now();
+
+        if( Math.abs( difference ) > YEAR_IN_MILLIS ) {
+          return formatter.format( Math.trunc( difference / YEAR_IN_MILLIS ), 'year' );        
+        } else if( Math.abs( difference ) > MONTH_IN_MILLIS ) {
+          return formatter.format( Math.trunc( ( difference % YEAR_IN_MILLIS ) / MONTH_IN_MILLIS ), 'month' );
+        } else if( Math.abs( difference ) > WEEK_IN_MILLIS ) {
+          return formatter.format( Math.trunc( ( difference % MONTH_IN_MILLIS ) / WEEK_IN_MILLIS ), 'week' );
+        } else if( Math.abs( difference ) > DAY_IN_MILLIS ) {
+          return formatter.format( Math.trunc( ( difference % WEEK_IN_MILLIS ) / DAY_IN_MILLIS ), 'day' );
+        } else if( Math.abs( difference ) > HOUR_IN_MILLIS ) {
+          return formatter.format( Math.trunc( ( difference % DAY_IN_MILLIS ) / HOUR_IN_MILLIS ), 'hour' );
+        } else if( Math.abs( difference ) > MIN_IN_MILLIS ) {
+          return formatter.format( Math.trunc( ( difference % HOUR_IN_MILLIS ) / MIN_IN_MILLIS ), 'minute' );
+        } else {
+          return formatter.format( Math.trunc( ( difference % MIN_IN_MILLIS ) / SEC_IN_MILLIS ), 'second' );      
+        }
+      }
+
+      function format( date ) {
+        return new Intl.DateTimeFormat( navigator.language, {
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric'
+        } ).format( date );    
+      }
+
+      function zodiac( date ) {
+        const day = date.getDate();
+        const month = date.getMonth();
+
+        let sign = null;
+
+        // https://gist.github.com/canaydogan/bedaf3ac6b45e0377c4d55cf5ac4345f
+        if( ( month === 0 && day <= 19 ) || ( month === 11 && day >= 22 ) ) {
+          sign = 'Capricorn';
+        } else if( ( month === 0 && day >= 20 ) || ( month === 1 && day <= 18 ) ) {
+          sign = 'Aquarius';
+        } else if( ( month === 1 && day >= 19 ) || ( month === 2 && day <= 20 ) ) {
+          sign = 'Pisces';
+        } else if( ( month === 2 && day >= 21 ) || ( month === 3 && day <= 19 ) ) {
+          sign = 'Aries';
+        } else if( ( month === 3 && day >= 20 ) || ( month === 4 && day <= 20 ) ) {
+          sign = 'Taurus';
+        } else if( ( month === 4 && day >= 21 ) || ( month === 5 && day <= 20 ) ) {
+          sign = 'Gemini';
+        } else if( ( month === 5 && day >= 21 ) || ( month === 6 && day <= 22 ) ) {
+          sign = 'Cancer';
+        } else if( ( month === 6 && day >= 23 ) || ( month === 7 && day <= 22 ) ) {
+          sign = 'Leo';
+        } else if( ( month === 7 && day >= 23 ) || ( month === 8 && day <= 22 ) ) {
+          sign = 'Virgo';
+        } else if( ( month === 8 && day >= 23 ) || ( month === 9 && day <= 22 ) ) {
+          sign = 'Libra';
+        } else if( ( month === 9 && day >= 23 ) || ( month === 10 && day <= 21 ) ) {
+          sign = 'Scorpio';
+        } else if( ( month === 10 && day >= 22 ) || ( month === 11 && day <= 21 ) ) {
+          sign = 'Sagittarius';
+        }
+
+        const link = {
+          'Aries': 1,
+          'Taurus': 2,
+          'Gemini': 3,
+          'Cancer': 4,
+          'Leo': 5,
+          'Virgo': 6,
+          'Libra': 7,
+          'Scorpio': 8,
+          'Sagittarius': 9,
+          'Capricorn': 10,
+          'Aquarius': 11,
+          'Pisces': 12
+        };
+
+        const href = `https://www.horoscope.com/us/horoscopes/general/horoscope-general-daily-today.aspx?sign=${link[sign]}`;
+
+        return {
+          label: sign,
+          href: href
+        };
+      }   
+
+      const paige = new Date( 2004, 5, 4 );
+
+      const picker = document.querySelector( 'gr-date-picker' );
+      picker.formatFunction = format;
+      picker.addEventListener( 'gr-change', ( evt ) => {
+        const lookup = zodiac( evt.detail.value );
+        link.href = lookup.zodiac;
+        link.label = distance( evt.detail.value ) + ', ' + lookup.label;
+      } );
+
+      const link = document.querySelector( 'gr-link' );
+      const lookup = zodiac( paige );
+      link.href = lookup.href;
+      link.label = distance( paige ) + ', ' + lookup.label;      
+    </script>
+
+  </body>
+</html>

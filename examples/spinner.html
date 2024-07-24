@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Set of standard web components (Vanilla) based on the IBM Carbon Design System.">
+
+    <title>Spinner - Graphene</title>
+
+    <link href="../graphene.css" rel="stylesheet">    
+
+    <style>
+      gr-spinner { margin: 0 0 16px 0; }
+      gr-button gr-spinner { margin: 0; }
+    </style>
+
+  </head>
+  <body>
+
+    <!-- Default -->
+    <gr-spinner></gr-spinner>
+
+    <pre>
+&lt;gr-spinner&gt;&lt;/gr-spinner&gt;
+    </pre>
+
+    <!-- Big -->
+    <gr-spinner size="big"></gr-spinner>
+
+    <pre>
+&lt;gr-spinner size=&quot;big&quot;&gt;&lt;/gr-spinner&gt;
+    </pre>    
+
+    <!-- Large -->
+    <gr-spinner size="large"></gr-spinner>
+
+    <pre>
+&lt;gr-spinner size=&quot;large&quot;&gt;&lt;/gr-spinner&gt;
+    </pre>        
+
+    <!-- Inverted -->
+    <gr-button label="Loading">
+      <gr-spinner light></gr-spinner>
+    </gr-button>
+
+    <pre>
+&lt;gr-button label=&quot;Loading&quot;&gt;
+  &lt;gr-spinner light&gt;&lt;/gr-spinner&gt;
+&lt;/gr-button&gt;  
+    </pre>
+
+    <script src="../components/button.js" type="module"></script>
+    <script src="../components/spinner.js" type="module"></script>
+
+  </body>
+</html>

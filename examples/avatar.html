@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Set of standard web components (Vanilla) based on the IBM Carbon Design System.">
+
+    <title>Avatar - Graphene</title>
+
+    <link href="../graphene.css" rel="stylesheet">  
+    
+    <style>
+      gr-avatar {
+        margin: 0 0 16px 0;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <gr-avatar label="Paige Hoyt" shorten></gr-avatar><br>
+
+    <gr-avatar>
+      <gr-icon name="person"></gr-icon>
+    </gr-avatar>
+
+    <pre>
+&lt;gr-avatar label=&quot;Paige Hoyt&quot; shorten&gt;&lt;/gr-avatar&gt;
+
+&lt;gr-avatar&gt;
+  &lt;gr-icon name=&quot;person&quot;&gt;&lt;/gr-icon&gt;
+&lt;/gr-avatar&gt;
+    </pre>
+
+    <script src="../components/avatar.js" type="module"></script>
+    <script src="../components/icon.js" type="module"></script>    
+
+  </body>
+</html>

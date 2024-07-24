@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Set of standard web components (Vanilla) based on the IBM Carbon Design System.">
+
+    <title>List - Graphene</title>
+
+    <link href="../graphene.css" rel="stylesheet">    
+
+    <style>
+      gr-list {
+        margin: 0 0 16px 0;
+        min-height: 300px;
+        min-width: 300px;
+      }
+
+      gr-search {
+        width: 300px;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <gr-list label-field="name">
+      <gr-label text="Nothing to see here."></gr-label>
+    </gr-list>
+
+    <pre>
+&lt;gr-list label-field=&quot;name&quot;&gt;
+  &lt;gr-label text=&quot;Nothing to see here.&quot;&gt;&lt;/gr-label&gt;
+&lt;/gr-list&gt;
+    </pre>
+
+    <gr-search placeholder="Search people"></gr-search>
+    <gr-list header-text="People" label-field="name" selectable sortable>
+      <gr-label text="Nothing to see here."></gr-label>
+    </gr-list>
+
+    <pre>
+&lt;gr-search placeholder=&quot;Search people&quot;&gt;&lt;/gr-search&gt;      
+&lt;gr-list header-text=&quot;People&quot; label-field=&quot;name&quot; selectable sortable&gt;
+  &lt;gr-label text=&quot;Nothing to see here.&quot;&gt;&lt;/gr-label&gt;
+&lt;/gr-list&gt;
+    </pre>
+
+    <gr-list header-text="People" label-field="name" multiple selectable>
+      <gr-label text="Nothing to see here."></gr-label>
+    </gr-list>
+
+    <pre>
+&lt;gr-list header-text=&quot;People&quot; label-field=&quot;name&quot; multiple selectable&gt;
+  &lt;gr-label text=&quot;Nothing to see here.&quot;&gt;&lt;/gr-label&gt;
+&lt;/gr-list&gt;
+    </pre>    
+
+    <script src="../components/label.js" type="module"></script>
+    <script src="../components/list.js" type="module"></script>
+    <script src="../components/search.js" type="module"></script>
+
+    <script>
+      const list = document.querySelectorAll( 'gr-list' );
+      for( let p = 0; p < list.length; p++ ) {
+        list[p].data = [
+          {name: 'Kevin'},
+          {name: 'Marna'},
+          {name: 'Paige'}                
+        ];
+      }
+    </script>
+
+  </body>
+</html>

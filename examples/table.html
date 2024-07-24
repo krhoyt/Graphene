@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Set of standard web components (Vanilla) based on the IBM Carbon Design System.">
+
+    <title>Table - Graphene</title>
+
+    <link href="../graphene.css" rel="stylesheet">    
+
+  </head>
+  <body>
+
+    <gr-table multiple selectable>
+      <gr-table-column header-text="Full name" label-field="fullName" sortable></gr-table-column>
+      <gr-table-column header-text="Job title" label-field="jobTitle" sortable></gr-table-column>
+      <gr-label slot="empty" text="No items created yet."></gr-label>
+      <gr-button label="Add person" slot="empty">
+        <gr-icon name="person"></gr-icon>
+      </gr-button>
+    </gr-table>
+    
+    <pre>
+&lt;gr-label&gt;Label&lt;/gr-label&gt;
+    </pre>
+
+    <script src="../components/button.js" type="module"></script>
+    <script src="../components/icon.js" type="module"></script>
+    <script src="../components/label.js" type="module"></script>
+    <script src="../components/table.js" type="module"></script>
+
+    <script>
+      const table = document.querySelector( 'gr-table' );
+      table.data = [
+        {fullName: "Kevin Hoyt", jobTitle: "Sr. Docs Manager"},
+        {fullName: "Angela Hudak", jobTitle: "Technical Writer"},
+        {fullName: "Chuck Bigham", jobTitle: "Senior Technical Writer"},
+        {fullName: "Hilary Jacobs", jobTitle: "Technical Writer"},
+        {fullName: "Melisa Hadley O'Neill", jobTitle: "Senior Technical Writer"},
+        {fullName: "Michelle Flores", jobTitle: "Technical Writer"},
+        {fullName: "Michelle Mishra", jobTitle: "Technical Writer"}
+      ];
+    </script>
+
+  </body>
+</html>

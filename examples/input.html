@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Set of standard web components (Vanilla) based on the IBM Carbon Design System.">
+
+    <title>Input - Graphene</title>
+
+    <link href="../graphene.css" rel="stylesheet">    
+
+    <style>
+      gr-input {
+        margin: 0 0 16px 0;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <gr-input helper="Optional help text" label="Text input label"></gr-input><br>
+
+    <gr-input helper="Optional help text" label="Text input label" read-only value="This is read only, you can't type more"></gr-input><br>
+
+    <gr-input helper="Optional help text" label="Text input label" type="password"></gr-input><br>
+
+    <gr-input label="Email" value="hello@world.com">
+      <gr-link label="Send email"></gr-link>
+    </gr-input>
+    
+    <pre>
+&lt;gr-input helper=&quot;Optional help text&quot; label=&quot;Text input label&quot;&gt;&lt;/gr-input&gt;
+
+&lt;gr-input helper=&quot;Optional help text&quot; label=&quot;Text input label&quot; read-only value=&quot;This is read only, you can't type more&quot;&gt;&lt;/gr-input&gt;
+
+&lt;gr-input helper=&quot;Optional help text&quot; label=&quot;Text input label&quot; type=&quot;password&quot;&gt;&lt;/gr-input&gt;
+
+&lt;gr-input label=&quot;Email&quot; value=&quot;hello@world.com&quot;&gt;
+  &lt;gr-link label=&quot;Send email&quot;&gt;&lt;/gr-link&gt;
+&lt;/gr-input&gt;
+    </pre>
+
+    <script src="../components/input.js" type="module"></script>
+    <script src="../components/link.js" type="module"></script>
+
+  </body>
+</html>

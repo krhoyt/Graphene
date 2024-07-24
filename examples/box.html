@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Set of standard web components (Vanilla) based on the IBM Carbon Design System.">
+
+    <title>Box - Graphene</title>
+
+    <link href="../graphene.css" rel="stylesheet">    
+
+    <style>
+      gr-box { margin: 0 0 16px 0; }
+    </style>
+
+  </head>
+  <body>
+
+    <gr-box>
+      <gr-label text="One"></gr-label>
+      <gr-label text="Two"></gr-label>
+      <gr-label text="Three"></gr-label>      
+    </gr-box>
+
+    <gr-box direction="row">
+      <gr-label text="One"></gr-label>
+      <gr-label text="Two"></gr-label>
+      <gr-label text="Three"></gr-label>      
+    </gr-box>    
+
+    <pre>
+&lt;gr-box&gt;
+  &lt;gr-label text=&quot;One&quot;&gt;&lt;/gr-label&gt;
+  &lt;gr-label text=&quot;Two&quot;&gt;&lt;/gr-label&gt;
+  &lt;gr-label text=&quot;Three&quot;&gt;&lt;/gr-label&gt;      
+&lt;/gr-box&gt;
+
+&lt;gr-box direction=&quot;row&quot;&gt;
+  &lt;gr-label text=&quot;One&quot;&gt;&lt;/gr-label&gt;
+  &lt;gr-label text=&quot;Two&quot;&gt;&lt;/gr-label&gt;
+  &lt;gr-label text=&quot;Three&quot;&gt;&lt;/gr-label&gt;      
+&lt;/gr-box&gt;
+    </pre>
+
+    <script src="../components/box.js" type="module"></script>
+    <script src="../components/label.js" type="module"></script>
+
+  </body>
+</html>

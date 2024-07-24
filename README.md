@@ -41,39 +41,36 @@ While the overall size of the entire set of components is relatively small compa
 When loading a la carte, component dependencies are loaded by the components themselves.
 
 ``` html
-<script src="https://cdn.jsdelivr.net/npm/graphite-web-components@latest/controls/button.js" type="module"></script>
+<script src="https://cdn.jsdelivr.net/npm/graphite-web-components@latest/components/button.js" type="module"></script>
 ```
 
 That is it! Nope, there is no builder required. Nope, you do not `npm install` anything. No `git clone` of any repositories. No command line tools to setup the directories and dependencies in just the right way. All you need is an HTML page; add two tags and you are done. Welcome to web standards. 🤯
 
-## Containers
-
-- ✅ Box ⚠️
-- ✅ HBox ⚠️
-- ✅ Header
-- ✅ Stack ⚠️
-- ✅ Tabs
-- ✅ VBox ⚠️
-
 ## Controls   
 
-- ✅ Avatar ⚠️
+- ✅ Avatar
+- ✅ Box
 - ✅ Button
 - ✅ Calendar
 - ✅ Checkbox
-- ✈️ Date Picker
+- ✅ Date Picker
+- ✅ HBox
+- ✅ Header
 - ✅ Icon
 - ✅ Icon Button
 - ✅ Input
 - ✅ Label
 - ✈️ Radar Chart
 - ✅ Spacer
+- ✅ Stack
 - ✅ Tab
+- ✅ TabGroup
+- ✅ TabPanel
 - ✅ Tag
 - ✅ Text Area
+- ✅ VBox
 
 ✅ Implemented (14)   
 ✈️ In-flight/progress (1)  
 📆 Planned  (0)   
 ❓ To be determined (0)  
-⚠️ Not part of IBM Carbon (5)
