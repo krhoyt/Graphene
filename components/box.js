@@ -29,6 +29,15 @@ export default class GRBox extends HTMLElement {
         :host( [direction=column-reverse] ) {
           flex-direction: column-reverse;
         }         
+
+        :host( [grow] ) {
+          flex-basis: 0;
+          flex-grow: 1;
+        }
+
+        :host( [width] ) {
+          flex-grow: 0;
+        }
       </style>
       <slot></slot>
     `;
@@ -44,6 +53,8 @@ export default class GRBox extends HTMLElement {
   // When attributes change
   _render() {
     this.style.gap = this.gap === null ? 0 : `${this.gap}px`;
+    this.style.minWidth = this.width === null ? '' : `${this.width}px`;
+    this.style.width = this.width === null ? '' : `${this.width}px`;    
   }
 
   // Promote properties
@@ -62,7 +73,9 @@ export default class GRBox extends HTMLElement {
     this._upgrade( 'data' );        
     this._upgrade( 'direction' );            
     this._upgrade( 'gap' );            
+    this._upgrade( 'grow' );            
     this._upgrade( 'hidden' );    
+    this._upgrade( 'width' );        
     this._render();
   }
 
@@ -72,7 +85,9 @@ export default class GRBox extends HTMLElement {
       'concealed',
       'direction',
       'gap',
-      'hidden'
+      'grow',
+      'hidden',
+      'width'
     ];
   }
 
@@ -148,6 +163,26 @@ export default class GRBox extends HTMLElement {
     }
   }
 
+  get grow() {
+    return this.hasAttribute( 'grow' );
+  }
+
+  set grow( value ) {
+    if( value !== null ) {
+      if( typeof value === 'boolean' ) {
+        value = value.toString();
+      }
+
+      if( value === 'false' ) {
+        this.removeAttribute( 'grow' );
+      } else {
+        this.setAttribute( 'grow', '' );
+      }
+    } else {
+      this.removeAttribute( 'grow' );
+    }
+  }  
+
   get hidden() {
     return this.hasAttribute( 'hidden' );
   }
@@ -167,6 +202,22 @@ export default class GRBox extends HTMLElement {
       this.removeAttribute( 'hidden' );
     }
   }   
+
+  get width() {
+    if( this.hasAttribute( 'width' ) ) {
+      return parseInt( this.getAttribute( 'width' ) );
+    }
+
+    return null;
+  }
+
+  set width( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'width', value );
+    } else {
+      this.removeAttribute( 'width' );
+    }
+  }  
 }
 
 window.customElements.define( 'gr-box', GRBox );

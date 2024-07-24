@@ -79,6 +79,11 @@ export default class GRFormField extends HTMLElement {
           display: none;
         }
 
+        :host( [grow] ) {
+          flex-basis: 0;
+          flex-grow: 1;
+        }
+
         :host( [invalid] ) p[part=constraints] {
           display: none;
         }
@@ -145,6 +150,7 @@ export default class GRFormField extends HTMLElement {
     this._upgrade( 'data' );    
     this._upgrade( 'disabled' );
     this._upgrade( 'error' );
+    this._upgrade( 'grow' );
     this._upgrade( 'helper' );
     this._upgrade( 'hidden' );
     this._upgrade( 'invalid' );
@@ -159,6 +165,7 @@ export default class GRFormField extends HTMLElement {
       'constraints',
       'disabled',
       'error',
+      'grow',
       'helper',
       'hidden',
       'invalid',
@@ -253,6 +260,26 @@ export default class GRFormField extends HTMLElement {
       this.setAttribute( 'error', value );
     } else {
       this.removeAttribute( 'error' );
+    }
+  }
+
+  get grow() {
+    return this.hasAttribute( 'grow' );
+  }
+
+  set grow( value ) {
+    if( value !== null ) {
+      if( typeof value === 'boolean' ) {
+        value = value.toString();
+      }
+
+      if( value === 'false' ) {
+        this.removeAttribute( 'grow' );
+      } else {
+        this.setAttribute( 'grow', '' );
+      }
+    } else {
+      this.removeAttribute( 'grow' );
     }
   }
 

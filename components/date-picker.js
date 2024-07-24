@@ -191,6 +191,10 @@ export default class GRDatePicker extends HTMLElement {
           display: none;
         }        
 
+        :host( [light] ) label {
+          background-color: #ffffff;
+        }
+
         :host( :not( [invalid] ) ) i[part=invalid] {
           display: none;
         }

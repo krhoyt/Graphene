@@ -16,6 +16,10 @@ export default class GRSpacer extends HTMLElement {
         :host( [hidden] ) {
           display: none;
         } 
+
+        :host( [width] ) {
+          flex-grow: 0;
+        }
       </style>
     `;
 
@@ -25,7 +29,10 @@ export default class GRSpacer extends HTMLElement {
   }
 
   // When things change
-  _render() {;}
+  _render() {
+    this.style.minWidth = this.width === null ? '' : `${this.width}px`;    
+    this.style.width = this.width === null ? '' : `${this.width}px`;
+  }
 
   // Properties set before module loaded
   _upgrade( property ) {
@@ -39,13 +46,15 @@ export default class GRSpacer extends HTMLElement {
   // Setup
   connectedCallback() {
     this._upgrade( 'hidden' );                      
+    this._upgrade( 'width' );                          
     this._render();
   }
 
   // Watched attributes
   static get observedAttributes() {
     return [
-      'hidden'
+      'hidden',
+      'width'
     ];
   }
 
@@ -77,6 +86,22 @@ export default class GRSpacer extends HTMLElement {
       this.removeAttribute( 'hidden' );
     }
   }   
+
+  get width() {
+    if( this.hasAttribute( 'width' ) ) {
+      return parseInt( this.getAttribute( 'width' ) );
+    }
+
+    return null;
+  }
+
+  set width( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'width', value );
+    } else {
+      this.removeAttribute( 'width' );
+    }
+  }  
 }
 
 window.customElements.define( 'gr-spacer', GRSpacer );
