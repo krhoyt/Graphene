@@ -2,7 +2,6 @@ import GRColorArea from "./color-area.js";
 import GRColorSlider from "./color-slider.js";
 import GRInput from "./input.js";
 import GRSelect from "./select.js";
-import GRSelectOption from "./select-option.js";
 
 export default class GRColorPicker extends HTMLElement {
   constructor() {
@@ -69,10 +68,10 @@ export default class GRColorPicker extends HTMLElement {
         <div>
           <gr-input value="#ff0000"></gr-input>
           <gr-select>
-          <gr-select-option label="Hex" value="hex"></gr-select-option>          
-            <gr-select-option label="RGB" value="rgb"></gr-select-option>
-            <gr-select-option label="HSL" value="hsl"></gr-select-option>
-            <gr-select-option label="HSV" value="hsv"></gr-select-option>
+            <option value="hex">Hex</option>          
+            <option value="rgb">RGB</option>
+            <option value="hsl">HSL</option>
+            <option value="hsv">HSV</option>
           </gr-select>
         </div>
       </div>

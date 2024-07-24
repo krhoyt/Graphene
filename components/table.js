@@ -1,5 +1,5 @@
 import GRCheckbox from "./checkbox.js";
-import GRLabelItemRenderer from "./label-item-renderer.js";
+import GRLabelItemRenderer from "../internal/label-item-renderer.js";
 import GRRadioButton from "./radio-button.js";
 import GRTableColumn from "./table-column.js";
 
