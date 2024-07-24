@@ -223,6 +223,10 @@ export default class GRDatePicker extends HTMLElement {
           background-color: #f4f4f4;
         }        
 
+        :host( [read-only][light] ) label:hover {
+          background-color: #ffffff;
+        }                
+
         :host( [read-only] ) label:focus-within {
           outline: solid 2px transparent;
         }
@@ -269,6 +273,9 @@ export default class GRDatePicker extends HTMLElement {
     // Private
     this._format = null;
 
+    // Events
+    this.doCalendarClick = this.doCalendarClick.bind( this );
+
     // Root
     this.attachShadow( {mode: 'open'} );
     this.shadowRoot.appendChild( template.content.cloneNode( true ) );
@@ -291,9 +298,9 @@ export default class GRDatePicker extends HTMLElement {
     this.$clear.addEventListener( 'click', () => this.value = null );        
     this.$field = this.shadowRoot.querySelector( 'label' );
     this.$icon = this.shadowRoot.querySelector( 'button[part=icon]' );
-    this.$icon.addEventListener( 'click', () => this.doCalendarClick() );
+    this.$icon.addEventListener( 'click', this.doCalendarClick );
     this.$input = this.shadowRoot.querySelector( 'button[part=input]' );
-    this.$input.addEventListener( 'click', () => this.doCalendarClick() );
+    this.$input.addEventListener( 'click', this.doCalendarClick );
     this.$popover = this.shadowRoot.querySelector( 'div[part=popover]' );
   }
 
@@ -327,6 +334,7 @@ export default class GRDatePicker extends HTMLElement {
   _render() {
     if( this.readOnly ) {
       this.$input.disabled = this.readOnly;
+      this.$icon.disabled = this.readOnly;
     } else {
       this.$input.disabled = this.disabled;
       this.$icon.disabled = this.disabled;

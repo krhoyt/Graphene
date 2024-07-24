@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Remote management of developer relations and communities.">
+
+    <title>People - Avocado</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/graphene-web-components@0.1.3/graphene.css" rel="stylesheet">    
+
+    <style>
+      body {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <gr-vbox width="300">
+      <gr-search placeholder="Search people"></gr-search>
+      <gr-list header-text="People (2)" selectable sortable></gr-list>
+    </gr-vbox>
+    <gr-vbox grow style="padding: 16px 16px 16px 0;">
+      <gr-hbox gap="16">
+        <gr-avatar read-only>
+          <gr-icon name="person"></gr-icon>
+        </gr-avatar>
+        <gr-form-field grow label="Full name">
+          <gr-input placeholder="Full name" read-only></gr-input>
+        </gr-form-field>
+        <gr-form-field grow label="Email">
+          <gr-input placeholder="Email" read-only></gr-input>
+        </gr-form-field>          
+      </gr-hbox>
+      <gr-hbox gap="16">
+        <gr-spacer width="60"></gr-spacer>
+        <gr-form-field grow label="Job title">
+          <gr-input placeholder="Job title" read-only></gr-input>
+        </gr-form-field>
+        <gr-form-field grow label="Location">
+          <gr-input placeholder="Location" read-only></gr-input>
+        </gr-form-field>          
+      </gr-hbox>     
+      <gr-tab-group>
+        <gr-tab-panel label="Profile" style="padding: 16px 16px 0 16px;">
+          <gr-hbox gap="16">
+            <gr-form-field grow label="Hire date">
+              <gr-date-picker light placeholder="Hire date" read-only></gr-date-picker>
+            </gr-form-field>
+            <gr-form-field grow label="Last time off">
+              <gr-date-picker light placeholder="Last time off" read-only></gr-date-picker>
+            </gr-form-field>
+            <gr-form-field grow label="Birth date">
+              <gr-date-picker light placeholder="Birth date" read-only></gr-date-picker>
+            </gr-form-field>            
+          </gr-hbox>
+          <gr-hbox gap="16">
+            <gr-form-field grow label="Job level">
+              <gr-input light placeholder="Job level" read-only></gr-input>
+            </gr-form-field>
+            <gr-form-field grow label="Last promotion">
+              <gr-date-picker light placeholder="Last promotion" read-only></gr-date-picker>
+            </gr-form-field>
+            <gr-form-field grow label="Direct report">
+              <gr-input light placeholder="Direct report" read-only></gr-input>
+            </gr-form-field>            
+          </gr-hbox>          
+          <gr-form-field grow label="Notes">
+            <gr-textarea light placeholder="Notes" read-only></gr-textarea>
+          </gr-form-field>          
+        </gr-tab-panel>        
+        <gr-tab-panel label="Attachments">
+          <gr-label text="Two"></gr-label>
+        </gr-tab-panel>                
+      </gr-tab-group>   
+    </gr-vbox>
+
+    <script src="https://cdn.jsdelivr.net/npm/graphene-web-components@0.1.3/graphene.js" type="module"></script>
+
+  </body>
+</html>
