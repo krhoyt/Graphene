@@ -52,6 +52,8 @@ export default class GRDatePicker extends HTMLElement {
         }
 
         button[part=input] {
+          flex-basis: 0;
+          flex-grow: 1;
           height: 39px;
           padding: 0 0 0 16px;
           text-align: left;
@@ -305,15 +307,20 @@ export default class GRDatePicker extends HTMLElement {
   }
 
   _position( target ) {
-    const bounds = target.getBoundingClientRect();
+    const CALENDAR = 288;
+    const bounds = target.parentElement.getBoundingClientRect();
 
     if( ( bounds.top + bounds.height + target.clientHeight + window.scrollY ) > window.innerHeight ) {
       this.$popover.style.top = `${bounds.top - target.clientHeight + window.scrollY}px`;
     } else {
-      this.$popover.style.top = `${bounds.top + bounds.height + window.scrollY + 2}px`;  
+      this.$popover.style.top = `${bounds.top + bounds.height + window.scrollY + 1}px`;  
     }
 
-    this.$popover.style.left = `${bounds.x + window.scrollX}px`;
+    if( ( bounds.x + CALENDAR ) > window.innerWidth ) {
+      this.$popover.style.left = `${bounds.x + bounds.width - CALENDAR + window.scrollX}px`;
+    } else {
+      this.$popover.style.left = `${bounds.x + window.scrollX}px`;
+    }
   }  
 
   // When attributes change
