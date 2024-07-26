@@ -80,11 +80,13 @@ gr-drawer-item gr-icon::part( font ) {
 }
 
 gr-form-field gr-link::part( label ),
-gr-form-field gr-label::part( label ) {
+gr-form-field gr-label::part( label ),
+gr-form-field gr-relative-time::part( label ) {
   font-size: 12px;
 }
 
-gr-form-field gr-label::part( label ) {
+gr-form-field gr-label::part( label ),
+gr-form-field gr-relative-time::part( label ) {
   color: #6f6f6f;
 }
 

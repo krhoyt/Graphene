@@ -21,6 +21,7 @@ import GRLink from "./components/link.js";
 import GRList from "./components/list.js";
 import GRRadioButton from "./components/radio-button.js";
 import GRRadioGroup from "./components/radio-group.js";
+import GRRelativeTime from "./components/relative-time.js";
 import GRSearch from "./components/search.js";
 import GRSelect from "./components/select.js";
 import GRSpacer from "./components/spacer.js";
