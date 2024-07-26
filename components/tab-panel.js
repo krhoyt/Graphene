@@ -11,6 +11,7 @@ export default class GRTabPanel extends HTMLElement {
           flex-basis: 0;
           flex-direction: column;
           flex-grow: 1;
+          height: 100%;
           position: relative;
         }
 

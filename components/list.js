@@ -159,6 +159,11 @@ export default class GRList extends HTMLElement {
           word-wrap: normal;                              
         }
 
+        :host( [flex] ) {
+          flex-basis: 0;
+          flex-grow: 1;
+        }
+
         :host( [sortable] ) button {
           cursor: pointer;
         }

@@ -20,10 +20,30 @@ export default class GRHBox extends HTMLElement {
           display: none;
         }
 
-        :host( [grow] ) {
+        :host( [flex] ) {
           flex-basis: 0;
           flex-grow: 1;
         }
+
+        :host( [gap=xs] ) {
+          gap: 2px;
+        }
+
+        :host( [gap=s] ) {
+          gap: 4px;
+        }       
+        
+        :host( [gap=m] ) {
+          gap: 8px;
+        }       
+        
+        :host( [gap=l] ) {
+          gap: 16px;
+        }        
+
+        :host( [gap=xl] ) {
+          gap: 32px;
+        }        
 
         :host( [width] ) {
           flex-grow: 0;
@@ -39,7 +59,6 @@ export default class GRHBox extends HTMLElement {
 
    // When attributes change
   _render() {
-    this.style.gap = this.gap === null ? 0 : `${this.gap}px`;    
     this.style.minWidth = this.width === null ? '' : `${this.width}px`;
     this.style.width = this.width === null ? '' : `${this.width}px`;            
   }
@@ -56,9 +75,9 @@ export default class GRHBox extends HTMLElement {
 
   // Setup
   connectedCallback() {
-    this._upgrade( 'concealed' );        
+    this._upgrade( 'concealed' );  
+    this._upgrade( 'flex' );                      
     this._upgrade( 'gap' );        
-    this._upgrade( 'grow' );            
     this._upgrade( 'hidden' );    
     this._upgrade( 'width' );        
     this._render();
@@ -68,8 +87,8 @@ export default class GRHBox extends HTMLElement {
   static get observedAttributes() {
     return [
       'concealed',
+      'flex',      
       'gap',      
-      'grow',
       'hidden',
       'width'
     ];
@@ -104,6 +123,26 @@ export default class GRHBox extends HTMLElement {
     }
   }
 
+  get flex() {
+    return this.hasAttribute( 'flex' );
+  }
+
+  set flex( value ) {
+    if( value !== null ) {
+      if( typeof value === 'boolean' ) {
+        value = value.toString();
+      }
+
+      if( value === 'false' ) {
+        this.removeAttribute( 'flex' );
+      } else {
+        this.setAttribute( 'flex', '' );
+      }
+    } else {
+      this.removeAttribute( 'flex' );
+    }
+  }   
+
   get gap() {
     if( this.hasAttribute( 'gap' ) ) {
       return parseInt( this.getAttribute( 'gap' ) );
@@ -118,27 +157,7 @@ export default class GRHBox extends HTMLElement {
     } else {
       this.removeAttribute( 'gap' );
     }
-  }  
-
-  get grow() {
-    return this.hasAttribute( 'grow' );
-  }
-
-  set grow( value ) {
-    if( value !== null ) {
-      if( typeof value === 'boolean' ) {
-        value = value.toString();
-      }
-
-      if( value === 'false' ) {
-        this.removeAttribute( 'grow' );
-      } else {
-        this.setAttribute( 'grow', '' );
-      }
-    } else {
-      this.removeAttribute( 'grow' );
-    }
-  }  
+  }   
 
   get hidden() {
     return this.hasAttribute( 'hidden' );

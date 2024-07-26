@@ -10,6 +10,7 @@ export default class GRTextarea extends HTMLElement {
           display: flex;
           flex-direction: column;
           position: relative;
+          height: 100%;
         }
 
         :host( [concealed] ) {
