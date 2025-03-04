@@ -10,7 +10,8 @@ export default class GRRadioGroup extends HTMLElement {
         :host {
           box-sizing: border-box;
           display: inline-flex;
-          flex-direction: column;
+          flex-direction: row;
+          gap: 16px;
           position: relative;
         }
 
@@ -22,89 +23,45 @@ export default class GRRadioGroup extends HTMLElement {
           display: none;
         }
 
-        ul {
-          align-items: center;
-          box-sizing: border-box;
-          display: flex;
-          flex-direction: row;
-          gap: 16px;
-          height: 40px;
-          list-style-type: none;
-          margin: 0;
-          min-height: 40px;
-          padding: 0;
-        }
-
-        :host( [direction=column] ) ul,
-        :host( [direction=vertical] ) ul {
-          align-items: flex-start;
+        :host( [orientation=vertical] ) {
           flex-direction: column;
-          height: auto;
-          gap: 8px;
-          min-height: auto;       
-          padding: 9px 0 0 0;   
-        }
-
-        :host( [direction=row] ) ul,
-        :host( [direction=horizontal] ) ul {
-          flex-direction: row;
+          gap: 2px
         }
       </style>
-      <ul part="group">
-        <slot></slot>
-      </ul>
+      <slot></slot>
     `;
 
-    // Events
-    this.doRadioChange = this.doRadioChange.bind( this );
+    // Private
+    this._data = null;
 
     // Root
     this.attachShadow( {mode: 'open'} );
     this.shadowRoot.appendChild( template.content.cloneNode( true ) );
+    this.addEventListener( 'gr-change', ( evt ) => {
+      console.log( evt.target.value );
+      this.value = evt.target.value;
+    } );
 
-    // Elements
     this.$slot = this.shadowRoot.querySelector( 'slot' );
     this.$slot.addEventListener( 'slotchange', () => {
       for( let c = 0; c < this.children.length; c++ ) {
-        this.children[c].removeEventListener( 'gr-change', this.doRadioChange );
-        this.children[c].addEventListener( 'gr-change', this.doRadioChange );
+        this.children[c].setAttribute( 'data-index', c );
       }
     } );
   }
 
-  doRadioChange( evt ) {
-    if( this.toggle ) {
-      if( this.value === evt.detail.value ) {
-        this.value = null;
-      } else {
-        this.value = evt.detail.value;
-      }
-    } else {
-      this.value = evt.detail.value;
-    }
-
+  // When attributes change
+  _render() {
     for( let c = 0; c < this.children.length; c++ ) {
-      if( this.toggle ) {
-        if( this.value === null ) {
-          this.children[c].checked = false;
-        } else {
-          this.children[c].checked = evt.currentTarget === this.children[c] ? true : false;          
-        }
+      this.children[c].disabled = this.disabled;
+
+      if( c === this. ) {
+        this.children[c].checked = true;
       } else {
-        this.children[c].checked = evt.currentTarget === this.children[c] ? true : false;
+        this.children[c].checked = false;
       }
     }
-
-    this.dispatchEvent( new CustomEvent( 'rf-change', {
-      detail: {
-        name: this.name,
-        value: this.value
-      }
-    } ) );
   }
-
-   // When attributes change
-  _render() {;}
 
   // Promote properties
   // Values may be set before module load
@@ -118,13 +75,14 @@ export default class GRRadioGroup extends HTMLElement {
 
   // Setup
   connectedCallback() {
-    this._upgrade( 'concealed' );        
-    this._upgrade( 'data' );         
-    this._upgrade( 'direction' );             
+    this._upgrade( 'concealed' );            
+    this._upgrade( 'data' );             
+    this._upgrade( 'disabled' );             
     this._upgrade( 'hidden' );    
-    this._upgrade( 'name' );        
-    this._upgrade( 'toggle' );            
-    this._upgrade( 'value' );            
+    this._upgrade( 'name' );      
+    this._upgrade( 'orientation' );          
+    this._upgrade( 'readOnly' );            
+    this._upgrade( 'value' );    
     this._render();
   }
 
@@ -132,10 +90,11 @@ export default class GRRadioGroup extends HTMLElement {
   static get observedAttributes() {
     return [
       'concealed',
-      'direction',
+      'disabled',
       'hidden',
       'name',
-      'toggle',
+      'orientation',
+      'read-only',
       'value'
     ];
   }
@@ -146,16 +105,16 @@ export default class GRRadioGroup extends HTMLElement {
     this._render();
   } 
 
-  // Properties 
+  // Properties
   // Not reflected
-  // Array, Date, Object, null
+  // Array, Date, Function, Object, null
   get data() {
     return this._data;
   }
 
   set data( value ) {
     this._data = value;
-  }  
+  }
 
   // Attributes
   // Reflected
@@ -180,21 +139,25 @@ export default class GRRadioGroup extends HTMLElement {
     }
   }
 
-  get direction() {
-    if( this.hasAttribute( 'direction' ) ) {
-      return this.getAttribute( 'direction' );
-    }
-
-    return null;
+  get disabled() {
+    return this.hasAttribute( 'disabled' );
   }
 
-  set direction( value ) {
+  set disabled( value ) {
     if( value !== null ) {
-      this.setAttribute( 'direction', value );
+      if( typeof value === 'boolean' ) {
+        value = value.toString();
+      }
+
+      if( value === 'false' ) {
+        this.removeAttribute( 'disabled' );
+      } else {
+        this.setAttribute( 'disabled', '' );
+      }
     } else {
-      this.removeAttribute( 'direction' );
+      this.removeAttribute( 'disabled' );
     }
-  }    
+  }  
 
   get hidden() {
     return this.hasAttribute( 'hidden' );
@@ -230,27 +193,43 @@ export default class GRRadioGroup extends HTMLElement {
     } else {
       this.removeAttribute( 'name' );
     }
-  }  
+  }        
 
-  get toggle() {
-    return this.hasAttribute( 'toggle' );
+  get orientation() {
+    if( this.hasAttribute( 'orientation' ) ) {
+      return this.getAttribute( 'orientation' );
+    }
+
+    return null;
   }
 
-  set toggle( value ) {
+  set orientation( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'orientation', value );
+    } else {
+      this.removeAttribute( 'orientation' );
+    }
+  }        
+
+  get readOnly() {
+    return this.hasAttribute( 'read-only' );
+  }
+
+  set readOnly( value ) {
     if( value !== null ) {
       if( typeof value === 'boolean' ) {
         value = value.toString();
       }
 
       if( value === 'false' ) {
-        this.removeAttribute( 'toggle' );
+        this.removeAttribute( 'read-only' );
       } else {
-        this.setAttribute( 'toggle', '' );
+        this.setAttribute( 'read-only', '' );
       }
     } else {
-      this.removeAttribute( 'toggle' );
+      this.removeAttribute( 'read-only' );
     }
-  }   
+  }  
 
   get value() {
     if( this.hasAttribute( 'value' ) ) {
@@ -260,13 +239,13 @@ export default class GRRadioGroup extends HTMLElement {
     return null;
   }
 
-  set value( value ) {
-    if( value !== null ) {
-      this.setAttribute( 'value', value );
+  set value( content ) {
+    if( content !== null ) {
+      this.setAttribute( 'value', content );
     } else {
       this.removeAttribute( 'value' );
     }
-  }     
+  }        
 }
 
 window.customElements.define( 'gr-radio-group', GRRadioGroup );

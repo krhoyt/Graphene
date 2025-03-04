@@ -25,10 +25,15 @@ export default class GRCheckbox extends HTMLElement {
           background: none;
           border: none;
           box-sizing: border-box;
+          color: #161616;          
           cursor: pointer;
           display: flex;
           flex-direction: row;
+          font-family: 'IBM Plex Sans', sans-serif;       
+          font-size: 14px;
+          font-weight: 400;          
           gap: 4px;
+          line-height: 18px;
           margin: 0;
           outline: none;
           padding: 0;
@@ -66,12 +71,8 @@ export default class GRCheckbox extends HTMLElement {
 
         span {
           box-sizing: border-box;
-          color: #161616;
           flex-basis: 0;
-          font-family: 'IBM Plex Sans', sans-serif;
           flex-grow: 1;          
-          font-size: 14px;
-          font-weight: 400;
           margin: 0;
           padding: 0;
           text-align: left;
@@ -105,14 +106,16 @@ export default class GRCheckbox extends HTMLElement {
           cursor: not-allowed;
         }
 
-        :host( [disabled] ) span,
-        :host( [disabled] ) i {
+        :host( [disabled] ) button,
+        :host( [disabled] ) i,
+        :host( [disabled] ) span {
           color: #16161640;
         }
       </style>
       <button part="button" type="button">
         <i part="icon">check_box_outline_blank</i>
         <span part="label"></span>
+        <slot></slot>
       </button>
     `;
 
@@ -146,8 +149,8 @@ export default class GRCheckbox extends HTMLElement {
       this.$button.disabled = this.disabled;
     }
 
-    this.$icon.innerText = this.checked ? 'check_box' : 'check_box_outline_blank';
-    this.$label.innerText = this.label === null ? '' : this.label;
+    this.$icon.textContent = this.checked ? 'check_box' : 'check_box_outline_blank';
+    this.$label.textContent = this.label === null ? '' : this.label;
   }
 
   // Promote properties

@@ -25,25 +25,17 @@ export default class GRHBox extends HTMLElement {
           flex-grow: 1;
         }
 
-        :host( [gap=xs] ) {
-          gap: 2px;
+        :host( [gap=xs] ) { gap: 2px; }
+        :host( [gap=s] ) { gap: 4px; }       
+        :host( [gap=m] ) { gap: 8px; }       
+        :host( [gap=l] ) { gap: 16px; }        
+        :host( [gap=xl] ) { gap: 32px; }        
+
+        :host( [fill] ),
+        :host( [stretch] ) {
+          flex-basis: 0;
+          flex-grow: 1;
         }
-
-        :host( [gap=s] ) {
-          gap: 4px;
-        }       
-        
-        :host( [gap=m] ) {
-          gap: 8px;
-        }       
-        
-        :host( [gap=l] ) {
-          gap: 16px;
-        }        
-
-        :host( [gap=xl] ) {
-          gap: 32px;
-        }        
 
         :host( [width] ) {
           flex-grow: 0;
@@ -52,12 +44,15 @@ export default class GRHBox extends HTMLElement {
       <slot></slot>
     `;
 
+    // Private
+    this._data = null;    
+
     // Root
     this.attachShadow( {mode: 'open'} );
     this.shadowRoot.appendChild( template.content.cloneNode( true ) );
   }
 
-   // When attributes change
+  // When attributes change
   _render() {
     this.style.minWidth = this.width === null ? '' : `${this.width}px`;
     this.style.width = this.width === null ? '' : `${this.width}px`;            
@@ -76,9 +71,11 @@ export default class GRHBox extends HTMLElement {
   // Setup
   connectedCallback() {
     this._upgrade( 'concealed' );  
-    this._upgrade( 'flex' );                      
+    this._upgrade( 'data' );                          
+    this._upgrade( 'fill' );                              
     this._upgrade( 'gap' );        
     this._upgrade( 'hidden' );    
+    this._upgrade( 'stretch' );                          
     this._upgrade( 'width' );        
     this._render();
   }
@@ -87,9 +84,10 @@ export default class GRHBox extends HTMLElement {
   static get observedAttributes() {
     return [
       'concealed',
-      'flex',      
+      'fill',
       'gap',      
       'hidden',
+      'stretch',            
       'width'
     ];
   }
@@ -99,6 +97,17 @@ export default class GRHBox extends HTMLElement {
   attributeChangedCallback( name, old, value ) {
     this._render();
   } 
+
+  // Properties
+  // Not reflected
+  // Array, Date, Function, Object, null
+  get data() {
+    return this._data;
+  }
+
+  set data( value ) {
+    this._data = value;
+  }    
 
   // Attributes
   // Reflected
@@ -123,25 +132,25 @@ export default class GRHBox extends HTMLElement {
     }
   }
 
-  get flex() {
-    return this.hasAttribute( 'flex' );
+  get fill() {
+    return this.hasAttribute( 'fill' );
   }
 
-  set flex( value ) {
+  set fill( value ) {
     if( value !== null ) {
       if( typeof value === 'boolean' ) {
         value = value.toString();
       }
 
       if( value === 'false' ) {
-        this.removeAttribute( 'flex' );
+        this.removeAttribute( 'fill' );
       } else {
-        this.setAttribute( 'flex', '' );
+        this.setAttribute( 'fill', '' );
       }
     } else {
-      this.removeAttribute( 'flex' );
+      this.removeAttribute( 'fill' );
     }
-  }   
+  }       
 
   get gap() {
     if( this.hasAttribute( 'gap' ) ) {
@@ -178,6 +187,26 @@ export default class GRHBox extends HTMLElement {
       this.removeAttribute( 'hidden' );
     }
   }   
+
+  get stretch() {
+    return this.hasAttribute( 'stretch' );
+  }
+
+  set stretch( value ) {
+    if( value !== null ) {
+      if( typeof value === 'boolean' ) {
+        value = value.toString();
+      }
+
+      if( value === 'false' ) {
+        this.removeAttribute( 'stretch' );
+      } else {
+        this.setAttribute( 'stretch', '' );
+      }
+    } else {
+      this.removeAttribute( 'stretch' );
+    }
+  }     
 
   get width() {
     if( this.hasAttribute( 'width' ) ) {

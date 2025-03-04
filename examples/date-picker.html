@@ -17,8 +17,7 @@
       error="Error" 
       label="Label" 
       helper="Helper"
-      placeholder="Birth date"
-      read-only>
+      placeholder="Birth date">
       <gr-link></gr-link>
     </gr-date-picker>  
     
@@ -131,11 +130,13 @@
 
       const picker = document.querySelector( 'gr-date-picker' );
       picker.formatFunction = format;
+      /*
       picker.addEventListener( 'gr-change', ( evt ) => {
         const lookup = zodiac( evt.detail.value );
         link.href = lookup.zodiac;
         link.label = distance( evt.detail.value ) + ', ' + lookup.label;
       } );
+       */
 
       const link = document.querySelector( 'gr-link' );
       const lookup = zodiac( paige );

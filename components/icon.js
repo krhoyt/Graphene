@@ -6,13 +6,14 @@ export default class GRIcon extends HTMLElement {
     template.innerHTML = /* template */ `
       <style>
         :host {
-          align-items: center;
           box-sizing: border-box;
-          display: inline-flex;
-          justify-content: center;
-          overflow: hidden;
+          display: inline-block;
           position: relative;
         }
+
+        :host( [concealed] ) {
+          visibility: hidden;
+        }        
 
         :host( [hidden] ) {
           display: none;
@@ -20,18 +21,18 @@ export default class GRIcon extends HTMLElement {
 
         img {
           cursor: default;          
-          display: none;
+          display: inline-block;
           height: 20px;
           object-fit: contain;
           width: 20px; 
         }
 
-        p {
+        i {
           box-sizing: border-box;
           color: #161616;
           cursor: default;
           direction: ltr;
-          display: none;
+          display: inline-block;
           font-family: 'Material Symbols Outlined';
           font-size: 20px;
           font-style: normal;
@@ -53,17 +54,20 @@ export default class GRIcon extends HTMLElement {
           word-wrap: normal;                    
         }
 
-        :host( [src] ) img {
-          display: inline-block;
-        }
-
-        :host( [name] ) p {
-          display: inline-block;
+        :host( :not( [name] ) ) i {
+          display: none;
         }        
+
+        :host( :not( [src] ) ) img {
+          display: none;
+        }                
       </style>
       <img part="image" />
-      <p part="font"></p>
+      <i part="font"></i>
     `;
+
+    // Private
+    this._data = null;
 
     // Root
     this.attachShadow( {mode: 'open'} );
@@ -72,12 +76,12 @@ export default class GRIcon extends HTMLElement {
     // Elements
     this.$image = this.shadowRoot.querySelector( 'img' );
     this.$image.addEventListener( 'load', () => this.dispatchEvent( new CustomEvent( 'gr-load' ) ) );
-    this.$font = this.shadowRoot.querySelector( 'p' );    
+    this.$font = this.shadowRoot.querySelector( 'i' );    
   }
 
   // When things change
   _render() {
-    this.$font.innerText = this.name === null ? '' : this.name;
+    this.$font.textContent = this.name === null ? '' : this.name;
     this.$image.src = this.src === null ? '' : this.src;
 
     if( this.name !== null ) {
@@ -106,6 +110,8 @@ export default class GRIcon extends HTMLElement {
 
   // Setup
   connectedCallback() {
+    this._upgrade( 'concealed' );                
+    this._upgrade( 'data' );                    
     this._upgrade( 'filled' );                
     this._upgrade( 'hidden' );    
     this._upgrade( 'name' );        
@@ -117,6 +123,7 @@ export default class GRIcon extends HTMLElement {
   // Watched attributes
   static get observedAttributes() {
     return [
+      'concealed',
       'filled',
       'hidden',
       'name',
@@ -131,9 +138,40 @@ export default class GRIcon extends HTMLElement {
     this._render();
   }
 
+  // Properties
+  // Not reflected
+  // Array, Date, Function, Object, null
+  get data() {
+    return this._data;
+  }
+
+  set data( value ) {
+    this._data = value;
+  }  
+
   // Attributes
   // Reflected
   // Boolean, Number, String, null
+  get concealed() {
+    return this.hasAttribute( 'concealed' );
+  }
+
+  set concealed( value ) {
+    if( value !== null ) {
+      if( typeof value === 'boolean' ) {
+        value = value.toString();
+      }
+
+      if( value === 'false' ) {
+        this.removeAttribute( 'concealed' );
+      } else {
+        this.setAttribute( 'concealed', '' );
+      }
+    } else {
+      this.removeAttribute( 'concealed' );
+    }
+  }
+
   get filled() {
     return this.hasAttribute( 'filled' );
   }

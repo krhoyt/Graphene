@@ -127,10 +127,10 @@ export default class GRFormField extends HTMLElement {
 
   // When things change
   _render() {
-    this.$constraints.innerText = this.constraints === null ? '' : this.constraints;            
-    this.$error.innerText = this.error === null ? '' : this.error;        
-    this.$helper.innerText = this.helper === null ? '' : this.helper; 
-    this.$label.innerText = this.label === null ? '' : this.label;
+    this.$constraints.textContent = this.constraints === null ? '' : this.constraints;            
+    this.$error.textContent = this.error === null ? '' : this.error;        
+    this.$helper.textContent = this.helper === null ? '' : this.helper; 
+    this.$label.textContent = this.label === null ? '' : this.label;
   }
 
   // Promote properties

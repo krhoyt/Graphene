@@ -1,5 +1,3 @@
-import GRRadioGroup from "./radio-group.js";
-
 export default class GRRadioButton extends HTMLElement {
   constructor() {
     super();
@@ -9,8 +7,7 @@ export default class GRRadioButton extends HTMLElement {
       <style>
         :host {
           box-sizing: border-box;
-          display: inline-flex;
-          flex-direction: column;
+          display: inline-block;
           position: relative;
         }
 
@@ -27,10 +24,15 @@ export default class GRRadioButton extends HTMLElement {
           background: none;
           border: none;
           box-sizing: border-box;
+          color: #161616;          
           cursor: pointer;
           display: flex;
           flex-direction: row;
+          font-family: 'IBM Plex Sans', sans-serif;   
+          font-size: 14px;
+          font-weight: 400;                 
           gap: 4px;
+          line-height: 18px;
           margin: 0;
           outline: none;
           padding: 0;
@@ -43,38 +45,34 @@ export default class GRRadioButton extends HTMLElement {
           direction: ltr;
           display: inline-block;
           font-family: 'Material Symbols Outlined';
-          font-size: 22px;
+          font-size: 24px;
           font-style: normal;
           font-variation-settings:
             'FILL' 0,
             'wght' 200;          
           font-weight: normal;
-          height: 22px;
+          height: 24px;
           letter-spacing: normal;
-          line-height: 22px;
+          line-height: 24px;
           margin: 0;
-          max-height: 22px;         
-          max-width: 22px;                    
-          min-height: 22px;                               
-          min-width: 22px;
+          max-height: 24px;         
+          max-width: 24px;                    
+          min-height: 24px;                               
+          min-width: 24px;
           padding: 0;
           text-align: center;
           text-rendering: optimizeLegibility;
           text-transform: none;
           white-space: nowrap;
-          width: 22px;
+          width: 24px;
           word-wrap: normal;                    
         }
 
-        p,
         span {
           box-sizing: border-box;
-          color: #161616;
           flex-basis: 0;
-          font-family: 'IBM Plex Sans', sans-serif;
-          flex-grow: 1;          
-          font-size: 14px;
-          font-weight: 400;
+          flex-grow: 1;      
+          line-height: 18px;    
           margin: 0;
           padding: 0;
           text-align: left;
@@ -82,47 +80,10 @@ export default class GRRadioButton extends HTMLElement {
           text-rendering: optimizeLegibility;
         }
 
-        p {
-          color: #6f6f6f;
-          cursor: default;
-          font-size: 12px;
-          margin: 0 0 2px 2px;
-        }
-
         :host( [checked] ) i {
           font-variation-settings:
             'FILL' 1,
             'wght' 400;
-        }
-
-        :host( :not( [error] ) ) p[part=error] {
-          display: none;
-        }
-
-        :host( [helper] ) p[part=helper] {
-          flex-grow: 0;
-          margin: 0 0 4px 0;
-        }
-
-        :host( :not( [helper] ) ) p[part=helper] {
-          display: none;
-        }
-
-        :host( [inline] ) button {
-          height: 39px;
-        }
-
-        :host( [inline][helper] ) p[part=helper] {
-          color: #6f6f6f;
-        }
-
-        :host( [inline]:not( [helper] ) ) p[part=helper] {
-          display: inline-block;
-          height: auto;
-          flex-grow: 0;
-          margin: 0 0 4px 0;
-          padding: 0;
-          visibility: hidden;
         }
 
         :host( :not( [label] ) ) span {
@@ -141,23 +102,21 @@ export default class GRRadioButton extends HTMLElement {
           cursor: not-allowed;
         }
 
-        :host( [disabled] ) span,
-        :host( [disabled] ) p,
-        :host( [disabled] ) i {
+        :host( [disabled] ) button,
+        :host( [disabled] ) i,
+        :host( [disabled] ) span {
           color: #16161640;
         }
-
-        :host( [disabled] ) p[part=helper] {
-          color: #16161640 !important;
-        }
       </style>
-      <p part="helper"></p>      
       <button part="button" type="button">
         <i part="icon">radio_button_unchecked</i>
         <span part="label"></span>
+        <slot></slot>
       </button>
-      <p part="error"></p>
     `;
+
+    // Private
+    this._data = null;
 
     // Root
     this.attachShadow( {mode: 'open'} );
@@ -170,32 +129,30 @@ export default class GRRadioButton extends HTMLElement {
         this.checked = !this.checked;
 
         this.dispatchEvent( new CustomEvent( 'gr-change', {
+          bubbles: true,
+          cancelable: false,
+          composed: true,
           detail: {
             checked: this.checked,
             name: this.name,
-            value: this.value
+            value: this.calculatedValue
           }
         } ) )
     } );
-    this.$error = this.shadowRoot.querySelector( 'p[part=error]' );
-    this.$helper = this.shadowRoot.querySelector( 'p[part=helper]' );
     this.$icon = this.shadowRoot.querySelector( 'i' );
     this.$label = this.shadowRoot.querySelector( 'span' );
   }
 
   // When attributes change
   _render() {
-    this.$helper.innerText = this.helper === null ? 'G' : this.helper;
-    
     if( this.readOnly ) {
       this.$button.disabled = true;
     } else {
       this.$button.disabled = this.disabled;
     }
 
-    this.$icon.innerText = this.checked ? 'radio_button_checked' : 'radio_button_unchecked';
-    this.$label.innerText = this.label === null ? '' : this.label;
-    this.$error.innerText = this.error === null ? '' : this.error;
+    this.$icon.textContent = this.checked ? 'radio_button_checked' : 'radio_button_unchecked';
+    this.$label.textContent = this.label === null ? '' : this.label;
   }
 
   // Promote properties
@@ -210,13 +167,12 @@ export default class GRRadioButton extends HTMLElement {
 
   // Setup
   connectedCallback() {
+    this._upgrade( 'calculatedValue' );            
     this._upgrade( 'checked' );            
     this._upgrade( 'concealed' );            
+    this._upgrade( 'data' );             
     this._upgrade( 'disabled' );             
-    this._upgrade( 'error' );                 
-    this._upgrade( 'helper' );               
     this._upgrade( 'hidden' );    
-    this._upgrade( 'inline' );                   
     this._upgrade( 'label' );    
     this._upgrade( 'name' );        
     this._upgrade( 'readOnly' );            
@@ -230,10 +186,7 @@ export default class GRRadioButton extends HTMLElement {
       'checked',      
       'concealed',
       'disabled',
-      'error',
-      'helper',
       'hidden',
-      'inline',
       'label',
       'name',
       'read-only',
@@ -246,6 +199,41 @@ export default class GRRadioButton extends HTMLElement {
   attributeChangedCallback( name, old, value ) {
     this._render();
   } 
+
+  // Properties
+  // Not reflected
+  // Array, Date, Function, Object, null
+  get calculatedValue() {
+    let result = null;
+
+    if( this.value === null ) {
+      if( this.label === null ) {
+        if( this.textContent.trim().length === 0 ) {
+          result = null;
+        } else {
+          result = this.textContent;
+        }
+      } else {
+        result = this.label;
+      }
+    } else {
+      result = this.value;
+    }
+
+    return result;
+  }
+
+  set calculatedValue( value ) {
+    // ?
+  }
+
+  get data() {
+    return this._data;
+  }
+
+  set data( value ) {
+    this._data = value;
+  }
 
   // Attributes
   // Reflected
@@ -310,38 +298,6 @@ export default class GRRadioButton extends HTMLElement {
     }
   }  
 
-  get error() {
-    if( this.hasAttribute( 'error' ) ) {
-      return this.getAttribute( 'error' );
-    }
-
-    return null;
-  }
-
-  set error( value ) {
-    if( value !== null ) {
-      this.setAttribute( 'error', value );
-    } else {
-      this.removeAttribute( 'error' );
-    }
-  }  
-
-  get helper() {
-    if( this.hasAttribute( 'helper' ) ) {
-      return this.getAttribute( 'helper' );
-    }
-
-    return null;
-  }
-
-  set helper( value ) {
-    if( value !== null ) {
-      this.setAttribute( 'helper', value );
-    } else {
-      this.removeAttribute( 'helper' );
-    }
-  }        
-
   get hidden() {
     return this.hasAttribute( 'hidden' );
   }
@@ -361,26 +317,6 @@ export default class GRRadioButton extends HTMLElement {
       this.removeAttribute( 'hidden' );
     }
   }   
-
-  get inline() {
-    return this.hasAttribute( 'inline' );
-  }
-
-  set inline( value ) {
-    if( value !== null ) {
-      if( typeof value === 'boolean' ) {
-        value = value.toString();
-      }
-
-      if( value === 'false' ) {
-        this.removeAttribute( 'inline' );
-      } else {
-        this.setAttribute( 'inline', '' );
-      }
-    } else {
-      this.removeAttribute( 'inline' );
-    }
-  } 
 
   get label() {
     if( this.hasAttribute( 'label' ) ) {

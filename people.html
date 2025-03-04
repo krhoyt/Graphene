@@ -8,13 +8,18 @@
 
     <title>People - Avocado</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/graphene-web-components@0.1.3/graphene.css" rel="stylesheet">    
+    <link href="https://cdn.jsdelivr.net/npm/graphene-web-components@0.1.6/graphene.css" rel="stylesheet">
+    <!-- <link href="graphene.css" rel="stylesheet"> -->
 
     <style>
+      html {
+        height: 100%;
+      }
+
       body {
         display: flex;
         flex-direction: row;
-        gap: 16px;
+        height: 100%;
         margin: 0;
         padding: 0;
       }
@@ -23,66 +28,214 @@
   </head>
   <body>
 
+    <!-- List -->
     <gr-vbox width="300">
       <gr-search placeholder="Search people"></gr-search>
-      <gr-list header-text="People (2)" selectable sortable></gr-list>
+      <gr-list flex header-text="People (2)" label-field="name" selectable sortable></gr-list>
     </gr-vbox>
-    <gr-vbox grow style="padding: 16px 16px 16px 0;">
-      <gr-hbox gap="16">
+
+    <!-- Form -->
+    <gr-vbox flex style="padding: 16px;">
+
+      <!-- Avatar -->
+      <!-- Full name -->
+      <!-- Email -->
+      <gr-hbox gap="l">
         <gr-avatar read-only>
           <gr-icon name="person"></gr-icon>
         </gr-avatar>
-        <gr-form-field grow label="Full name">
-          <gr-input placeholder="Full name" read-only></gr-input>
+        <gr-form-field flex label="Full name">
+          <gr-input placeholder="Full name" read-only value="Kevin Hoyt"></gr-input>
         </gr-form-field>
-        <gr-form-field grow label="Email">
-          <gr-input placeholder="Email" read-only></gr-input>
+        <gr-form-field flex label="Email">
+          <gr-input placeholder="Email" read-only value="krhoyt@amazon.com"></gr-input>
+          <gr-link label="Send email" slot="top"></gr-link>
         </gr-form-field>          
       </gr-hbox>
-      <gr-hbox gap="16">
+
+      <!-- Job title -->
+      <!-- Location -->
+      <gr-hbox gap="l">
         <gr-spacer width="60"></gr-spacer>
-        <gr-form-field grow label="Job title">
-          <gr-input placeholder="Job title" read-only></gr-input>
+        <gr-form-field flex label="Job title">
+          <gr-input placeholder="Job title" read-only value="Sr. Writer Manager"></gr-input>
         </gr-form-field>
-        <gr-form-field grow label="Location">
-          <gr-input placeholder="Location" read-only></gr-input>
+        <gr-form-field flex label="Location">
+          <gr-input placeholder="Location" read-only value="Denver, CO"></gr-input>
+          <gr-link label="Partly Cloudy, 65&deg;" slot="top"></gr-link>
+          <gr-label text="12:41 PM" slot="bottom"></gr-label>
         </gr-form-field>          
-      </gr-hbox>     
+      </gr-hbox> 
+      
+      <!-- Tabs -->
       <gr-tab-group>
+
+        <!-- Profile -->
         <gr-tab-panel label="Profile" style="padding: 16px 16px 0 16px;">
-          <gr-hbox gap="16">
-            <gr-form-field grow label="Hire date">
+
+          <!-- Hire date -->
+          <!-- Last time off -->
+          <!-- Birth date -->
+          <gr-hbox gap="l">
+            <gr-form-field flex label="Hire date">
               <gr-date-picker light placeholder="Hire date" read-only></gr-date-picker>
+              <gr-relative-time format="short" slot="top" sync value="2022-05-02T00:00:00Z"></gr-relative-time>
             </gr-form-field>
-            <gr-form-field grow label="Last time off">
-              <gr-date-picker light placeholder="Last time off" read-only></gr-date-picker>
-            </gr-form-field>
-            <gr-form-field grow label="Birth date">
-              <gr-date-picker light placeholder="Birth date" read-only></gr-date-picker>
-            </gr-form-field>            
-          </gr-hbox>
-          <gr-hbox gap="16">
-            <gr-form-field grow label="Job level">
-              <gr-input light placeholder="Job level" read-only></gr-input>
-            </gr-form-field>
-            <gr-form-field grow label="Last promotion">
+            <gr-form-field flex label="Last promotion">
               <gr-date-picker light placeholder="Last promotion" read-only></gr-date-picker>
+              <gr-relative-time format="short" slot="top" sync value="2022-05-02T00:00:00Z"></gr-relative-time>              
             </gr-form-field>
-            <gr-form-field grow label="Direct report">
-              <gr-input light placeholder="Direct report" read-only></gr-input>
+            <gr-form-field flex label="Job level">
+              <gr-input light placeholder="Job level" read-only></gr-input>
+            </gr-form-field>                         
+          </gr-hbox>
+
+          <!-- Job level -->
+          <!-- Last promotion -->
+          <!-- Direct report -->
+          <gr-hbox gap="l">
+            <gr-form-field flex label="Birth date">
+              <gr-date-picker light placeholder="Birth date" read-only></gr-date-picker>
+              <gr-relative-time format="short" slot="top" sync value="1973-01-06T00:00:00Z"></gr-relative-time>
+              <gr-label text="," slot="top"></gr-label>
+              <gr-spacer width="2" slot="top"></gr-spacer>
+              <gr-link label="Capricorn" slot="top"></gr-link>
+            </gr-form-field>                       
+            <gr-form-field flex label="Last time off">
+              <gr-date-picker light placeholder="Last time off" read-only></gr-date-picker>
+              <gr-relative-time format="short" slot="top" sync value="2024-07-21T00:00:00Z"></gr-relative-time>
+            </gr-form-field>                        
+            <gr-form-field flex label="Manager">
+              <gr-input light placeholder="Manager" read-only></gr-input>
+              <gr-link label="Send email" slot="top"></gr-link>
             </gr-form-field>            
           </gr-hbox>          
-          <gr-form-field grow label="Notes">
+
+          <!-- Notes -->
+          <gr-form-field flex label="Notes">
             <gr-textarea light placeholder="Notes" read-only></gr-textarea>
           </gr-form-field>          
+
         </gr-tab-panel>        
-        <gr-tab-panel label="Attachments">
-          <gr-label text="Two"></gr-label>
-        </gr-tab-panel>                
+
+        <!-- History -->
+        <gr-tab-panel label="History" style="padding: 16px 16px 0 16px;">
+
+          <!-- Editor -->
+          <!-- Change type -->
+          <!-- Change date -->
+          <!-- Job title -->
+          <!-- Job level -->
+          <!-- Manager -->
+          <gr-hbox gap="l">
+            <gr-form-field label="Change type" style="width: 150px;">
+              <gr-select light>
+                <option value="hire">Hire</option>          
+                <option value="job">Job code</option>                                      
+                <option value="leave">Leave</option>                
+                <option value="manager">Manager</option>
+                <option value="promotion">Promotion</option>
+                <option value="termination">Termination</option>          
+              </gr-select>
+            </gr-form-field>
+            <gr-form-field label="Change date" style="width: 150px;">
+              <gr-date-picker light></gr-date-picker>
+            </gr-form-field>            
+            <gr-form-field flex label="Job title">
+              <gr-input light placehodler="Job title"></gr-input>
+            </gr-form-field>                        
+            <gr-form-field flex label="Job level">
+              <gr-input light placehodler="Job level"></gr-input>
+            </gr-form-field>                 
+            <gr-form-field label="Manager" style="width: 150px;">
+              <gr-select light>
+                <option value="manager">Manager</option>
+                <option value="hire">Hire</option>                
+                <option value="leave">Leave</option>
+              </gr-select>           
+            </gr-form-field>                   
+          </gr-hbox>
+
+          <!-- History -->
+          <div style="background-color: #ffffff; flex-basis: 0; flex-grow: 1; margin-bottom: 16px; min-height: 150px;">
+            <gr-label text="Table"></gr-label>            
+          </div>          
+
+        </gr-tab-panel>
+
+        <!-- Goals -->
+        <gr-tab-panel label="Goals" style="padding: 16px 16px 0 16px;">
+          <gr-hbox gap="l">
+            <gr-form-field flex label="Title">
+              <gr-input light></gr-input>
+            </gr-form-field>
+            <gr-form-field label="Due date" style="width: 145px;">
+              <gr-date-picker light placeholder="Due date"></gr-date-picker>
+              <gr-relative-time format="short" slot="top" sync value="2025-02-10T00:00:00Z"></gr-relative-time>              
+            </gr-form-field>            
+          </gr-hbox>
+          <gr-hbox gap="l">
+            <gr-form-field flex label="Owner">
+              <gr-select light>
+                <option value="not">Kevin Hoyt</option>
+              </gr-select>           
+            </gr-form-field>                                
+            <gr-form-field flex label="Complexity">
+              <gr-select light>
+                <option value="not">None</option>
+                <option value="active">Low</option>                                                
+                <option value="progress">Medium</option>                
+                <option value="active">High</option>
+              </gr-select>           
+            </gr-form-field>        
+            <gr-form-field flex label="Impact">
+              <gr-select light>
+                <option value="not">None</option>
+                <option value="active">Low</option>                                                
+                <option value="progress">Medium</option>                
+                <option value="active">High</option>
+              </gr-select>           
+            </gr-form-field>        
+            <gr-form-field flex label="Status">
+              <gr-select light>
+                <option value="not">Not started</option>
+                <option value="active">Active</option>                                                
+                <option value="progress">In progress</option>                
+                <option value="active">Priority</option>                                                
+                <option value="defer">Deferred</option>                 
+                <option value="cancel">Canceled</option>                                 
+                <option value="complete">Complete</option>
+              </gr-select>           
+            </gr-form-field>                      
+          </gr-hbox>
+
+          <div style="background-color: #ffffff; flex-basis: 0; flex-grow: 1; margin-bottom: 16px; min-height: 150px;">
+            <gr-label text="Table"></gr-label>            
+          </div>                    
+        </gr-tab-panel>          
+
+        <!-- Attachments -->
+        <gr-tab-panel label="Attachments"  style="padding: 16px 16px 0 16px;">
+          <div style="background-color: #ffffff; flex-basis: 0; flex-grow: 1; margin-bottom: 16px; height: 100%;">
+            <gr-label text="Table"></gr-label>
+          </div>          
+        </gr-tab-panel>  
+
       </gr-tab-group>   
+
     </gr-vbox>
 
-    <script src="https://cdn.jsdelivr.net/npm/graphene-web-components@0.1.3/graphene.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/graphene-web-components@0.1.6/graphene.js" type="module"></script>
+    <!-- <script src="graphene.js" type="module"></script> -->
+
+    <script>
+      const list = document.querySelector( 'gr-list' );
+      list.data = [
+        {name: 'Kevin'},
+        {name: 'Marna'},
+        {name: 'Paige'},
+      ];
+    </script>
 
   </body>
 </html>
