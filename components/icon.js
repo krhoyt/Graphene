@@ -135,14 +135,10 @@ export default class GRIcon extends HTMLElement {
 
     if( this.name !== null ) {
       const variation = [];
-
-      if( this.filled )
-        variation.push( '\'FILL\' 1' );
-  
-      if( this.weight !== null ) {
-        variation.push( `'wght' ${this.weight}` );
-      }
-  
+      variation.push( '\'FILL\' ' + ( this.filled ? 1 : 0 ) );                        
+      variation.push( '\'wght\' ' + ( this.weight === null ? 400 : this.weight ) );              
+      variation.push( '\'GRAD\' ' + ( this.filled ? 0 : 0 ) );                              
+      variation.push( '\'opsz\' ' + ( this.optical === null ? 20 : this.optical ) );                
       this.$font.style.fontVariationSettings = variation.toString();    
     }
   }
@@ -165,6 +161,7 @@ export default class GRIcon extends HTMLElement {
     this._upgrade( 'filled' );                
     this._upgrade( 'hidden' );    
     this._upgrade( 'name' );        
+    this._upgrade( 'optical' );            
     this._upgrade( 'size' );        
     this._upgrade( 'src' );    
     this._upgrade( 'weight' );                
@@ -300,6 +297,22 @@ export default class GRIcon extends HTMLElement {
       this.removeAttribute( 'name' );
     }
   }
+
+  get optical() {
+    if( this.hasAttribute( 'optical' ) ) {
+      return parseInt( this.getAttribute( 'optical' ) );
+    }
+
+    return null;
+  }
+
+  set optical( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'optical', value );
+    } else {
+      this.removeAttribute( 'optical' );
+    }
+  }  
 
   get size() {
     if( this.hasAttribute( 'size' ) ) {
