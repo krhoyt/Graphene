@@ -149,6 +149,7 @@ export default class GRBox extends HTMLElement {
   // Watched attributes
   static get observedAttributes() {
     return [
+      'center',
       'concealed',
       'direction',
       'fill',      
@@ -157,6 +158,7 @@ export default class GRBox extends HTMLElement {
       'grow',
       'helper',
       'hidden',
+      'justify',
       'label',
       'stretch',
       'width'
