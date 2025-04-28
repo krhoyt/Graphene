@@ -39,7 +39,7 @@ export default class GRBox extends HTMLElement {
         }
 
         p[part=group] {
-          padding: 0 0 6px 3px;
+          padding: 0 0 8px 3px;
         }
 
         p[part=helper] {
