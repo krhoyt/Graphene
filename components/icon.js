@@ -22,36 +22,85 @@ export default class GRIcon extends HTMLElement {
         img {
           cursor: default;          
           display: inline-block;
-          height: 20px;
+          height: var( --icon-size, 20px );
           object-fit: contain;
-          width: 20px; 
+          width: var( --icon-size, 20px ); 
         }
 
         i {
           box-sizing: border-box;
-          color: #161616;
-          cursor: default;
+          color: var( --icon-color, #161616 );
+          cursor: var( --icon-cursor, default );
           direction: ltr;
-          display: inline-block;
+          display: flex;
           font-family: 'Material Symbols Outlined';
-          font-size: 20px;
+          font-size: var( --icon-size, 20px );
           font-style: normal;
           font-weight: normal;
-          height: 20px;
+          height: var( --icon-size, 20px );
           letter-spacing: normal;
-          line-height: 20px;
+          line-height: var( --icon-size, 20px );
           margin: 0;
-          max-height: 20px;         
-          max-width: 20px;                    
-          min-height: 20px;                               
-          min-width: 20px;
+          max-height: var( --icon-size, 20px );         
+          max-width: var( --icon-size, 20px );                    
+          min-height: var( --icon-size, 20px );                               
+          min-width: var( --icon-size, 20px );
           padding: 0;
           text-align: center;
           text-rendering: optimizeLegibility;
           text-transform: none;
           white-space: nowrap;
-          width: 20px;
+          width: var( --icon-size, 20px );
           word-wrap: normal;                    
+        }
+
+        :host( [size=s] ) i {
+          font-size: 16px;
+          height: 16px;
+          line-height: 16px;
+          max-height: 16px;
+          max-width: 16px;
+          min-height: 16px;
+          min-width: 16px;
+          width: 16px;
+        }
+
+        :host( [size=l] ) i {
+          font-size: 24px;
+          height: 24px;
+          line-height: 24px;
+          max-height: 24px;
+          max-width: 24px;
+          min-height: 24px;
+          min-width: 24px;
+          width: 24px;
+        }        
+
+        :host( [size=xl] ) i {
+          font-size: 32px;
+          height: 32px;
+          line-height: 32px;
+          max-height: 32px;
+          max-width: 32px;
+          min-height: 32px;
+          min-width: 32px;
+          width: 32px;
+        }
+        
+        :host( [size=2xl] ) i {
+          font-size: 48px;
+          height: 48px;
+          line-height: 48px;
+          max-height: 48px;
+          max-width: 48px;
+          min-height: 48px;
+          min-width: 48px;
+          width: 48px;
+        }        
+
+        :host( [disabled] ) i {
+          color: var( --icon-color-disabled, #16161640 );
+          cursor: var( --icon-cursor-disabled, not-allowed );
         }
 
         :host( :not( [name] ) ) i {
@@ -112,9 +161,11 @@ export default class GRIcon extends HTMLElement {
   connectedCallback() {
     this._upgrade( 'concealed' );                
     this._upgrade( 'data' );                    
+    this._upgrade( 'disabled' );                    
     this._upgrade( 'filled' );                
     this._upgrade( 'hidden' );    
     this._upgrade( 'name' );        
+    this._upgrade( 'size' );        
     this._upgrade( 'src' );    
     this._upgrade( 'weight' );                
     this._render();
@@ -124,9 +175,11 @@ export default class GRIcon extends HTMLElement {
   static get observedAttributes() {
     return [
       'concealed',
+      'disabled',
       'filled',
       'hidden',
       'name',
+      'size',      
       'src',
       'weight'
     ];
@@ -171,6 +224,26 @@ export default class GRIcon extends HTMLElement {
       this.removeAttribute( 'concealed' );
     }
   }
+
+  get disabled() {
+    return this.hasAttribute( 'disabled' );
+  }
+
+  set disabled( value ) {
+    if( value !== null ) {
+      if( typeof value === 'boolean' ) {
+        value = value.toString();
+      }
+
+      if( value === 'false' ) {
+        this.removeAttribute( 'disabled' );
+      } else {
+        this.setAttribute( 'disabled', '' );
+      }
+    } else {
+      this.removeAttribute( 'disabled' );
+    }
+  }  
 
   get filled() {
     return this.hasAttribute( 'filled' );
@@ -225,6 +298,22 @@ export default class GRIcon extends HTMLElement {
       this.setAttribute( 'name', value );
     } else {
       this.removeAttribute( 'name' );
+    }
+  }
+
+  get size() {
+    if( this.hasAttribute( 'size' ) ) {
+      return this.getAttribute( 'size' );
+    }
+
+    return null;
+  }
+
+  set size( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'size', value );
+    } else {
+      this.removeAttribute( 'size' );
     }
   }
   
