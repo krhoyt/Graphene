@@ -54,6 +54,7 @@ That is it! Nope, there is no builder required. Nope, you do not `npm install` a
 - ✅ Calendar
 - ✅ Checkbox
 - ✅ Date Picker
+- ✅ Format Date
 - ✅ HBox
 - ✅ Header
 - ✅ Icon

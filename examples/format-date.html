@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Set of standard web components (Vanilla) based on the IBM Carbon Design System.">
+
+    <title>Format Date - Graphene</title>
+
+    <link href="../graphene.css" rel="stylesheet">    
+
+    <style>
+      gr-format-date { margin: 0 0 16px 0; }
+    </style>
+
+  </head>
+  <body>
+
+    <gr-format-date></gr-format-date><br>
+
+    <gr-format-date month="long" day="numeric" year="numeric"></gr-format-date><br>
+    <gr-format-date hour="numeric" minute="numeric"></gr-format-date><br>
+    <gr-format-date weekday="long"></gr-format-date><br>
+    <gr-format-date month="long"></gr-format-date><br>
+    <gr-format-date year="numeric"></gr-format-date><br>
+
+    <gr-format-date hour="numeric" minute="numeric" hour-format="12"></gr-format-date><br>
+    <gr-format-date hour="numeric" minute="numeric" hour-format="24"></gr-format-date>
+
+    <pre>
+&lt;gr-format-date&gt;&lt;/gr-format-date&gt;
+
+&lt;gr-format-date month=&quot;long&quot; day=&quot;numeric&quot; year=&quot;numeric&quot;&gt;&lt;/gr-format-date&gt;
+&lt;gr-format-date hour=&quot;numeric&quot; minute=&quot;numeric&quot;&gt;&lt;/gr-format-date&gt;
+&lt;gr-format-date weekday=&quot;long&quot;&gt;&lt;/gr-format-date&gt;
+&lt;gr-format-date month=&quot;long&quot;&gt;&lt;/gr-format-date&gt;
+&lt;gr-format-date year=&quot;numeric&quot;&gt;&lt;/gr-format-date&gt;
+
+&lt;gr-format-date hour=&quot;numeric&quot; minute=&quot;numeric&quot; hour-format=&quot;12&quot;&gt;&lt;/gr-format-date&gt;
+&lt;gr-format-date hour=&quot;numeric&quot; minute=&quot;numeric&quot; hour-format=&quot;24&quot;&gt;&lt;/gr-format-date&gt;
+    </pre>
+
+    <script src="../components/format-date.js" type="module"></script>
+
+  </body>
+</html>
