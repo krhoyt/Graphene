@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Set of standard web components (Vanilla) based on the IBM Carbon Design System.">
+
+    <title>Format Number - Graphene</title>
+
+    <link href="../graphene.css" rel="stylesheet">    
+
+    <style>
+      gr-format-number { margin: 0 0 16px 0; }
+    </style>
+
+  </head>
+  <body>
+
+    <gr-format-number type="percent" value="0"></gr-format-number><br>
+    <gr-format-number type="percent" value="0.25"></gr-format-number><br>
+    <gr-format-number type="percent" value="0.50"></gr-format-number><br>
+    <gr-format-number type="percent" value="0.75"></gr-format-number><br>
+    <gr-format-number type="percent" value="1"></gr-format-number><br>
+
+    English: <gr-format-number value="2000" lang="en" minimum-fraction-digits="2"></gr-format-number><br>
+    German: <gr-format-number value="2000" lang="de" minimum-fraction-digits="2"></gr-format-number><br>
+    Russian: <gr-format-number value="2000" lang="ru" minimum-fraction-digits="2"></gr-format-number><br>
+    
+    <gr-format-number type="currency" currency="USD" value="2000" lang="en-US"></gr-format-number><br>
+    <gr-format-number type="currency" currency="GBP" value="2000" lang="en-GB"></gr-format-number><br>
+    <gr-format-number type="currency" currency="EUR" value="2000" lang="de"></gr-format-number><br>
+    <gr-format-number type="currency" currency="RUB" value="2000" lang="ru"></gr-format-number><br>
+    <gr-format-number type="currency" currency="CNY" value="2000" lang="zh-cn"></gr-format-number>
+
+
+    <pre>
+&lt;gr-format-date&gt;&lt;/gr-format-date&gt;
+
+&lt;gr-format-date month=&quot;long&quot; day=&quot;numeric&quot; year=&quot;numeric&quot;&gt;&lt;/gr-format-date&gt;
+&lt;gr-format-date hour=&quot;numeric&quot; minute=&quot;numeric&quot;&gt;&lt;/gr-format-date&gt;
+&lt;gr-format-date weekday=&quot;long&quot;&gt;&lt;/gr-format-date&gt;
+&lt;gr-format-date month=&quot;long&quot;&gt;&lt;/gr-format-date&gt;
+&lt;gr-format-date year=&quot;numeric&quot;&gt;&lt;/gr-format-date&gt;
+
+&lt;gr-format-date hour=&quot;numeric&quot; minute=&quot;numeric&quot; hour-format=&quot;12&quot;&gt;&lt;/gr-format-date&gt;
+&lt;gr-format-date hour=&quot;numeric&quot; minute=&quot;numeric&quot; hour-format=&quot;24&quot;&gt;&lt;/gr-format-date&gt;
+    </pre>
+
+    <script src="../components/format-number.js" type="module"></script>
+
+  </body>
+</html>

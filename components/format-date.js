@@ -11,29 +11,36 @@ export default class GRFormatDate extends HTMLElement {
           position: relative;
         }
 
+        :host( [concealed] ) {
+          visibility: hidden;
+        } 
+
         :host( [hidden] ) {
           display: none;
         } 
 
         p {
           box-sizing: border-box;
-          color: var( --format-color, #161616 );
+          color: var( --format-date-color, #161616 );
           cursor: default;
           font-family: 'IBM Plex Sans', sans-serif;
-          font-size: var( --format-size, 14px );
+          font-size: var( --format-date-size, 14px );
           font-style: normal;
-          font-weight: var( --format-weight, 400 );
-          line-height: var( --format-line-height, 20px );
+          font-weight: var( --format-date-weight, 400 );
+          line-height: var( --format-date-line-height, 20px );
           margin: 0;
           padding: 0;
-          text-align: var( --format-text-align, left );
-          text-decoration: var( --format-text-decoration, none );
+          text-align: var( --format-date-text-align, left );
+          text-decoration: var( --format-date-text-decoration, none );
           text-rendering: optimizeLegibility;
           width: 100%;          
         }
       </style>
       <p part="label"></p>
     `;
+
+    // Private
+    this._data = null;
 
     // Root
     this.attachShadow( {mode: 'open'} );
@@ -76,6 +83,8 @@ export default class GRFormatDate extends HTMLElement {
 
   // Setup
   connectedCallback() {
+    this._upgrade( 'concealed' );                     
+    this._upgrade( 'data' );                     
     this._upgrade( 'date' );                     
     this._upgrade( 'dateAsObject' );                     
     this._upgrade( 'day' );    
@@ -97,6 +106,7 @@ export default class GRFormatDate extends HTMLElement {
   // Watched attributes
   static get observedAttributes() {
     return [
+      'concealed',
       'date',
       'day',
       'era',
@@ -123,6 +133,14 @@ export default class GRFormatDate extends HTMLElement {
   // Properties
   // Not reflected
   // Array, Date, Object, null
+  get data() {
+    return this._data;
+  }
+  
+  set data( value ) {
+    this.data = value;
+  }
+
   get dateAsObject() {
     return this.date === null ? null : new Date( Date.parse( this.date ) );
   }
@@ -134,6 +152,26 @@ export default class GRFormatDate extends HTMLElement {
   // Attributes
   // Reflected
   // Boolean, Number, String, null
+  get concealed() {
+    return this.hasAttribute( 'concealed' );
+  }
+
+  set concealed( value ) {
+    if( value !== null ) {
+      if( typeof value === 'boolean' ) {
+        value = value.toString();
+      }
+
+      if( value === 'false' ) {
+        this.removeAttribute( 'concealed' );
+      } else {
+        this.setAttribute( 'concealed', '' );
+      }
+    } else {
+      this.removeAttribute( 'concealed' );
+    }
+  }
+
   get date() {
     if( this.hasAttribute( 'date' ) ) {
       return this.getAttribute( 'date' );
