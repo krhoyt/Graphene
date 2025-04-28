@@ -54,7 +54,7 @@ export default class GRIcon extends HTMLElement {
           word-wrap: normal;                    
         }
 
-        :host( [size=s] ) i {
+        :host( [size=sm] ) i {
           font-size: 16px;
           height: 16px;
           line-height: 16px;
@@ -65,7 +65,7 @@ export default class GRIcon extends HTMLElement {
           width: 16px;
         }
 
-        :host( [size=l] ) i {
+        :host( [size=lg] ) i {
           font-size: 24px;
           height: 24px;
           line-height: 24px;
@@ -87,7 +87,7 @@ export default class GRIcon extends HTMLElement {
           width: 32px;
         }
         
-        :host( [size=2xl] ) i {
+        :host( [size=xxl] ) i {
           font-size: 48px;
           height: 48px;
           line-height: 48px;
