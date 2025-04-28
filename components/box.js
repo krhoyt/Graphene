@@ -37,9 +37,9 @@ export default class GRBox extends HTMLElement {
         }
 
         :host( [gap=xs] ) { gap: 2px; }
-        :host( [gap=s] ) { gap: 4px; }       
-        :host( [gap=m] ) { gap: 8px; }       
-        :host( [gap=l] ) { gap: 16px; }        
+        :host( [gap=sm] ) { gap: 4px; }       
+        :host( [gap=md] ) { gap: 8px; }       
+        :host( [gap=lg] ) { gap: 16px; }        
         :host( [gap=xl] ) { gap: 32px; }        
 
         :host( [width] ) {
