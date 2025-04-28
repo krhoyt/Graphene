@@ -20,33 +20,81 @@ export default class GRBox extends HTMLElement {
           display: none;
         }        
 
-        :host( [direction=row] ) {
+        div {
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+        }
+
+        p {
+          box-sizing: border-box;          
+          color: #525252;
+          cursor: default;
+          line-height: 16px;
+          font-family: 'IBM Plex Sans', sans-serif;
+          font-size: 12px;
+          margin: 0;
+          padding: 0;
+          text-rendering: optimizeLegibility;
+        }
+
+        p[part=group] {
+          padding: 0 0 6px 3px;
+        }
+
+        p[part=helper] {
+          padding: 0 0 0 3px;
+        }
+
+        :host( [direction=row] ) div {
           flex-direction: row;
         }
-        :host( [direction=row-reverse] ) {
+        :host( [direction=row-reverse] ) div {
           flex-direction: row-reverse;
         }
-        :host( [direction=column-reverse] ) {
+        :host( [direction=column-reverse] ) div {
           flex-direction: column-reverse;
         }         
 
+        :host( [center] ) div {
+          align-items: center;
+        }
+
+        :host( [justify] ) div {
+          justify-content: center;
+        }
+
         :host( [fill] ),
+        :host( [flex] ),
+        :host( [grow] ),
         :host( [stretch] ) {
           flex-basis: 0;
           flex-grow: 1;
         }
 
-        :host( [gap=xs] ) { gap: 2px; }
-        :host( [gap=sm] ) { gap: 4px; }       
-        :host( [gap=md] ) { gap: 8px; }       
-        :host( [gap=lg] ) { gap: 16px; }        
-        :host( [gap=xl] ) { gap: 32px; }        
+        :host( [gap=xs] ) div { gap: 2px; }
+        :host( [gap=sm] ) div { gap: 4px; }       
+        :host( [gap=md] ) div { gap: 8px; }       
+        :host( [gap=lg] ) div { gap: 16px; }        
+        :host( [gap=xl] ) div { gap: 32px; }        
 
         :host( [width] ) {
           flex-grow: 0;
         }
+
+        :host( :not( [helper] ) ) p[part=helper] {
+          display: none;
+        }
+
+        :host( :not( [label] ) ) p[part=label] {
+          display: none;
+        }
       </style>
-      <slot></slot>
+      <p part="group"><p>
+      <div>
+        <slot></slot>
+      </div>
+      <p part="helper"></p>
     `;
 
     // Private
@@ -55,10 +103,16 @@ export default class GRBox extends HTMLElement {
     // Root
     this.attachShadow( {mode: 'open'} );
     this.shadowRoot.appendChild( template.content.cloneNode( true ) );
+
+    // Elements
+    this.$group = this.shadowRoot.querySelector( 'p[part=group]' );
+    this.$helper = this.shadowRoot.querySelector( 'p[part=helper]' );
   }
 
   // When attributes change
   _render() {
+    this.$group.textContent = this.label === null ? '' : this.label;
+    this.$helper.textContent = this.helper === null ? '' : this.helper;
     this.style.minWidth = this.width === null ? '' : `${this.width}px`;
     this.style.width = this.width === null ? '' : `${this.width}px`;    
   }
@@ -75,12 +129,18 @@ export default class GRBox extends HTMLElement {
 
   // Setup
   connectedCallback() {
+    this._upgrade( 'center' );        
     this._upgrade( 'concealed' );        
     this._upgrade( 'data' );        
     this._upgrade( 'direction' );      
     this._upgrade( 'fill' );                      
+    this._upgrade( 'flex' );                      
     this._upgrade( 'gap' );            
+    this._upgrade( 'grow' );                       
+    this._upgrade( 'helper' );            
     this._upgrade( 'hidden' );    
+    this._upgrade( 'justify' );        
+    this._upgrade( 'label' );                
     this._upgrade( 'stretch' );                          
     this._upgrade( 'width' );        
     this._render();
@@ -92,8 +152,12 @@ export default class GRBox extends HTMLElement {
       'concealed',
       'direction',
       'fill',      
+      'flex',
       'gap',
+      'grow',
+      'helper',
       'hidden',
+      'label',
       'stretch',
       'width'
     ];
@@ -119,6 +183,26 @@ export default class GRBox extends HTMLElement {
   // Attributes
   // Reflected
   // Boolean, Number, String, null
+  get center() {
+    return this.hasAttribute( 'center' );
+  }
+
+  set center( value ) {
+    if( value !== null ) {
+      if( typeof value === 'boolean' ) {
+        value = value.toString();
+      }
+
+      if( value === 'false' ) {
+        this.removeAttribute( 'center' );
+      } else {
+        this.setAttribute( 'center', '' );
+      }
+    } else {
+      this.removeAttribute( 'center' );
+    }
+  }
+
   get concealed() {
     return this.hasAttribute( 'concealed' );
   }
@@ -191,6 +275,42 @@ export default class GRBox extends HTMLElement {
     }
   }  
 
+  get grow() {
+    return this.hasAttribute( 'grow' );
+  }
+
+  set grow( value ) {
+    if( value !== null ) {
+      if( typeof value === 'boolean' ) {
+        value = value.toString();
+      }
+
+      if( value === 'false' ) {
+        this.removeAttribute( 'grow' );
+      } else {
+        this.setAttribute( 'grow', '' );
+      }
+    } else {
+      this.removeAttribute( 'grow' );
+    }
+  }  
+
+  get helper() {
+    if( this.hasAttribute( 'helper' ) ) {
+      return this.getAttribute( 'helper' );
+    }
+
+    return null;
+  }
+
+  set helper( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'helper', value );
+    } else {
+      this.removeAttribute( 'helper' );
+    }
+  }
+
   get hidden() {
     return this.hasAttribute( 'hidden' );
   }
@@ -210,6 +330,42 @@ export default class GRBox extends HTMLElement {
       this.removeAttribute( 'hidden' );
     }
   }   
+
+  get justify() {
+    return this.hasAttribute( 'justify' );
+  }
+
+  set justify( value ) {
+    if( value !== null ) {
+      if( typeof value === 'boolean' ) {
+        value = value.toString();
+      }
+
+      if( value === 'false' ) {
+        this.removeAttribute( 'justify' );
+      } else {
+        this.setAttribute( 'justify', '' );
+      }
+    } else {
+      this.removeAttribute( 'justify' );
+    }
+  }  
+
+  get label() {
+    if( this.hasAttribute( 'label' ) ) {
+      return this.getAttribute( 'label' );
+    }
+
+    return null;
+  }
+
+  set label( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'label', value );
+    } else {
+      this.removeAttribute( 'label' );
+    }
+  }    
 
   get stretch() {
     return this.hasAttribute( 'stretch' );

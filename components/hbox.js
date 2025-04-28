@@ -20,9 +20,12 @@ export default class GRHBox extends HTMLElement {
           display: none;
         }
 
-        :host( [flex] ) {
-          flex-basis: 0;
-          flex-grow: 1;
+        :host( [center] ) {
+          align-items: center;
+        }
+
+        :host( [justify] ) {
+          justify-content: center;
         }
 
         :host( [gap=xs] ) { gap: 2px; }
@@ -31,7 +34,9 @@ export default class GRHBox extends HTMLElement {
         :host( [gap=lg] ) { gap: 16px; }        
         :host( [gap=xl] ) { gap: 32px; }        
 
-        :host( [fill] ),
+        :host( [fill] ),        
+        :host( [flex] ),
+        :host( [grow] ),
         :host( [stretch] ) {
           flex-basis: 0;
           flex-grow: 1;
@@ -70,11 +75,15 @@ export default class GRHBox extends HTMLElement {
 
   // Setup
   connectedCallback() {
+    this._upgrade( 'center' );  
     this._upgrade( 'concealed' );  
     this._upgrade( 'data' );                          
-    this._upgrade( 'fill' );                              
+    this._upgrade( 'fill' );                          
+    this._upgrade( 'flex' );                                          
     this._upgrade( 'gap' );        
+    this._upgrade( 'grow' );                              
     this._upgrade( 'hidden' );    
+    this._upgrade( 'justify' );  
     this._upgrade( 'stretch' );                          
     this._upgrade( 'width' );        
     this._render();
@@ -83,9 +92,12 @@ export default class GRHBox extends HTMLElement {
   // Watched attributes
   static get observedAttributes() {
     return [
+      'center',
       'concealed',
       'fill',
-      'gap',      
+      'flex',
+      'gap', 
+      'grow',     
       'hidden',
       'stretch',            
       'width'
@@ -112,6 +124,26 @@ export default class GRHBox extends HTMLElement {
   // Attributes
   // Reflected
   // Boolean, Number, String, null
+  get center() {
+    return this.hasAttribute( 'center' );
+  }
+
+  set center( value ) {
+    if( value !== null ) {
+      if( typeof value === 'boolean' ) {
+        value = value.toString();
+      }
+
+      if( value === 'false' ) {
+        this.removeAttribute( 'center' );
+      } else {
+        this.setAttribute( 'center', '' );
+      }
+    } else {
+      this.removeAttribute( 'center' );
+    }
+  }
+
   get concealed() {
     return this.hasAttribute( 'concealed' );
   }
@@ -168,6 +200,26 @@ export default class GRHBox extends HTMLElement {
     }
   }   
 
+  get grow() {
+    return this.hasAttribute( 'grow' );
+  }
+
+  set grow( value ) {
+    if( value !== null ) {
+      if( typeof value === 'boolean' ) {
+        value = value.toString();
+      }
+
+      if( value === 'false' ) {
+        this.removeAttribute( 'grow' );
+      } else {
+        this.setAttribute( 'grow', '' );
+      }
+    } else {
+      this.removeAttribute( 'grow' );
+    }
+  }  
+
   get hidden() {
     return this.hasAttribute( 'hidden' );
   }
@@ -187,6 +239,26 @@ export default class GRHBox extends HTMLElement {
       this.removeAttribute( 'hidden' );
     }
   }   
+
+  get justify() {
+    return this.hasAttribute( 'justify' );
+  }
+
+  set justify( value ) {
+    if( value !== null ) {
+      if( typeof value === 'boolean' ) {
+        value = value.toString();
+      }
+
+      if( value === 'false' ) {
+        this.removeAttribute( 'justify' );
+      } else {
+        this.setAttribute( 'justify', '' );
+      }
+    } else {
+      this.removeAttribute( 'justify' );
+    }
+  }  
 
   get stretch() {
     return this.hasAttribute( 'stretch' );

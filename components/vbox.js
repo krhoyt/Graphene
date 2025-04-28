@@ -1,4 +1,4 @@
-export default class GRVBox extends HTMLElement {
+export default class GRHBox extends HTMLElement {
   constructor() {
     super();
 
@@ -20,18 +20,28 @@ export default class GRVBox extends HTMLElement {
           display: none;
         }
 
+        :host( [center] ) {
+          align-items: center;
+        }
+
+        :host( [justify] ) {
+          justify-content: center;
+        }
+
         :host( [gap=xs] ) { gap: 2px; }
         :host( [gap=sm] ) { gap: 4px; }       
         :host( [gap=md] ) { gap: 8px; }       
         :host( [gap=lg] ) { gap: 16px; }        
-        :host( [gap=xl] ) { gap: 32px; }
+        :host( [gap=xl] ) { gap: 32px; }        
 
-        :host( [fill] ),
+        :host( [fill] ),        
+        :host( [flex] ),
+        :host( [grow] ),
         :host( [stretch] ) {
           flex-basis: 0;
           flex-grow: 1;
         }
-        
+
         :host( [width] ) {
           flex-grow: 0;
         }
@@ -50,7 +60,7 @@ export default class GRVBox extends HTMLElement {
   // When attributes change
   _render() {
     this.style.minWidth = this.width === null ? '' : `${this.width}px`;
-    this.style.width = this.width === null ? '' : `${this.width}px`;                
+    this.style.width = this.width === null ? '' : `${this.width}px`;            
   }
 
   // Promote properties
@@ -65,24 +75,31 @@ export default class GRVBox extends HTMLElement {
 
   // Setup
   connectedCallback() {
-    this._upgrade( 'concealed' ); 
-    this._upgrade( 'data' );     
-    this._upgrade( 'fill' );     
-    this._upgrade( 'gap' );                   
+    this._upgrade( 'center' );  
+    this._upgrade( 'concealed' );  
+    this._upgrade( 'data' );                          
+    this._upgrade( 'fill' );                          
+    this._upgrade( 'flex' );                                          
+    this._upgrade( 'gap' );        
+    this._upgrade( 'grow' );                              
     this._upgrade( 'hidden' );    
-    this._upgrade( 'stretch' );    
-    this._upgrade( 'width' );    
+    this._upgrade( 'justify' );  
+    this._upgrade( 'stretch' );                          
+    this._upgrade( 'width' );        
     this._render();
   }
 
   // Watched attributes
   static get observedAttributes() {
     return [
+      'center',
       'concealed',
       'fill',
-      'gap',
+      'flex',
+      'gap', 
+      'grow',     
       'hidden',
-      'stretch',
+      'stretch',            
       'width'
     ];
   }
@@ -91,8 +108,8 @@ export default class GRVBox extends HTMLElement {
   // Update render
   attributeChangedCallback( name, old, value ) {
     this._render();
-  }
-  
+  } 
+
   // Properties
   // Not reflected
   // Array, Date, Function, Object, null
@@ -107,6 +124,26 @@ export default class GRVBox extends HTMLElement {
   // Attributes
   // Reflected
   // Boolean, Number, String, null
+  get center() {
+    return this.hasAttribute( 'center' );
+  }
+
+  set center( value ) {
+    if( value !== null ) {
+      if( typeof value === 'boolean' ) {
+        value = value.toString();
+      }
+
+      if( value === 'false' ) {
+        this.removeAttribute( 'center' );
+      } else {
+        this.setAttribute( 'center', '' );
+      }
+    } else {
+      this.removeAttribute( 'center' );
+    }
+  }
+
   get concealed() {
     return this.hasAttribute( 'concealed' );
   }
@@ -145,7 +182,7 @@ export default class GRVBox extends HTMLElement {
     } else {
       this.removeAttribute( 'fill' );
     }
-  }  
+  }       
 
   get gap() {
     if( this.hasAttribute( 'gap' ) ) {
@@ -160,6 +197,26 @@ export default class GRVBox extends HTMLElement {
       this.setAttribute( 'gap', value );
     } else {
       this.removeAttribute( 'gap' );
+    }
+  }   
+
+  get grow() {
+    return this.hasAttribute( 'grow' );
+  }
+
+  set grow( value ) {
+    if( value !== null ) {
+      if( typeof value === 'boolean' ) {
+        value = value.toString();
+      }
+
+      if( value === 'false' ) {
+        this.removeAttribute( 'grow' );
+      } else {
+        this.setAttribute( 'grow', '' );
+      }
+    } else {
+      this.removeAttribute( 'grow' );
     }
   }  
 
@@ -183,6 +240,26 @@ export default class GRVBox extends HTMLElement {
     }
   }   
 
+  get justify() {
+    return this.hasAttribute( 'justify' );
+  }
+
+  set justify( value ) {
+    if( value !== null ) {
+      if( typeof value === 'boolean' ) {
+        value = value.toString();
+      }
+
+      if( value === 'false' ) {
+        this.removeAttribute( 'justify' );
+      } else {
+        this.setAttribute( 'justify', '' );
+      }
+    } else {
+      this.removeAttribute( 'justify' );
+    }
+  }  
+
   get stretch() {
     return this.hasAttribute( 'stretch' );
   }
@@ -201,7 +278,7 @@ export default class GRVBox extends HTMLElement {
     } else {
       this.removeAttribute( 'stretch' );
     }
-  }
+  }     
 
   get width() {
     if( this.hasAttribute( 'width' ) ) {
@@ -217,7 +294,7 @@ export default class GRVBox extends HTMLElement {
     } else {
       this.removeAttribute( 'width' );
     }
-  }      
+  }    
 }
 
-window.customElements.define( 'gr-vbox', GRVBox );
+window.customElements.define( 'gr-hbox', GRHBox );

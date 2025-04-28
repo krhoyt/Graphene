@@ -25,48 +25,84 @@ export default class GRCheckbox extends HTMLElement {
           background: none;
           border: none;
           box-sizing: border-box;
-          color: #161616;          
-          cursor: pointer;
+          color: var( --checkbox-label-color, #161616 );          
+          cursor: var( --checkbox-cursor, pointer );
           display: flex;
           flex-direction: row;
           font-family: 'IBM Plex Sans', sans-serif;       
-          font-size: 14px;
-          font-weight: 400;          
-          gap: 4px;
-          line-height: 18px;
+          font-size: var( --checkbox-label-font-size, 14px );
+          font-weight: var( --checkbox-label-font-weight, 400 );          
+          gap: var( --checkbox-gap, 8px );
+          line-height: var( --checkbox-label-line-height, 18px );
           margin: 0;
           outline: none;
           padding: 0;
           width: 100%;
         }
 
+        div {
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          gap: 8px;
+          padding: 2px 0 0 3px;
+        }
+
         i {
           box-sizing: border-box;
-          color: #161616;
+          color: var( --checkbox-icon-color, #161616 );
+          cursor: var( --checkbox-cursor, pointer );
           direction: ltr;
           display: inline-block;
           font-family: 'Material Symbols Outlined';
-          font-size: 22px;
+          font-size: var( --checkbox-size, 22px );
           font-style: normal;
           font-variation-settings:
             'FILL' 0,
             'wght' 200;          
           font-weight: normal;
-          height: 22px;
+          height: var( --checkbox-size, 22px );
           letter-spacing: normal;
-          line-height: 22px;
+          line-height: var( --checkbox-size, 22px );
           margin: 0;
-          max-height: 22px;         
-          max-width: 22px;                    
-          min-height: 22px;                               
-          min-width: 22px;
+          max-height: var( --checkbox-size, 22px );         
+          max-width: var( --checkbox-size, 22px );                    
+          min-height: var( --checkbox-size, 22px );                               
+          min-width: var( --checkbox-size, 22px );
           padding: 0;
           text-align: center;
           text-rendering: optimizeLegibility;
           text-transform: none;
           white-space: nowrap;
-          width: 22px;
+          width: var( --checkbox-size, 22px );
           word-wrap: normal;                    
+        }
+
+        div i {
+          cursor: var( --checkbox-helper-cursor, default );
+          font-size: 16px;
+          font-variation-settings:
+            'FILL' 1,
+            'wght' 400;                    
+          height: 16px;
+          line-height: 16px;
+          max-height: 16px;
+          max-width: 16px;
+          min-height: 16px;
+          min-width: 16px;
+          width: 16px;
+        }
+
+        p {
+          box-sizing: border-box;
+          color: var( --checkbox-helper-color, #525252 );
+          cursor: var( --checkbox-helper-cursor, default );
+          font-family: 'IBM Plex Sans', sans-serif;
+          font-size: var( --checkbox-helper-font-size, 12px );
+          line-height: var( --checkbox-helper-line-height, 16px );
+          margin: 0;
+          padding: 0;
+          text-rendering: optimizeLegibility;
         }
 
         span {
@@ -86,6 +122,10 @@ export default class GRCheckbox extends HTMLElement {
             'wght' 400;
         }
 
+        :host( :not( [helper] ) ) p {
+          display: none;
+        }
+
         :host( [inline] ) button {
           height: 40px;
         }
@@ -98,17 +138,43 @@ export default class GRCheckbox extends HTMLElement {
           cursor: default;
         }
 
-        :host( [read-only] ) i {
+        :host( [read-only] ) button i {
           color: #a8a8a8;
         }
 
-        :host( [disabled] ) button {
-          cursor: not-allowed;
+        :host( [error] ) div,
+        :host( [warning] ) div {
+          padding: 2px 0 0 3px;
+          gap: 10px;
+        }
+
+        :host( [error] ) div i {
+          color: #da1e28;
+        }
+
+        :host( [error] ) div p {
+          color: #da1e28;          
+        }
+
+        :host( [error] ) button i {
+          color: #da1e28;          
+        }
+
+        :host( [warning] ) div i {
+          color: #f1c21b;
+        }
+
+        :host( :not( [warning] ):not( [error] ) ) div i {
+          display: none;
         }
 
         :host( [disabled] ) button,
         :host( [disabled] ) i,
         :host( [disabled] ) span {
+          cursor: not-allowed;
+        }
+
+        :host( [disabled] ) button i {
           color: #16161640;
         }
       </style>
@@ -117,7 +183,14 @@ export default class GRCheckbox extends HTMLElement {
         <span part="label"></span>
         <slot></slot>
       </button>
+      <div>
+        <i></i>
+        <p part="helper"></p>
+      </div>
     `;
+
+    // Private
+    this._data = null;
 
     // Root
     this.attachShadow( {mode: 'open'} );
@@ -137,8 +210,10 @@ export default class GRCheckbox extends HTMLElement {
           }
         } ) )
     } );
+    this.$helper = this.shadowRoot.querySelector( 'p' );
     this.$icon = this.shadowRoot.querySelector( 'i' );
     this.$label = this.shadowRoot.querySelector( 'span' );
+    this.$error = this.shadowRoot.querySelector( 'div i' );
   }
 
   // When attributes change
@@ -151,6 +226,18 @@ export default class GRCheckbox extends HTMLElement {
 
     this.$icon.textContent = this.checked ? 'check_box' : 'check_box_outline_blank';
     this.$label.textContent = this.label === null ? '' : this.label;
+    
+    if( this.error !== null ) {
+      this.$error.textContent = 'error';
+      this.$helper.textContent = this.error === null ? '' : this.error;
+    } else {
+      if( this.warning !== null ) {
+        this.$error.textContent = 'warning';
+        this.$helper.textContent = this.warning === null ? '' : this.warning;
+      } else {
+        this.$helper.textContent = this.helper === null ? '' : this.helper;      
+      }
+    }
   }
 
   // Promote properties
@@ -169,12 +256,15 @@ export default class GRCheckbox extends HTMLElement {
     this._upgrade( 'concealed' );     
     this._upgrade( 'data' );                       
     this._upgrade( 'disabled' );             
+    this._upgrade( 'error' );             
+    this._upgrade( 'helper' );        
     this._upgrade( 'hidden' );    
     this._upgrade( 'inline' );                   
     this._upgrade( 'label' );    
     this._upgrade( 'name' );        
     this._upgrade( 'readOnly' );            
     this._upgrade( 'value' );    
+    this._upgrade( 'warning' );    
     this._render();
   }
 
@@ -184,12 +274,15 @@ export default class GRCheckbox extends HTMLElement {
       'checked',      
       'concealed',
       'disabled',
+      'error',
+      'helper',
       'hidden',
       'inline',
       'label',
       'name',
       'read-only',
-      'value'
+      'value',
+      'warning'
     ];
   }
 
@@ -273,6 +366,22 @@ export default class GRCheckbox extends HTMLElement {
     }
   }  
 
+  get error() {
+    if( this.hasAttribute( 'error' ) ) {
+      return this.getAttribute( 'error' );
+    }
+
+    return null;
+  }
+
+  set error( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'error', value );
+    } else {
+      this.removeAttribute( 'error' );
+    }
+  }  
+
   get hidden() {
     return this.hasAttribute( 'hidden' );
   }
@@ -292,6 +401,22 @@ export default class GRCheckbox extends HTMLElement {
       this.removeAttribute( 'hidden' );
     }
   }   
+
+  get helper() {
+    if( this.hasAttribute( 'helper' ) ) {
+      return this.getAttribute( 'helper' );
+    }
+
+    return null;
+  }
+
+  set helper( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'helper', value );
+    } else {
+      this.removeAttribute( 'helper' );
+    }
+  }          
 
   get inline() {
     return this.hasAttribute( 'inline' );
@@ -380,6 +505,22 @@ export default class GRCheckbox extends HTMLElement {
       this.removeAttribute( 'value' );
     }
   }        
+
+  get warning() {
+    if( this.hasAttribute( 'warning' ) ) {
+      return this.getAttribute( 'warning' );
+    }
+
+    return null;
+  }
+
+  set warning( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'warning', value );
+    } else {
+      this.removeAttribute( 'warning' );
+    }
+  }  
 }
 
 window.customElements.define( 'gr-checkbox', GRCheckbox );

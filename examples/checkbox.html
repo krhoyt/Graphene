@@ -12,6 +12,10 @@
 
     <style>
       gr-checkbox { margin: 0 0 16px 0; }
+
+      gr-box gr-checkbox {
+        margin: 0;
+      }
     </style>
 
   </head>
@@ -24,9 +28,18 @@
     </gr-checkbox><br>
 
     <gr-checkbox 
+      checked 
       helper="Helper text goes here" 
-      label="Checkbox label">
+      label="Checkbox label"
+      error="Error text goes here">
     </gr-checkbox><br>    
+
+    <gr-checkbox 
+      checked 
+      helper="Helper text goes here" 
+      label="Checkbox label"
+      warning="Warning text goes here">
+    </gr-checkbox><br>
 
     <gr-checkbox 
       disabled 
@@ -39,6 +52,12 @@
 
     <gr-checkbox disabled>Checkbox label</gr-checkbox>
 
+    <gr-box direction="row" gap="lg" helper="Helper text goes here" label="Group label">
+      <gr-checkbox>Checkbox label</gr-checkbox>
+      <gr-checkbox>Checkbox label</gr-checkbox>
+      <gr-checkbox>Checkbox label</gr-checkbox>                  
+    </gr-box>
+
     <pre>
 &lt;gr-checkbox 
   checked 
@@ -47,20 +66,38 @@
 &lt;/gr-checkbox&gt;
 
 &lt;gr-checkbox 
+  checked 
   helper=&quot;Helper text goes here&quot; 
-  label=&quot;Checkbox label&quot;&gt;
-&lt;/gr-checkbox&gt;  
+  label=&quot;Checkbox label&quot;
+  error=&quot;Error text goes here&quot;&gt;
+&lt;/gr-checkbox&gt;
+
+&lt;gr-checkbox 
+  checked 
+  helper=&quot;Helper text goes here&quot; 
+  label=&quot;Checkbox label&quot;
+  warning=&quot;Warning text goes here&quot;&gt;
+&lt;/gr-checkbox&gt;
 
 &lt;gr-checkbox 
   disabled 
   label=&quot;Checkbox label&quot;&gt;
 &lt;/gr-checkbox&gt;
 
+&lt;gr-checkbox checked&gt;Checkbox label&lt;/gr-checkbox&gt;
+
 &lt;gr-checkbox&gt;Checkbox label&lt;/gr-checkbox&gt;
 
 &lt;gr-checkbox disabled&gt;Checkbox label&lt;/gr-checkbox&gt;
+
+&lt;gr-box direction=&quot;row&quot; gap=&quot;lg&quot; helper=&quot;Helper text goes here&quot; label=&quot;Group label&quot;&gt;
+  &lt;gr-checkbox&gt;Checkbox label&lt;/gr-checkbox&gt;
+  &lt;gr-checkbox&gt;Checkbox label&lt;/gr-checkbox&gt;
+  &lt;gr-checkbox&gt;Checkbox label&lt;/gr-checkbox&gt;                  
+&lt;/gr-box&gt;
     </pre>
 
+    <script src="../components/box.js" type="module"></script>
     <script src="../components/checkbox.js" type="module"></script>
 
   </body>
