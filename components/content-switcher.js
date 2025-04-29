@@ -29,6 +29,10 @@ export default class GRContentSwitcher extends HTMLElement {
           height: 40px;
         }
 
+        :host( [size=sm] ) div {
+          height: 32px;
+        }
+
         :host( [size=lg] ) div {
           height: 48px;
         }
