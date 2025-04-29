@@ -39,11 +39,11 @@ export default class GRBox extends HTMLElement {
         }
 
         p[part=group] {
-          padding: 0 0 8px 3px;
+          padding: 0 0 8px 2px;
         }
 
         p[part=helper] {
-          padding: 0 0 0 3px;
+          padding: 0 0 0 2px;
         }
 
         :host( [direction=row] ) div {

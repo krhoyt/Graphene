@@ -17,68 +17,71 @@ export default class GRLink extends HTMLElement {
 
         :host( [hidden] ) {
           display: none;
-        }        
-
-        span {
-          box-sizing: border-box;
-          color: #0f62fe;
-          display: inline-block;
-          font-family: 'IBM Plex Sans', sans-serif;          
-          font-size: 14px;
-          font-weight: 400;
-          margin: 0;
-          padding: 0;
-          text-align: left;
-          text-decoration: none;
-          text-rendering: optimizeLegibility;
-          width: 100%;
-        }        
+        }                
 
         button {
+          align-items: center;
           appearance: none;
           background: none;
           border: none;
-          box-sizing: content-box;
-          cursor: pointer;
-          display: block;
+          box-sizing: border-box;
+          cursor: var( --link-cursor, pointer );
+          display: flex;
+          flex-direction: row;
+          gap: var( --link-icon-gap, 4px );
           margin: 0;
           outline: none;
           padding: 0;
-          text-rendering: optimizeLegibility;
-          -moz-appearance: none;          
-          -webkit-appearance: none;
           -webkit-tap-highlight-color: transparent;                    
         }        
 
-        button:hover span {
+        button:hover p {
           text-decoration: underline;
         }
 
-        /* OSX + Firefox adds 0.5px */
-        button::-moz-focus-inner {
+        p {
+          box-sizing: border-box;
+          color: var( --link-color, #0f62fe );
+          cursor: var( --link-cursor, pointer );
+          font-family: 'IBM Plex Sans', sans-serif;          
+          font-size: var( --link-font-size, 14px );
+          font-weight: var( --link-font-weight, 400 );
+          line-height: var( --line-line-height, 20px );
+          margin: 0;
           padding: 0;
-          border: 0 none;
+          text-decoration: none;          
+          text-rendering: optimizeLegibility;
         }
         
-        :host( [inline] ) span {
+        :host( [inline] ) p {
           text-decoration: underline;          
         }
 
-        :host( [disabled] ) button,
-        :host( [disabled] ) button span,
-        :host( [disabled] ) button:hover span {
-          color: #c6c6c6;          
+        :host( :not( [label] ) ) span {
+          display: none;
+        }
+
+        :host( [disabled] ) p,
+        :host( [disabled] ) button:hover p {
+          color: #16161640;          
           cursor: not-allowed;          
         }
 
-        :host( [disabled]:not( [inline] ) ) button:hover span {
+        :host( [disabled]:not( [inline] ) ) button:hover p {
           text-decoration: none;
         }
       </style>
       <button part="button" type="button">
-        <span part="label"></span>
+        <p>
+          <span part="label"></span>
+          <slot></slot>
+        </p>
+        <slot name="icon"></slot>
       </button>
     `;
+
+    // Private
+    this._data = null;
 
     // Root
     this.attachShadow( {mode: 'open'} );
@@ -138,6 +141,7 @@ export default class GRLink extends HTMLElement {
     // Check data property before render
     // May be assigned before module is loaded    
     this._upgrade( 'concealed' );
+    this._upgrade( 'data' );
     this._upgrade( 'disabled' );    
     this._upgrade( 'hidden' );    
     this._upgrade( 'href' );    
@@ -165,6 +169,17 @@ export default class GRLink extends HTMLElement {
   attributeChangedCallback( name, old, value ) {
     this._render();
   }
+
+  // Properties
+  // Not reflected
+  // Array, Date, Function, Object, null
+  get data() {
+    return this._data;
+  }
+
+  set data( value ) {
+    this._data = value;
+  }      
 
   // Reflect attributes
   // Return typed value (Number, Boolean, String, null)

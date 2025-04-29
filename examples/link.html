@@ -21,10 +21,22 @@
 
     <gr-link label="Link"></gr-link>
 
+    <p>This is some text with an <gr-link inline label="inline"></gr-link> link.</p>
+    <p>This is some text with an <gr-link inline>Maecenas nunc mauris, consequat quis mauris sit amet</gr-link> link.</p>
+
+    <gr-link disabled label="Link"></gr-link><br>
+
+    <gr-link disabled inline label="Link"></gr-link><br>
+
+    <gr-link label="Link">
+      <gr-icon name="arrow_forward" slot="icon" weight="200"></gr-icon>
+    </gr-link>
+
     <pre>
 &lt;gr-link label=&quot;Link&quot;&gt;&lt;/gr-link&gt;
     </pre>
 
+    <script src="../components/icon.js" type="module"></script>
     <script src="../components/link.js" type="module"></script>
 
   </body>

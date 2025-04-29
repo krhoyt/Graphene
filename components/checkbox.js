@@ -33,7 +33,7 @@ export default class GRCheckbox extends HTMLElement {
           font-size: var( --checkbox-label-font-size, 14px );
           font-weight: var( --checkbox-label-font-weight, 400 );          
           gap: var( --checkbox-gap, 8px );
-          line-height: var( --checkbox-label-line-height, 18px );
+          line-height: var( --checkbox-label-line-height, 20px );
           margin: 0;
           outline: none;
           padding: 0;
@@ -45,7 +45,7 @@ export default class GRCheckbox extends HTMLElement {
           display: flex;
           flex-direction: row;
           gap: 8px;
-          padding: 2px 0 0 3px;
+          padding: 4px 0 0 2px;
         }
 
         i {
@@ -55,26 +55,27 @@ export default class GRCheckbox extends HTMLElement {
           direction: ltr;
           display: inline-block;
           font-family: 'Material Symbols Outlined';
-          font-size: var( --checkbox-size, 22px );
+          font-size: var( --checkbox-size, 20px );
           font-style: normal;
           font-variation-settings:
             'FILL' 0,
+            'opsz' 20,
             'wght' 200;          
           font-weight: normal;
-          height: var( --checkbox-size, 22px );
+          height: var( --checkbox-size, 20px );
           letter-spacing: normal;
-          line-height: var( --checkbox-size, 22px );
+          line-height: var( --checkbox-size, 20px );
           margin: 0;
-          max-height: var( --checkbox-size, 22px );         
-          max-width: var( --checkbox-size, 22px );                    
-          min-height: var( --checkbox-size, 22px );                               
-          min-width: var( --checkbox-size, 22px );
+          max-height: var( --checkbox-size, 20px );         
+          max-width: var( --checkbox-size, 20px );                    
+          min-height: var( --checkbox-size, 20px );                               
+          min-width: var( --checkbox-size, 20px );
           padding: 0;
           text-align: center;
           text-rendering: optimizeLegibility;
           text-transform: none;
           white-space: nowrap;
-          width: var( --checkbox-size, 22px );
+          width: var( --checkbox-size, 20px );
           word-wrap: normal;                    
         }
 
@@ -83,6 +84,7 @@ export default class GRCheckbox extends HTMLElement {
           font-size: 16px;
           font-variation-settings:
             'FILL' 1,
+            'opsz' 16,
             'wght' 400;                    
           height: 16px;
           line-height: 16px;
@@ -119,6 +121,7 @@ export default class GRCheckbox extends HTMLElement {
         :host( [checked] ) i {
           font-variation-settings:
             'FILL' 1,
+            'opsz' 20,
             'wght' 400;
         }
 
@@ -144,7 +147,7 @@ export default class GRCheckbox extends HTMLElement {
 
         :host( [error] ) div,
         :host( [warning] ) div {
-          padding: 2px 0 0 3px;
+          padding: 4px 0 0 2px;
           gap: 10px;
         }
 

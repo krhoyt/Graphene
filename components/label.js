@@ -7,13 +7,7 @@ export default class GRLabel extends HTMLElement {
       <style>
         :host {
           box-sizing: border-box;
-          color: #161616;
-          cursor: default;          
           display: inline-block;
-          font-family: 'IBM Plex Sans', sans-serif;  
-          font-size: 14px;
-          font-weight: 400;                  
-          line-height: 18px;
           position: relative;
         }
 
@@ -27,15 +21,40 @@ export default class GRLabel extends HTMLElement {
 
         p {
           box-sizing: border-box;
+          color: var( --label-color, #161616 );
           cursor: default;
-          line-height: 18px;
+          font-family: 'IBM Plex Sans', sans-serif;  
+          font-size: var( --label-font-size, 14px );
+          font-weight: var( --label-font-weight, 400 );                  
+          line-height: var( --label-line-height, 20px );
           margin: 0;
           padding: 0;
-          text-align: left;
-          text-decoration: none;
+          text-align: var( --label-text-align, left );
+          text-decoration: var( --label-text-decoration, none );
           text-rendering: optimizeLegibility;
           width: 100%;
         }
+
+        :host( [size=xs] ) p {
+          font-size: 12px;
+          line-height: 16px;
+        }
+        :host( [size=md] ) p {
+          font-size: 16px;
+          line-height: 22px;
+        }        
+        :host( [size=lg] ) p {
+          font-size: 18px;
+          line-height: 24px;
+        }                
+        :host( [size=xl] ) p {
+          font-size: 20px;
+          line-height: 28px;
+        }                        
+        :host( [size=xxl] ) p {
+          font-size: 24px;
+          line-height: 30px;
+        }                        
 
         :host( [truncate] ) p {
           min-width: 0;
@@ -45,15 +64,17 @@ export default class GRLabel extends HTMLElement {
         }
 
         :host( [disabled] ) p {
-          color: #c6c6c6;
+          color: var( --label-disabled-color, #16161640 );
         }          
         
-        :host( :not( [text] ) ) p {
+        :host( :not( [text] ) ) span {
           display: none;
         }
       </style>
-      <p part="label"></p>
-      <slot></slot>
+      <p part="label">
+        <span></span>
+        <slot></slot>
+      </p>
     `;
 
     // Private
@@ -64,7 +85,7 @@ export default class GRLabel extends HTMLElement {
     this.shadowRoot.appendChild( template.content.cloneNode( true ) );
 
     // Elements
-    this.$label = this.shadowRoot.querySelector( 'p' );
+    this.$label = this.shadowRoot.querySelector( 'span' );
   }
 
   // When attributes change
@@ -88,6 +109,7 @@ export default class GRLabel extends HTMLElement {
     this._upgrade( 'data' );        
     this._upgrade( 'disabled' );                    
     this._upgrade( 'hidden' );    
+    this._upgrade( 'size' );    
     this._upgrade( 'text' );    
     this._upgrade( 'truncate' );    
     this._render();
@@ -99,6 +121,7 @@ export default class GRLabel extends HTMLElement {
       'concealed',
       'disabled',
       'hidden',
+      'size',
       'text',
       'truncate'
     ];
@@ -183,7 +206,23 @@ export default class GRLabel extends HTMLElement {
       this.removeAttribute( 'hidden' );
     }
   }   
-  
+
+  get size() {
+    if( this.hasAttribute( 'size' ) ) {
+      return this.getAttribute( 'size' );
+    }
+
+    return null;
+  }
+
+  set size( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'size', value );
+    } else {
+      this.removeAttribute( 'size' );
+    }
+  }
+
   get text() {
     if( this.hasAttribute( 'text' ) ) {
       return this.getAttribute( 'text' );

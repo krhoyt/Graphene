@@ -34,6 +34,12 @@
   src: url( './fonts/Symbols/material-symbols-outlined.woff2' ) format( 'woff2' );
 }
 
+gr-link gr-icon {
+  --icon-color: #0f62fe;
+  --icon-cursor: pointer;
+}
+
+/*
 gr-avatar gr-icon::part( font ) {
   cursor: pointer;
   font-variation-settings: 
@@ -133,3 +139,4 @@ gr-tag[type=cool-gray] gr-icon::part( font ) { color: #343a3f; }
 gr-tag[type=warm-gray] gr-icon::part( font ) { color: #3c3838; }
 gr-tag[type=high-contrast] gr-icon::part( font ) { color: #ffffff; }
 gr-tag[disabled] gr-icon::part( font ) { color: #c6c6c6; }
+*/
