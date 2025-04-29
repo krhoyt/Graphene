@@ -34,9 +34,18 @@
   src: url( './fonts/Symbols/material-symbols-outlined.woff2' ) format( 'woff2' );
 }
 
-gr-link gr-icon {
-  --icon-color: #0f62fe;
-  --icon-cursor: pointer;
+gr-header gr-label::part( label ) {
+  color: #f4f4f4;
+}
+
+gr-header gr-label:not( [slot] )::part( label ) {
+  font-weight: 700;
+  margin: 0 0 0 6px;
+}
+
+gr-link gr-icon::part( font ) {
+  color: #0f62fe;
+  cursor: pointer;
 }
 
 /*
@@ -94,15 +103,6 @@ gr-form-field gr-relative-time::part( label ) {
 gr-form-field gr-label::part( label ),
 gr-form-field gr-relative-time::part( label ) {
   color: #6f6f6f;
-}
-
-gr-header gr-label::part( label ) {
-  color: #ffffff;
-}
-
-gr-header gr-label[slot=brand]::part( label ) {
-  font-weight: 700;
-  margin: 0 6px 0 0;
 }
 
 gr-list gr-label::part( label ) {

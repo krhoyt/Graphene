@@ -18,6 +18,14 @@ export default class GRHeader extends HTMLElement {
           position: relative;          
         }
 
+        :host( [concealed] ) {
+          visibility: hidden;
+        }
+
+        :host( [hidden] ) {
+          display: none;
+        }
+
         div {
           align-items: center;
           display: flex;
@@ -58,6 +66,9 @@ export default class GRHeader extends HTMLElement {
       </div>      
     `;
 
+    // Private
+    this._data = null;
+
     // Root
     this.attachShadow( {mode: 'open'} );
     this.shadowRoot.appendChild( template.content.cloneNode( true ) );
@@ -79,6 +90,7 @@ export default class GRHeader extends HTMLElement {
   // Setup
   connectedCallback() {
     this._upgrade( 'concealed' );        
+    this._upgrade( 'data' );            
     this._upgrade( 'hidden' );    
     this._render();
   }
@@ -96,6 +108,17 @@ export default class GRHeader extends HTMLElement {
   attributeChangedCallback( name, old, value ) {
     this._render();
   }
+
+  // Properties
+  // Not reflected
+  // Array, Date, Function, Object, null
+  get data() {
+    return this._data;
+  }
+
+  set data( value ) {
+    this._data = value;
+  }  
 
   // Attributes
   // Reflected
