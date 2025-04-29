@@ -11,35 +11,22 @@
     <link href="../graphene.css" rel="stylesheet">    
 
     <style>
-      /* gr-form-field { margin: 0 0 16px 0; } */
-      gr-link::part( label ) {font-size: 12px;}
+      /* gr-form-field { margin: 0 0 16px 0; }
+      gr-link::part( label ) {font-size: 12px;} */
     </style>
 
   </head>
   <body>
 
     <div style="display: flex; flex-direction: row; gap: 16px;">
-      <gr-form-field
-        error="Error"
-        helper="Helper"
-        label="Label">
-        <gr-link
-          label="Link"
-          slot="top">
-        </gr-link>
-        <gr-input
-          placeholder="Input"
-          style="min-width: 150px;">
-        </gr-input>
+
+      <gr-form-field constraints="Constraints" error="Error" helper="Helper" label="Label">
+        <gr-link label="Link" slot="top"></gr-link>
+        <gr-input placeholder="Input" style="min-width: 150px;"></gr-input>
       </gr-form-field>
-      <gr-form-field
-        error="Error"
-        helper="Helper"
-        label="Label">
-        <gr-link
-          label="Link"
-          slot="top">
-        </gr-link>
+
+      <gr-form-field error="Error" helper="Helper" label="Label">
+        <gr-link label="Link" slot="top"></gr-link>
         <gr-select style="min-width: 150px;">
           <gr-select-option disabled label="Select" selected></gr-select-option>      
           <gr-select-option label="Kevin" value="Kevin"></gr-select-option>
@@ -47,87 +34,46 @@
           <gr-select-option label="Paige" value="Paige"></gr-select-option>
         </gr-select>
       </gr-form-field>     
-      <gr-form-field
-        error="Error"
-        helper="Helper"
-        label="Label">
-        <gr-link
-          label="Link"
-          slot="top">
-        </gr-link>
-        <gr-date-picker 
-          placeholder="Date picker">
-        </gr-date-picker>
+
+      <gr-form-field error="Error" helper="Helper" label="Label">
+        <gr-link label="Link" slot="top"></gr-link>
+        <gr-date-picker placeholder="Date picker"></gr-date-picker>
       </gr-form-field> 
-      <gr-form-field
-        error="Error"
-        helper="Helper"
-        label="Label">
-        <gr-link
-          label="Link"
-          slot="top">
-        </gr-link>
-        <gr-dropdown 
-          placeholder="Dropdown"
-          style="min-width: 150px;">
-        </gr-dropdown>
+
+      <gr-form-field error="Error" helper="Helper" label="Label">
+        <gr-link label="Link" slot="top"></gr-link>
+        <gr-dropdown placeholder="Dropdown" style="min-width: 150px;"></gr-dropdown>
       </gr-form-field>             
+
     </div>
     <div style="display: flex; flex-direction: row; gap: 16px;">
-      <gr-form-field
-        error="Error"
-        helper="Helper"
-        label="Label">
-        <gr-link
-          label="Link"
-          slot="top">
-        </gr-link>
-        <gr-input
-          placeholder="Input"
-          style="min-width: 150px;">
+
+      <gr-form-field error="Error" helper="Helper" label="Label">
+        <gr-link label="Link" slot="top"></gr-link>
+        <gr-input placeholder="Input" style="min-width: 150px;">
         </gr-input>
       </gr-form-field>      
-      <gr-form-field
-        error="Error"
-        helper="Helper"
-        label="Label">
-        <gr-link
-          label="Link"
-          slot="top">
-        </gr-link>
-        <gr-textarea
-          placeholder="Textarea">
-        </gr-textarea>
+
+      <gr-form-field error="Error" helper="Helper" label="Label">
+        <gr-link label="Link" slot="top"></gr-link>
+        <gr-textarea placeholder="Textarea"></gr-textarea>
       </gr-form-field>             
-      <gr-form-field
-        error="Error"
-        helper="Helper"
-        label="Label">
-        <gr-link
-          label="Link"
-          slot="top">
-        </gr-link>
-        <gr-checkbox
-          inline
-          label="Checkbox">
-        </gr-checkbox>
+
+      <gr-form-field error="Error" helper="Helper" label="Label">
+        <gr-link label="Link" slot="top"></gr-link>
+        <gr-checkbox inline label="Checkbox"></gr-checkbox>
       </gr-form-field>        
-      <gr-form-field
-        error="Error"
-        helper="Helper"
-        label="Label">
-        <gr-link
-          label="Link"
-          slot="top">
-        </gr-link>
-        <gr-radio-group 
-          style="min-width: 150px;" 
-          toggle>
+
+      <!--
+      <gr-form-field error="Error" helper="Helper" label="Label">
+        <gr-link label="Link" slot="top"></gr-link>
+        <gr-radio-group style="min-width: 150px;" toggle>
           <gr-radio-button label="Red" value="red"></gr-radio-button>
           <gr-radio-button label="Blue" value="blue"></gr-radio-button>        
           <gr-radio-button disabled label="Green" value="green"></gr-radio-button>
         </gr-radio-group>
       </gr-form-field>        
+      -->
     </div> 
 
     <pre>
@@ -144,7 +90,7 @@
     <script src="../components/date-picker.js" type="module"></script>    
     <script src="../components/textarea.js" type="module"></script>    
     <script src="../components/checkbox.js" type="module"></script>    
-    <script src="../components/radio-group.js" type="module"></script> 
+    <!-- <script src="../components/radio-group.js" type="module"></script> -->
     <script src="../components/dropdown.js" type="module"></script>  
     
     <script>

@@ -26,6 +26,7 @@ export default class GRRelativeTime extends HTMLElement {
           font-family: 'IBM Plex Sans', sans-serif;
           font-size: 14px;
           font-weight: 400;
+          line-height: 20px;
           margin: 0;
           padding: 0;
           text-align: left;
@@ -39,6 +40,7 @@ export default class GRRelativeTime extends HTMLElement {
 
     // Private
     this._data = null;
+    this._interval = null;
 
     // Thanks to Shoelace
     // https://github.com/shoelace-style/shoelace/blob/next/src/components/relative-time/relative-time.component.ts
@@ -64,18 +66,25 @@ export default class GRRelativeTime extends HTMLElement {
     const format = this.format === null ? 'long' : this.format;
     const now = new Date();    
     const numeric = this.numeric === null ? 'auto' : this.numeric;
-    const relative = new Intl.RelativeTimeFormat( navigator.language, {style: format, numeric: numeric} );
-    const then = this.value === null ? new Date() : this.valueAsDate;
+    const relative = new Intl.RelativeTimeFormat( this.lang === null ? navigator.language : this.lang, {style: format, numeric: numeric} );
+    const then = this.date === null ? new Date() : this.dateAsObject;
     const diff = then.getTime() - now.getTime();
     
     const range = this._units.find( ( item ) => Math.abs( diff ) < item.max );
     this.$label.innerText = relative.format( Math.round( diff / range.value ), range.unit );
 
-    /*
-    while( this.sync ) {
-      requestAnimationFrame( this._render );
-    } 
-    */   
+    if( this.sync ) {
+      if( this._interval === null ) {
+        this._interval = setInterval( () => {
+          this._render();
+        }, 1000 );
+      }
+    } else {
+      if( this._interval !== null ) {
+        clearInterval( this._interval );
+        this._interval = null;
+      }
+    }   
   }
 
   // Promote properties
@@ -92,12 +101,13 @@ export default class GRRelativeTime extends HTMLElement {
   connectedCallback() {
     this._upgrade( 'concealed' );        
     this._upgrade( 'data' );        
+    this._upgrade( 'date' );        
+    this._upgrade( 'dateAsObject' );        
     this._upgrade( 'format' );                     
     this._upgrade( 'hidden' );    
+    this._upgrade( 'lang' );    
     this._upgrade( 'numeric' );                         
     this._upgrade( 'sync' );                             
-    this._upgrade( 'value' );    
-    this._upgrade( 'valueAsDate' );        
     this._render();
   }
 
@@ -107,9 +117,9 @@ export default class GRRelativeTime extends HTMLElement {
       'concealed',
       'hidden',
       'format',
+      'lang',
       'numeric',
-      'sync',
-      'value'
+      'sync'
     ];
   }
 
@@ -130,12 +140,12 @@ export default class GRRelativeTime extends HTMLElement {
     this._data = value;
   }  
 
-  get valueAsDate() {
-    return this.value === null ? null : new Date( this.value );
+  get dateAsObject() {
+    return this.date === null ? null : new Date( Date.parse( this.date ) );
   }
-
-  set valueAsDate( date ) {
-    this.value = date === null ? null : date.toISOString();
+  
+  set dateAsObject( value ) {
+    this.date = value === null ? null : value.toString();
   }
 
   // Attributes
@@ -160,6 +170,22 @@ export default class GRRelativeTime extends HTMLElement {
       this.removeAttribute( 'concealed' );
     }
   }  
+
+  get date() {
+    if( this.hasAttribute( 'date' ) ) {
+      return this.getAttribute( 'date' );
+    }
+
+    return null;
+  }
+
+  set date( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'date', value );
+    } else {
+      this.removeAttribute( 'date' );
+    }
+  } 
 
   get hidden() {
     return this.hasAttribute( 'hidden' );
@@ -196,6 +222,22 @@ export default class GRRelativeTime extends HTMLElement {
       this.removeAttribute( 'format' );
     }
   }
+
+  get lang() {
+    if( this.hasAttribute( 'lang' ) ) {
+      return this.getAttribute( 'lang' );
+    }
+
+    return null;
+  }
+
+  set lang( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'lang', value );
+    } else {
+      this.removeAttribute( 'lang' );
+    }
+  }  
   
   get numeric() {
     if( this.hasAttribute( 'numeric' ) ) {
@@ -230,22 +272,6 @@ export default class GRRelativeTime extends HTMLElement {
       }
     } else {
       this.removeAttribute( 'sync' );
-    }
-  }    
-
-  get value() {
-    if( this.hasAttribute( 'value' ) ) {
-      return this.getAttribute( 'value' );
-    }
-
-    return null;
-  }
-
-  set value( value ) {
-    if( value !== null ) {
-      this.setAttribute( 'value', value );
-    } else {
-      this.removeAttribute( 'value' );
     }
   }
 }

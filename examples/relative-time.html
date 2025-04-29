@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Set of standard web components (Vanilla) based on the IBM Carbon Design System.">
+
+    <title>Relative Time - Graphene</title>
+
+    <link href="../graphene.css" rel="stylesheet">    
+
+  </head>
+  <body>
+
+    <gr-relative-time sync></gr-relative-time><br>
+
+    <gr-relative-time date="2020-07-15T09:17:00-04:00" format="narrow"></gr-relative-time><br>
+    <gr-relative-time date="2020-07-15T09:17:00-04:00" format="short"></gr-relative-time><br>
+    <gr-relative-time date="2020-07-15T09:17:00-04:00" format="long"></gr-relative-time><br>   
+
+    English: <gr-relative-time date="2020-07-15T09:17:00-04:00" lang="en-US"></gr-relative-time><br />
+    Chinese: <gr-relative-time date="2020-07-15T09:17:00-04:00" lang="zh-CN"></gr-relative-time><br />
+    German: <gr-relative-time date="2020-07-15T09:17:00-04:00" lang="de"></gr-relative-time><br />
+    Greek: <gr-relative-time date="2020-07-15T09:17:00-04:00" lang="el"></gr-relative-time><br />
+    Russian: <gr-relative-time date="2020-07-15T09:17:00-04:00" lang="ru"></gr-relative-time>
+        
+    <pre>
+&lt;gr-relative-time sync&gt;&lt;/gr-relative-time&gt;
+
+&lt;gr-relative-time date=&quot;2020-07-15T09:17:00-04:00&quot; format=&quot;narrow&quot;&gt;&lt;/gr-relative-time&gt;
+&lt;gr-relative-time date=&quot;2020-07-15T09:17:00-04:00&quot; format=&quot;short&quot;&gt;&lt;/gr-relative-time&gt;
+&lt;gr-relative-time date=&quot;2020-07-15T09:17:00-04:00&quot; format=&quot;long&quot;&gt;&lt;/gr-relative-time&gt;
+
+English: &lt;gr-relative-time date=&quot;2020-07-15T09:17:00-04:00&quot; lang=&quot;en-US&quot;&gt;&lt;/gr-relative-time&gt;
+Chinese: &lt;gr-relative-time date=&quot;2020-07-15T09:17:00-04:00&quot; lang=&quot;zh-CN&quot;&gt;&lt;/gr-relative-time&gt;
+German: &lt;gr-relative-time date=&quot;2020-07-15T09:17:00-04:00&quot; lang=&quot;de&quot;&gt;&lt;/gr-relative-time&gt;
+Greek: &lt;gr-relative-time date=&quot;2020-07-15T09:17:00-04:00&quot; lang=&quot;el&quot;&gt;&lt;/gr-relative-time&gt;
+Russian: &lt;gr-relative-time date=&quot;2020-07-15T09:17:00-04:00&quot; lang=&quot;ru&quot;&gt;&lt;/gr-relative-time&gt;
+    </pre>
+
+    <script src="../components/relative-time.js" type="module"></script>
+
+    <script>
+      const sync = document.querySelector( 'gr-relative-time[sync]' );
+      sync.date = new Date( new Date().getTime() - 60000 );
+    </script>
+
+  </body>
+</html>

@@ -53,7 +53,11 @@ That is it! Nope, there is no builder required. Nope, you do not `npm install` a
 - ✅ Button
 - ✅ Calendar
 - ✅ Checkbox
+- ✅ Content Switcher
 - ✅ Date Picker
+- ✅ Form Field
+- ✅ Form Group
+- ✅ Form Label
 - ✅ Format Date
 - ✅ Format Number
 - ✅ HBox
@@ -63,8 +67,10 @@ That is it! Nope, there is no builder required. Nope, you do not `npm install` a
 - ✅ Input
 - ✅ Label
 - ✈️ Radar Chart
+- ✅ Relative time
 - ✅ Spacer
 - ✅ Stack
+- ✅ Switch
 - ✅ Tab
 - ✅ TabGroup
 - ✅ TabPanel

@@ -34,6 +34,24 @@
   src: url( './fonts/Symbols/material-symbols-outlined.woff2' ) format( 'woff2' );
 }
 
+gr-content-switcher gr-switch {
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+gr-content-switcher gr-switch {
+  border-right: solid 1px #e8e8e8;
+}
+
+gr-content-switcher gr-switch:last-of-type {
+  border-right: solid 1px transparent;
+}
+
+gr-form-field gr-link::part( label ) {
+  font-size: 12px;
+  line-height: 16px;
+}
+
 gr-header gr-label::part( label ) {
   color: #f4f4f4;
 }

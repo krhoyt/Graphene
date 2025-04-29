@@ -31,26 +31,65 @@ export default class GRFormField extends HTMLElement {
           margin: 0 0 4px 0;
         }
 
+        div[part=header] div {
+          flex-basis: 0;
+          flex-direction: column;
+          flex-grow: 1;
+        }
+
         div[part=footer] {
           margin: 4px 0 4px 0;
           min-height: 16px;
         }
 
-        div div {
-          box-sizing: border-box;
+        div[part=footer] div {
+          align-items: center;
           flex-basis: 0;
-          flex-direction: column;
           flex-grow: 1;
+          gap: 4px;
+        }        
+
+        i {
+          box-sizing: border-box;
+          color: var( --field-icon-color, #da1e28 );
+          cursor: var( --field-icon-cursor, default );
+          direction: ltr;
+          display: inline-block;
+          font-family: 'Material Symbols Outlined';
+          font-size: var( --field-icon-size, 16px );
+          font-style: normal;
+          font-variation-settings:
+            'FILL' 0,
+            'opsz' 16,
+            'wght' 400;          
+          font-weight: normal;
+          height: var( --field-icon-size, 16px );
+          letter-spacing: normal;
+          line-height: var( --field-icon-size, 16px );
           margin: 0;
-        }
+          max-height: var( --field-icon-size, 16px );         
+          max-width: var( --field-icon-size, 16px );                    
+          min-height: var( --field-icon-size, 16px );                               
+          min-width: var( --field-icon-size, 16px );
+          padding: 0;
+          text-align: center;
+          text-rendering: optimizeLegibility;
+          text-transform: none;
+          white-space: nowrap;
+          width: var( --field-icon-size, 16px );
+          word-wrap: normal;                    
+        }        
 
         p {
           box-sizing: border-box;
           color: #161616;
           cursor: default;
           font-family: 'IBM Plex Sans', sans-serif;
+          font-feature-settings: 'liga' 1;
           font-size: 12px;
           font-weight: 400;
+          letter-spacing: 0.32px;
+          line-height: 16px;
           margin: 0;
           padding: 0;
           text-align: left;
@@ -64,31 +103,24 @@ export default class GRFormField extends HTMLElement {
           color: #6f6f6f;          
         }
 
-        p[part=error] {
-          color: #da1e28;
-        }
-
         p[part=label] {
           color: #525252;          
         }
  
-        :host( :not( [constraints] ) ) p[part=constraints],
-        :host( :not( [error] ) ) p[part=error],
+
         :host( :not( [helper] ) ) p[part=helper],
+        :host( :not( [invalid] ) ) div[part=footer] i,
         :host( :not( [label] ) ) p[part=label] {
           display: none;
         }
 
-        :host( [flex] ) {
+        :host( [grow] ) {
           flex-basis: 0;
           flex-grow: 1;
         }
 
-        :host( [invalid] ) p[part=constraints] {
-          display: none;
-        }
-        :host( :not( [invalid] ) ) p[part=error] {
-          display: none;
+        :host( [invalid] ) div[part=footer] div p {
+          color: #da1e28;          
         }        
 
         :host( [disabled] ) p[part=constraints],
@@ -107,12 +139,15 @@ export default class GRFormField extends HTMLElement {
       <slot></slot>
       <div part="footer">
         <div>      
+          <i>error</i>
           <p part="constraints"></p>
-          <p part="error"></p>
         </div>
         <slot name="bottom"></slot>        
       </div>      
     `;
+
+    // Private
+    this._data = null;
 
     // Root
     this.attachShadow( {mode: 'open'} );
@@ -120,17 +155,15 @@ export default class GRFormField extends HTMLElement {
 
     // Elements
     this.$constraints = this.shadowRoot.querySelector( 'p[part=constraints]' );    
-    this.$error = this.shadowRoot.querySelector( 'p[part=error]' );    
     this.$helper = this.shadowRoot.querySelector( 'p[part=helper]' );        
     this.$label = this.shadowRoot.querySelector( 'p[part=label]' );
   }
 
   // When things change
   _render() {
-    this.$constraints.textContent = this.constraints === null ? '' : this.constraints;            
-    this.$error.textContent = this.error === null ? '' : this.error;        
-    this.$helper.textContent = this.helper === null ? '' : this.helper; 
     this.$label.textContent = this.label === null ? '' : this.label;
+    this.$helper.textContent = this.helper === null ? '' : this.helper;     
+    this.$constraints.textContent = this.invalid ? this.error : this.constraints;
   }
 
   // Promote properties
@@ -150,10 +183,10 @@ export default class GRFormField extends HTMLElement {
     this._upgrade( 'data' );    
     this._upgrade( 'disabled' );
     this._upgrade( 'error' );
-    this._upgrade( 'flex' );    
+    this._upgrade( 'grow' );    
     this._upgrade( 'helper' );
     this._upgrade( 'hidden' );
-    this._upgrade( 'invalid' );
+    this._upgrade( 'invalid' );    
     this._upgrade( 'label' );
     this._render();
   }
@@ -165,7 +198,7 @@ export default class GRFormField extends HTMLElement {
       'constraints',
       'disabled',
       'error',
-      'flex',
+      'grow',
       'helper',
       'hidden',
       'invalid',
@@ -263,23 +296,23 @@ export default class GRFormField extends HTMLElement {
     }
   }
 
-  get flex() {
-    return this.hasAttribute( 'flex' );
+  get grow() {
+    return this.hasAttribute( 'grow' );
   }
 
-  set flex( value ) {
+  set grow( value ) {
     if( value !== null ) {
       if( typeof value === 'boolean' ) {
         value = value.toString();
       }
 
       if( value === 'false' ) {
-        this.removeAttribute( 'flex' );
+        this.removeAttribute( 'grow' );
       } else {
-        this.setAttribute( 'flex', '' );
+        this.setAttribute( 'grow', '' );
       }
     } else {
-      this.removeAttribute( 'flex' );
+      this.removeAttribute( 'grow' );
     }
   }
 
@@ -337,7 +370,7 @@ export default class GRFormField extends HTMLElement {
     } else {
       this.removeAttribute( 'invalid' );
     }
-  }
+  }  
 
   get label() {
     if( this.hasAttribute( 'label' ) ) {

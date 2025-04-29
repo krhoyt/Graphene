@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Set of standard web components (Vanilla) based on the IBM Carbon Design System.">
+
+    <title>Content Switcher - Graphene</title>
+
+    <link href="../graphene.css" rel="stylesheet">    
+
+    <style>
+      gr-content-switcher { margin: 0 0 16px 0; }
+    </style>
+
+  </head>
+  <body>
+
+    <gr-content-switcher size="lg">
+      <gr-switch text="One"></gr-switch>
+      <gr-switch disabled>Two</gr-switch>
+      <gr-switch text="Three"></gr-switch>            
+    </gr-content-switcher>
+
+    <pre>
+&lt;gr-box&gt;
+  &lt;gr-label text=&quot;One&quot;&gt;&lt;/gr-label&gt;
+  &lt;gr-label text=&quot;Two&quot;&gt;&lt;/gr-label&gt;
+  &lt;gr-label text=&quot;Three&quot;&gt;&lt;/gr-label&gt;      
+&lt;/gr-box&gt;
+
+&lt;gr-box direction=&quot;row&quot;&gt;
+  &lt;gr-label text=&quot;One&quot;&gt;&lt;/gr-label&gt;
+  &lt;gr-label text=&quot;Two&quot;&gt;&lt;/gr-label&gt;
+  &lt;gr-label text=&quot;Three&quot;&gt;&lt;/gr-label&gt;      
+&lt;/gr-box&gt;
+    </pre>
+
+    <script src="../components/switch.js" type="module"></script>
+    <script src="../components/content-switcher.js" type="module"></script>
+
+    <script>
+      const switcher = document.querySelector( 'gr-content-switcher' );
+      switcher.addEventListener( 'gr-change', ( evt ) => {
+        console.log( evt.detail );
+      } );
+    </script>
+
+  </body>
+</html>

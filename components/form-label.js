@@ -1,8 +1,8 @@
-export default class GRLabel extends HTMLElement {
+export default class GRFormLabel extends HTMLElement {
   constructor() {
     super();
 
-    const template = document.createElement( 'template' );
+    const template = document.createElement( 'template' )
     template.innerHTML = /* template */ `
       <style>
         :host {
@@ -21,66 +21,28 @@ export default class GRLabel extends HTMLElement {
 
         p {
           box-sizing: border-box;
-          color: var( --label-color, #161616 );
+          color: #525252;
           cursor: default;
-          font-family: 'IBM Plex Sans', sans-serif;  
-          font-size: var( --label-font-size, 14px );
-          font-weight: var( --label-font-weight, 400 );                  
-          line-height: var( --label-line-height, 20px );
+          font-family: 'IBM Plex Sans', sans-serif;
+          font-feature-settings: 'liga' 1;
+          font-size: 12px;
+          font-weight: 400;
+          letter-spacing: 0.32px;
+          line-height: 16px;
           margin: 0;
           padding: 0;
-          text-align: var( --label-text-align, left );
-          text-decoration: var( --label-text-decoration, none );
+          text-align: left;
+          text-decoration: none;
           text-rendering: optimizeLegibility;
           width: 100%;
         }
 
-        :host( [size=xs] ) p {
-          font-size: 12px;
-          line-height: 16px;
-        }
-        :host( [size=md] ) p {
-          font-size: 16px;
-          line-height: 22px;
-        }        
-        :host( [size=lg] ) p {
-          font-size: 18px;
-          line-height: 24px;
-        }                
-        :host( [size=xl] ) p {
-          font-size: 20px;
-          line-height: 28px;
-        }                        
-        :host( [size=xxl] ) p {
-          font-size: 24px;
-          line-height: 30px;
-        }                        
-        :host( [size=h3] ) p {
-          font-size: 28px;
-          line-height: 40px;
-        }                                                        
-        :host( [size=h2] ) p {
-          font-size: 32px;
-          line-height: 48px;
-        }                                                
-        :host( [size=h1] ) p {
-          font-size: 42px;
-          line-height: 64px;
-        }                                
-
-        :host( [truncate] ) p {
-          min-width: 0;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-
-        :host( [disabled] ) p {
-          color: var( --label-disabled-color, #16161640 );
-        }          
-        
         :host( :not( [text] ) ) span {
           display: none;
+        }
+        
+        :host( [disabled] ) p {
+          color: #16161640;
         }
       </style>
       <p part="label">
@@ -100,7 +62,7 @@ export default class GRLabel extends HTMLElement {
     this.$label = this.shadowRoot.querySelector( 'span' );
   }
 
-  // When attributes change
+  // When things change
   _render() {
     this.$label.textContent = this.text === null ? '' : this.text;
   }
@@ -117,13 +79,11 @@ export default class GRLabel extends HTMLElement {
 
   // Setup
   connectedCallback() {
-    this._upgrade( 'concealed' );        
-    this._upgrade( 'data' );        
-    this._upgrade( 'disabled' );                    
-    this._upgrade( 'hidden' );    
-    this._upgrade( 'size' );    
-    this._upgrade( 'text' );    
-    this._upgrade( 'truncate' );    
+    this._upgrade( 'concealed' );
+    this._upgrade( 'data' );    
+    this._upgrade( 'disabled' );
+    this._upgrade( 'hidden' );
+    this._upgrade( 'text' );
     this._render();
   }
 
@@ -133,32 +93,28 @@ export default class GRLabel extends HTMLElement {
       'concealed',
       'disabled',
       'hidden',
-      'size',
-      'text',
-      'truncate'
+      'text'
     ];
   }
 
-  // Observed attribute has changed
+  // Observed tag attribute has changed
   // Update render
   attributeChangedCallback( name, old, value ) {
     this._render();
-  } 
+  }
 
-  // Properties
+  // Properties (Array, Date, Object)
   // Not reflected
-  // Array, Date, Function, Object, null
   get data() {
     return this._data;
   }
 
   set data( value ) {
     this._data = value;
-  }  
+  }
 
-  // Attributes
-  // Reflected
-  // Boolean, Number, String, null
+  // Reflect attributes
+  // Return typed value (Number, Boolean, String, null)
   get concealed() {
     return this.hasAttribute( 'concealed' );
   }
@@ -177,7 +133,7 @@ export default class GRLabel extends HTMLElement {
     } else {
       this.removeAttribute( 'concealed' );
     }
-  }  
+  }
 
   get disabled() {
     return this.hasAttribute( 'disabled' );
@@ -197,7 +153,7 @@ export default class GRLabel extends HTMLElement {
     } else {
       this.removeAttribute( 'disabled' );
     }
-  }  
+  }
 
   get hidden() {
     return this.hasAttribute( 'hidden' );
@@ -217,22 +173,6 @@ export default class GRLabel extends HTMLElement {
     } else {
       this.removeAttribute( 'hidden' );
     }
-  }   
-
-  get size() {
-    if( this.hasAttribute( 'size' ) ) {
-      return this.getAttribute( 'size' );
-    }
-
-    return null;
-  }
-
-  set size( value ) {
-    if( value !== null ) {
-      this.setAttribute( 'size', value );
-    } else {
-      this.removeAttribute( 'size' );
-    }
   }
 
   get text() {
@@ -249,27 +189,7 @@ export default class GRLabel extends HTMLElement {
     } else {
       this.removeAttribute( 'text' );
     }
-  } 
-
-  get truncate() {
-    return this.hasAttribute( 'truncate' );
   }
-
-  set truncate( value ) {
-    if( value !== null ) {
-      if( typeof value === 'boolean' ) {
-        value = value.toString();
-      }
-
-      if( value === 'false' ) {
-        this.removeAttribute( 'truncate' );
-      } else {
-        this.setAttribute( 'truncate', '' );
-      }
-    } else {
-      this.removeAttribute( 'truncate' );
-    }
-  }  
 }
 
-window.customElements.define( 'gr-label', GRLabel );
+window.customElements.define( 'gr-form-label', GRFormLabel );
