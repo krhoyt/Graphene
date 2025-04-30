@@ -50,6 +50,8 @@ That is it! Nope, there is no builder required. Nope, you do not `npm install` a
 
 - ✅ Avatar
 - ✅ Box
+- ✅ Breadcrumb
+- ✅ Breadcrumb Item
 - ✅ Button
 - ✅ Calendar
 - ✅ Checkbox

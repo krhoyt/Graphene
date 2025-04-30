@@ -34,6 +34,35 @@
   src: url( './fonts/Symbols/material-symbols-outlined.woff2' ) format( 'woff2' );
 }
 
+/* Breadcrumb */
+
+gr-breadcrumb-item::after {
+  display: inline-block;
+  color: #161616;
+  content: '/';
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0 8px 0 4px;
+  padding: 0;
+}
+
+gr-breadcrumb[size=sm] gr-breadcrumb-item::part( anchor ), 
+gr-breadcrumb[size=sm] gr-breadcrumb-item::part( label ), 
+gr-breadcrumb[size=sm] gr-breadcrumb-item::after {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+gr-breadcrumb[size=sm] gr-breadcrumb-item::after {
+  margin: 0 4px 0 0;
+}
+
+gr-breadcrumb[no-trailing-slash] gr-breadcrumb-item:last-of-type::after {
+  content: '';
+}
+
 /* Content Switcher */
 
 gr-content-switcher gr-icon-switch,

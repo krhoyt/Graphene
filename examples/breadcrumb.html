@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Set of standard web components (Vanilla) based on the IBM Carbon Design System.">
+
+    <title>Breadcrumb - Graphene</title>
+
+    <link href="../graphene.css" rel="stylesheet">    
+
+    <style>
+      gr-breadcrumb { margin: 0 0 16px 0; }
+    </style>
+
+  </head>
+  <body>
+
+    <gr-breadcrumb no-trailing-slash>
+      <gr-breadcrumb-item href="#">Breadcrumb 1</gr-breadcrumb-item>
+      <gr-breadcrumb-item href="#">Breadcrumb 2</gr-breadcrumb-item>
+      <gr-breadcrumb-item href="#">Breadcrumb 3</gr-breadcrumb-item>
+      <gr-breadcrumb-item href="#" is-current-page>Breadcrumb 4</gr-breadcrumb-item>      
+    </gr-breadcrumb><br>
+
+    <gr-breadcrumb size="sm">
+      <gr-breadcrumb-item href="#">Breadcrumb 1</gr-breadcrumb-item>
+      <gr-breadcrumb-item href="#">Breadcrumb 2</gr-breadcrumb-item>
+      <gr-breadcrumb-item href="#">Breadcrumb 3</gr-breadcrumb-item>
+      <gr-breadcrumb-item href="#">Breadcrumb 4</gr-breadcrumb-item>      
+    </gr-breadcrumb>    
+
+    <pre>
+&lt;gr-breadcrumb no-trailing-slash&gt;
+  &lt;gr-breadcrumb-item href=&quot;#&quot;&gt;Breadcrumb 1&lt;/gr-breadcrumb-item&gt;
+  &lt;gr-breadcrumb-item href=&quot;#&quot;&gt;Breadcrumb 2&lt;/gr-breadcrumb-item&gt;
+  &lt;gr-breadcrumb-item href=&quot;#&quot;&gt;Breadcrumb 3&lt;/gr-breadcrumb-item&gt;
+  &lt;gr-breadcrumb-item href=&quot;#&quot; is-current-page&gt;Breadcrumb 4&lt;/gr-breadcrumb-item&gt;      
+&lt;/gr-breadcrumb&gt;
+
+&lt;gr-breadcrumb size=&quot;sm&quot;&gt;
+  &lt;gr-breadcrumb-item href=&quot;#&quot;&gt;Breadcrumb 1&lt;/gr-breadcrumb-item&gt;
+  &lt;gr-breadcrumb-item href=&quot;#&quot;&gt;Breadcrumb 2&lt;/gr-breadcrumb-item&gt;
+  &lt;gr-breadcrumb-item href=&quot;#&quot;&gt;Breadcrumb 3&lt;/gr-breadcrumb-item&gt;
+  &lt;gr-breadcrumb-item href=&quot;#&quot;&gt;Breadcrumb 4&lt;/gr-breadcrumb-item&gt;      
+&lt;/gr-breadcrumb&gt;
+    </pre>
+
+    <script src="../components/breadcrumb.js" type="module"></script>
+
+  </body>
+</html>
