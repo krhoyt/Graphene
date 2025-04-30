@@ -64,6 +64,7 @@ That is it! Nope, there is no builder required. Nope, you do not `npm install` a
 - ✅ Header
 - ✅ Icon
 - ✅ Icon Button
+- ✅ Icon Switch
 - ✅ Input
 - ✅ Label
 - ✈️ Radar Chart

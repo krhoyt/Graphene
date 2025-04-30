@@ -1,3 +1,6 @@
+import GRIconSwitch from "./icon-switch.js";
+import GRSwitch from "./switch.js";
+
 export default class GRContentSwitcher extends HTMLElement {
   constructor() {
     super();
@@ -27,12 +30,16 @@ export default class GRContentSwitcher extends HTMLElement {
           display: flex;
           flex-direction: row;
           height: 40px;
+          overflow: hidden;
+        }
+
+        :host( [light] ) div {
+          border-color: #f4f4f4;
         }
 
         :host( [size=sm] ) div {
           height: 32px;
         }
-
         :host( [size=lg] ) div {
           height: 48px;
         }
@@ -84,7 +91,9 @@ export default class GRContentSwitcher extends HTMLElement {
   _render() {
     const index = this.selectedIndex === null ? 0 : this.selectedIndex;
     for( let c = 0; c < this.children.length; c++ ) {
+      this.children[c].light = this.light;
       this.children[c].selected = c === index ? true : false;
+      this.children[c].size = this.size;
     }
   }
 

@@ -1,11 +1,11 @@
-export default class GRSwitch extends HTMLElement {
+export default class GRIconSwitch extends HTMLElement {
   constructor() {
     super();
 
     const template = document.createElement( 'template' );
     template.innerHTML = /* template */ `
       <style>
-        :host {
+        :host {          
           box-sizing: border-box;
           display: inline-block;
           height: 100%;
@@ -21,67 +21,50 @@ export default class GRSwitch extends HTMLElement {
         }
 
         button {
+          align-items: center;
           appearance: none;
           background: none;
           border: none;
           box-sizing: border-box;
-          color: #161616;
           cursor: pointer;
-          font-family: 'IBM Plex Sans', sans-serif;
-          font-size: 14px;
-          font-weight: 400;
+          display: flex;
           height: 100%;
-          line-height: 20px;
+          justify-content: center;
           margin: 0;
-          padding: 0 16px 0 16px;
-          text-align: left;
-          text-rendering: optimizeLegibility;
-          width: 100%;
-        }
-
-        :host( [selected] ) {
-          background: #161616;
+          max-width: 40px;
+          min-width: 40px;
+          padding: 0;
+          width: 40px;
         }
 
         :host( [selected] ) button {
-          color: #f4f4f4;
-        }
-
-        :host( :not( [text] ) ) span {
-          display: none;
-        }
-
-        :host( [light] ) button {
-          color: #f4f4f4;
-        }
-        :host( [light][selected] ) {
-          background: #f4f4f4;          
+          background: #161616;
         }
         :host( [light][selected] ) button {
-          color: #161616;
+          background: #f4f4f4;          
         }
-        :host( [light][disabled] ) button {
-          color: #525252;
-        }                        
+
+        :host( [size=sm] ) button {
+          max-width: 32px;
+          min-width: 32px;
+          width: 32px;
+        }
+        :host( [size=lg] ) button {
+          max-width: 48px;
+          min-width: 48px;
+          width: 48px;
+        }        
 
         :host( [disabled][selected] ) button {
           background: #8d8d8d;
-          color: #16161640;
           cursor: not-allowed;
         }
         :host( [disabled]:not( [selected] ) ) button {
           background: transparent;
-          color: #c8c8c8;
           cursor: not-allowed;
         }        
-        :host( [disabled][light]:not( [selected] ) ) button {
-          background: transparent;
-          color: #525252;
-          cursor: not-allowed;
-        }                
       </style>
       <button part="button" type="button">
-        <span part="text"></span>
         <slot></slot>
       </button>
     `;
@@ -95,13 +78,11 @@ export default class GRSwitch extends HTMLElement {
 
     // Elements
     this.$button = this.shadowRoot.querySelector( 'button' );
-    this.$text = this.shadowRoot.querySelector( 'span' );
   }
 
   // When attributes change
   _render() {
     this.$button.disabled = this.disabled;
-    this.$text.textContent = this.text === null ? '' : this.text;
   }
 
   // Promote properties
@@ -123,8 +104,8 @@ export default class GRSwitch extends HTMLElement {
     this._upgrade( 'light' );       
     this._upgrade( 'name' );       
     this._upgrade( 'selected' );   
-    this._upgrade( 'size' );       
-    this._upgrade( 'text' );   
+    this._upgrade( 'size' );   
+    this._upgrade( 'text' );       
     this._render();
   }
 
@@ -292,7 +273,7 @@ export default class GRSwitch extends HTMLElement {
     } else {
       this.removeAttribute( 'size' );
     }
-  }        
+  }       
 
   get text() {
     if( this.hasAttribute( 'text' ) ) {
@@ -311,4 +292,4 @@ export default class GRSwitch extends HTMLElement {
   }        
 }
 
-window.customElements.define( 'gr-switch', GRSwitch );
+window.customElements.define( 'gr-icon-switch', GRIconSwitch );

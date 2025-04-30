@@ -17,27 +17,45 @@
   </head>
   <body>
 
-    <gr-content-switcher size="sm">
+    <gr-content-switcher>
       <gr-switch text="One"></gr-switch>
-      <gr-switch disabled>Two</gr-switch>
-      <gr-switch text="Three"></gr-switch>            
-    </gr-content-switcher>
+      <gr-switch text="Two"></gr-switch>
+      <gr-switch disabled text="Three"></gr-switch>            
+    </gr-content-switcher><br>
+
+    <gr-content-switcher>
+      <gr-icon-switch text="Table of Contents">
+        <gr-icon name="toc"></gr-icon>
+      </gr-icon-switch>
+      <gr-icon-switch>
+        <gr-icon name="dashboard"></gr-icon>        
+      </gr-icon-switch>
+      <gr-icon-switch disabled>
+        <gr-icon name="overview_key"></gr-icon>                
+      </gr-icon-switch>            
+    </gr-content-switcher>    
 
     <pre>
-&lt;gr-box&gt;
-  &lt;gr-label text=&quot;One&quot;&gt;&lt;/gr-label&gt;
-  &lt;gr-label text=&quot;Two&quot;&gt;&lt;/gr-label&gt;
-  &lt;gr-label text=&quot;Three&quot;&gt;&lt;/gr-label&gt;      
-&lt;/gr-box&gt;
+&lt;gr-content-switcher&gt;
+  &lt;gr-switch text=&quot;One&quot;&gt;&lt;/gr-switch&gt;
+  &lt;gr-switch text=&quot;Two&quot;&gt;&lt;/gr-switch&gt;
+  &lt;gr-switch disabled text=&quot;Three&quot;&gt;&lt;/gr-switch&gt;            
+&lt;/gr-content-switcher&gt;
 
-&lt;gr-box direction=&quot;row&quot;&gt;
-  &lt;gr-label text=&quot;One&quot;&gt;&lt;/gr-label&gt;
-  &lt;gr-label text=&quot;Two&quot;&gt;&lt;/gr-label&gt;
-  &lt;gr-label text=&quot;Three&quot;&gt;&lt;/gr-label&gt;      
-&lt;/gr-box&gt;
+&lt;gr-content-switcher&gt;
+  &lt;gr-icon-switch text=&quot;Table of Contents&quot;&gt;
+    &lt;gr-icon name=&quot;toc&quot;&gt;&lt;/gr-icon&gt;
+  &lt;/gr-icon-switch&gt;
+  &lt;gr-icon-switch&gt;
+    &lt;gr-icon name=&quot;dashboard&quot;&gt;&lt;/gr-icon&gt;        
+  &lt;/gr-icon-switch&gt;
+  &lt;gr-icon-switch disabled&gt;
+    &lt;gr-icon name=&quot;overview_key&quot;&gt;&lt;/gr-icon&gt;                
+  &lt;/gr-icon-switch&gt;            
+&lt;/gr-content-switcher&gt;
     </pre>
 
-    <script src="../components/switch.js" type="module"></script>
+    <script src="../components/icon.js" type="module"></script>
     <script src="../components/content-switcher.js" type="module"></script>
 
     <script>

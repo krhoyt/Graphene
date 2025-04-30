@@ -34,23 +34,63 @@
   src: url( './fonts/Symbols/material-symbols-outlined.woff2' ) format( 'woff2' );
 }
 
-gr-content-switcher gr-switch {
-  flex-basis: 0;
-  flex-grow: 1;
-}
+/* Content Switcher */
 
+gr-content-switcher gr-icon-switch,
 gr-content-switcher gr-switch {
   border-right: solid 1px #e8e8e8;
 }
 
+gr-content-switcher gr-icon-switch:last-of-type,
 gr-content-switcher gr-switch:last-of-type {
-  border-right: solid 1px transparent;
+  border-right: none;
+}
+
+gr-content-switcher gr-icon-switch gr-icon::part( font ) {
+  color: #525252;
+  cursor: pointer;
+}
+
+gr-content-switcher gr-icon-switch[selected] gr-icon::part( font ) {
+  color: #f4f4f4;
+}
+
+gr-content-switcher gr-icon-switch[disabled][selected] gr-icon::part( font ) {
+  color: #16161640;
+}
+
+gr-content-switcher gr-icon-switch[disabled] gr-icon::part( font ) {
+  color: #c8c8c8;
+  cursor: not-allowed;
+}
+
+gr-content-switcher[light] gr-icon-switch gr-icon::part( font ) {
+  color: #f4f4f4;
+  cursor: pointer;
+}
+
+gr-content-switcher[light] gr-icon-switch[selected] gr-icon::part( font ) {
+  color: #161616;
+}
+
+gr-content-switcher[light] gr-icon-switch[disabled] gr-icon::part( font ) {
+  color: #525252;
+  cursor: not-allowed;
+}
+
+/* Form Field */
+
+gr-form-field gr-label::part( text ) {
+  font-size: 12px;
+  line-height: 16px;
 }
 
 gr-form-field gr-link::part( label ) {
   font-size: 12px;
   line-height: 16px;
 }
+
+/* Header */
 
 gr-header gr-label::part( label ) {
   color: #f4f4f4;
@@ -60,6 +100,8 @@ gr-header gr-label:not( [slot] )::part( label ) {
   font-weight: 700;
   margin: 0 0 0 6px;
 }
+
+/* Link */
 
 gr-link gr-icon::part( font ) {
   color: #0f62fe;

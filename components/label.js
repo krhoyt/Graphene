@@ -83,7 +83,7 @@ export default class GRLabel extends HTMLElement {
           display: none;
         }
       </style>
-      <p part="label">
+      <p part="text">
         <span></span>
         <slot></slot>
       </p>
