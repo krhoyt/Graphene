@@ -7,7 +7,7 @@ export default class GRSelect extends HTMLElement {
       <style>
         :host {
           box-sizing: border-box;
-          display: inline-flex;
+          display: flex;
           flex-direction: column;
           position: relative;
         }
@@ -120,6 +120,10 @@ export default class GRSelect extends HTMLElement {
           margin: 0;
           padding: 0;
         }
+
+        p[part=helper] {
+          height: 16px;
+        }        
 
         p[part=value] {
           color: #161616;

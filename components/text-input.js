@@ -184,7 +184,7 @@ export default class GRTextInput extends HTMLElement {
         :host( [invalid] ) i[part=invalid] {
           min-width: 20px;
           opacity: 1.0;
-          margin: 0 12px 0 0;
+          margin: 0 10px 0 0;
           width: 20px;
         }
 
@@ -204,14 +204,14 @@ export default class GRTextInput extends HTMLElement {
         :host( [type=password] ) button[part=reveal] {
           min-width: 20px;
           opacity: 1.0;
-          margin: 0 12px 0 0;
+          margin: 0 10px 0 0;
           width: 20px;          
         }
 
         :host( [type=password] ) label:focus-within button[part=reveal] {
           min-width: 20px;
           opacity: 1.0;
-          margin: 0 12px 0 6px;
+          margin: 0 10px 0 6px;
           width: 20px;          
         }
 
@@ -224,13 +224,13 @@ export default class GRTextInput extends HTMLElement {
         }        
 
         :host( [value]:not( [read-only] ) ) label:focus-within i[part=invalid] {
-          margin: 0 6px 0 0;
+          margin: 0 10px 0 0;
         }
 
         :host( [value]:not( [read-only] ) ) label:focus-within button[part=clear] {
           min-width: 20px;
           opacity: 1.0;
-          margin: 0 12px 0 0;
+          margin: 0 10px 0 0;
           width: 20px;
         }
 
@@ -265,7 +265,7 @@ export default class GRTextInput extends HTMLElement {
         :host( [type=search][value] ) button[part=clear] {
           min-width: 20px;
           opacity: 1.0;
-          margin: 0 12px 0 0;
+          margin: 0 10px 0 0;
           width: 20px; 
         }
 

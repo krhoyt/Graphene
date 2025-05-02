@@ -9,7 +9,7 @@ export default class GRDropdown extends HTMLElement {
       <style>
         :host {
           box-sizing: border-box;
-          display: inline-block;
+          display: flex;
           flex-direction: column;
           position: relative;
         }
@@ -31,12 +31,11 @@ export default class GRDropdown extends HTMLElement {
           cursor: pointer;
           display: flex;
           flex-direction: row;
-          gap: 16px;
           height: 40px;
           margin: 0;
           outline: solid 2px transparent;
           outline-offset: -2px;
-          padding: 0 14px 0 16px;
+          padding: 0 10px 0 16px;
           text-rendering: optimizeLegibility;
           transition: background-color 150ms ease-in-out;    
           width: 100%;      
@@ -48,6 +47,21 @@ export default class GRDropdown extends HTMLElement {
 
         button:focus {
           outline: solid 2px #0f62fe;
+        }        
+
+        div:not( [part=popover] ) {
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;          
+        }
+
+        div[part=after] {
+          padding: 4px 0 0 0;
+        }
+
+        div[part=before] {
+          padding: 0 0 4px 0;
         }        
 
         div[part=popover] {
@@ -92,6 +106,23 @@ export default class GRDropdown extends HTMLElement {
           word-wrap: normal;                              
         }
 
+        i[part=invalid] {
+          color: #da1e28;
+          font-variation-settings:
+            'FILL' 1.0,
+            'wght' 700;
+          margin: 0;
+          min-width: 0;
+          opacity: 0;
+          overflow: hidden;
+          transition:
+            margin 300ms ease-out,
+            min-width 300ms ease-out,
+            opacity 300ms ease-out,
+            width 300ms ease-out;              
+          width: 0;
+        }        
+
         p {
           box-sizing: border-box;
           color: #161616;
@@ -111,6 +142,43 @@ export default class GRDropdown extends HTMLElement {
 
         p[part=placeholder] {
           color: #a8a8a8;
+          padding: 0 16px 0 0;
+        }        
+
+        p[part=helper],
+        p[part=label] {
+          color: #525252;
+          cursor: default;
+          font-size: 12px;
+          line-height: 16px;
+        }
+
+        p[part=helper] {
+          height: 16px;
+        }        
+
+        :host( [invalid] ) button {
+          outline: solid 2px #da1e28;
+        }
+
+        :host( [invalid] ) button:focus-within {
+          outline: solid 2px #0f62fe;
+        }
+
+        :host( [invalid] ) i[part=invalid] {
+          min-width: 20px;
+          opacity: 1.0;
+          margin: 0 10px 0 0;
+          width: 20px;
+        }
+
+        :host( [invalid] ) p[part=helper] {
+          color: #da1e28;
+        }
+
+        :host( :not( :has( [slot=before] ) ):not( [label] ) ) div[part=before],
+        :host( :not( [label] ) ) p[part=label] {
+          display: none;
         }        
 
         :host( [light] ) button {
@@ -127,11 +195,12 @@ export default class GRDropdown extends HTMLElement {
         }
 
         :host( [read-only] ) i {
-          color: #a8a8a8;
+          color: #c6c6c6;
           cursor: default;
         }        
 
-        :host( [read-only] ) p {
+        :host( [read-only] ) p[part=placeholder],
+        :host( [read-only] ) p[part=value] {
           cursor: default;
         }
 
@@ -148,10 +217,16 @@ export default class GRDropdown extends HTMLElement {
           background-color: #ffffff;
         }
 
-        :host( [disabled] ) p {
+        :host( [disabled] ) p[part=placeholder],
+        :host( [disabled] ) p[part=value] {
           color: #c6c6c6;
           cursor: not-allowed;
         }
+
+        :host( [disabled] ) p[part=helper],
+        :host( [disabled] ) p[part=label] {
+          color: #16161640;
+        }        
 
         :host( [disabled] ) i[part=caret] {
           color: #c6c6c6;
@@ -166,11 +241,20 @@ export default class GRDropdown extends HTMLElement {
           display: none;
         }        
       </style>
+      <div part="before">
+        <p part="label"></p>
+        <slot name="before"></slot>
+      </div>
       <button part="button" popovertarget="gr-popover" type="button">
         <p part="placeholder"></p>
-        <p part="value"></p>          
+        <p part="value"></p>        
+        <i part="invalid">error</i>  
         <i part="caret">expand_more</i>        
       </button>
+      <div part="after">
+        <p part="helper"></p>
+        <slot name="after"></slot>
+      </div>      
       <div id="gr-popover" part="popover" popover></div>
     `;
 
@@ -188,6 +272,8 @@ export default class GRDropdown extends HTMLElement {
     // Elements
     this.$button = this.shadowRoot.querySelector( 'button' );
     this.$button.addEventListener( 'click', () => this._position( this.$button ) );
+    this.$helper = this.shadowRoot.querySelector( 'p[part=helper]' );
+    this.$label = this.shadowRoot.querySelector( 'p[part=label]' );    
     this.$placeholder = this.shadowRoot.querySelector( 'p[part=placeholder]' );    
     this.$popover = this.shadowRoot.querySelector( 'div[popover]' );
     this.$value = this.shadowRoot.querySelector( 'p[part=value]' );
@@ -197,8 +283,28 @@ export default class GRDropdown extends HTMLElement {
     this.$popover.hidePopover();
     this.$button.focus();
 
-    this.selectedIndex = parseInt( evt.currentTarget.getAttribute( 'data-index' ) );
-    this.value = this._data[this.selectedIndex].value;
+    const index = parseInt( evt.currentTarget.getAttribute( 'data-index' ) );
+
+    if( this.toggle ) {
+      if( this.selectedIndex === index ) {
+        this.selectedIndex = null;
+        this.value = null;
+      } else {
+        this.selectedIndex = index;
+        this.value = this._data[this.selectedIndex].value;        
+      }
+    } else {
+      this.selectedIndex = index;
+      this.value = this._data[this.selectedIndex].value;      
+    }
+
+    for( let c = 0; c < this.$popover.children.length; c++ ) {
+      if( this.selectedIndex === null ) {
+          this.$popover.children[c].selected = false;
+      } else {
+        this.$popover.children[c].selected = this.selectedIndex === c ? true : false;
+      }
+    }
 
     this.dispatchEvent( new CustomEvent( 'gr-change', {
       detail: {
@@ -223,14 +329,26 @@ export default class GRDropdown extends HTMLElement {
 
   // When things change
   _render() {
+    this.$label.textContent = this.label === null ? '' : this.label;
     this.$button.disabled = this.disabled || this.readOnly;
-    this.$placeholder.innerText = this.placeholder === null ? '' : this.placeholder;
+    this.$placeholder.textContent = this.placeholder === null ? '' : this.placeholder;
+    this.$helper.textContent = this.helper === null ? '' : this.helper;
 
     if( this._data.length > 0 ) {
       if( this.selectedIndex !== null ) {
-        this.$value.innerText = this.labelFunction === null ? this._data[this.selectedIndex].label : this.labelFunction( this._data[this.selectedIndex] );
+        this.$value.textContent = this.labelFunction === null ? this._data[this.selectedIndex].label : this.labelFunction( this._data[this.selectedIndex] );
       }
     }
+
+    if( this.invalid ) {
+      if( this.error === null ) {
+        this.$helper.textContent = this.helper === null ? '' : this.helper;    
+      } else {
+        this.$helper.textContent = this.error === null ? '' : this.error;            
+      }
+    } else {
+      this.$helper.textContent = this.helper === null ? '' : this.helper;          
+    }    
   }
 
   // Promote properties
@@ -248,14 +366,18 @@ export default class GRDropdown extends HTMLElement {
     this._upgrade( 'concealed' );  
     this._upgrade( 'data' );  
     this._upgrade( 'disabled' );  
+    this._upgrade( 'error' );    
+    this._upgrade( 'helper' );    
     this._upgrade( 'hidden' );    
     this._upgrade( 'invalid' );      
+    this._upgrade( 'label' );    
     this._upgrade( 'labelFunction' );      
     this._upgrade( 'light' );            
     this._upgrade( 'name' );         
     this._upgrade( 'placeholder' );     
     this._upgrade( 'readOnly' );        
     this._upgrade( 'selectedIndex' );                
+    this._upgrade( 'toggle' );                    
     this._upgrade( 'value' );                
     this._render();
   }
@@ -265,13 +387,17 @@ export default class GRDropdown extends HTMLElement {
     return [
       'concealed',
       'disabled', 
+      'error',
+      'helper',
       'hidden',
       'invalid',
       'light',
       'name',
+      'label',
       'placeholder',
       'read-only',
       'selected-index',
+      'toggle',
       'value'
     ];
   }
@@ -362,6 +488,38 @@ export default class GRDropdown extends HTMLElement {
     }
   }
 
+  get error() {
+    if( this.hasAttribute( 'error' ) ) {
+      return this.getAttribute( 'error' );
+    }
+
+    return null;
+  }
+
+  set error( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'error', value );
+    } else {
+      this.removeAttribute( 'error' );
+    }
+  } 
+  
+  get helper() {
+    if( this.hasAttribute( 'helper' ) ) {
+      return this.getAttribute( 'helper' );
+    }
+
+    return null;
+  }
+
+  set helper( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'helper', value );
+    } else {
+      this.removeAttribute( 'helper' );
+    }
+  }   
+
   get hidden() {
     return this.hasAttribute( 'hidden' );
   }
@@ -419,6 +577,22 @@ export default class GRDropdown extends HTMLElement {
       }
     } else {
       this.removeAttribute( 'light' );
+    }
+  }  
+
+  get label() {
+    if( this.hasAttribute( 'label' ) ) {
+      return this.getAttribute( 'label' );
+    }
+
+    return null;
+  }
+
+  set label( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'label', value );
+    } else {
+      this.removeAttribute( 'label' );
     }
   }  
 
@@ -489,6 +663,26 @@ export default class GRDropdown extends HTMLElement {
       this.removeAttribute( 'selected-index' );
     }
   }  
+
+  get toggle() {
+    return this.hasAttribute( 'toggle' );
+  }
+
+  set toggle( value ) {
+    if( value !== null ) {
+      if( typeof value === 'boolean' ) {
+        value = value.toString();
+      }
+
+      if( value === 'false' ) {
+        this.removeAttribute( 'toggle' );
+      } else {
+        this.setAttribute( 'toggle', '' );
+      }
+    } else {
+      this.removeAttribute( 'toggle' );
+    }
+  }
 
   get value() {
     if( this.hasAttribute( 'value' ) ) {

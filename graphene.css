@@ -107,6 +107,23 @@ gr-content-switcher[light] gr-icon-switch[disabled] gr-icon::part( font ) {
   cursor: not-allowed;
 }
 
+/* Dropdown */
+
+gr-dropdown gr-label::part( text ) {
+  color: #525252;
+}
+
+gr-dropdown gr-label::part( text ),
+gr-dropdown gr-link::part( label ),
+gr-dropdown gr-link::part( text ) {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+gr-dropdown[disabled] gr-label::part( text ) {
+  color: #16161640;
+}
+
 /* Form Field */
 
 gr-form-field gr-label::part( text ) {

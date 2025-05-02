@@ -10,33 +10,67 @@
 
     <link href="../graphene.css" rel="stylesheet">    
 
+    <style>
+      gr-dropdown {
+        width: 175px;
+      }
+    </style>
+
   </head>
   <body>
 
-    <div style="display: flex; flex-direction: column; width: 150px;">
-      <gr-dropdown placeholder="Organizer"></gr-dropdown>
-      <gr-select placeholder="Cookie">
-        <gr-select-option disabled label="Organizer" selected></gr-select-option>      
-        <gr-select-option label="One" value="1"></gr-select-option>
-        <gr-select-option label="Two" value="2"></gr-select-option>
-        <gr-select-option label="Three" value="3"></gr-select-option>
-      </gr-select>
-    </div>
+    <gr-dropdown placeholder="Organizer"></gr-dropdown>
 
+    <gr-dropdown label="Label" placeholder="Organizer"></gr-dropdown>
+
+    <gr-dropdown helper="Helper" label="Label" placeholder="Organizer"></gr-dropdown>
     
+    <gr-dropdown error="There is an error here" helper="Helper" invalid label="Label" placeholder="Organizer"></gr-dropdown>
+
+    <gr-dropdown helper="Helper" label="Label" placeholder="Organizer">
+      <gr-link label="Send email" slot="before"></gr-link>
+      <gr-label text="10/100" slot="after"></gr-label>
+    </gr-dropdown>
+
+    <gr-dropdown helper="Helper" label="Label" placeholder="Organizer" read-only></gr-dropdown>
+
+    <gr-dropdown disabled helper="Helper" label="Label" placeholder="Organizer">
+      <gr-link label="Send email" slot="before"></gr-link>      
+      <gr-label slot="after" text="10/100"></gr-label>
+    </gr-dropdown>    
+
     <pre>
-&lt;gr-label text=&quot;Label&quot;&gt;&lt;/gr-label&gt;
+&lt;gr-dropdown placeholder=&quot;Organizer&quot;&gt;&lt;/gr-dropdown&gt;
+
+&lt;gr-dropdown label=&quot;Label&quot; placeholder=&quot;Organizer&quot;&gt;&lt;/gr-dropdown&gt;
+
+&lt;gr-dropdown helper=&quot;Helper&quot; label=&quot;Label&quot; placeholder=&quot;Organizer&quot;&gt;&lt;/gr-dropdown&gt;
+
+&lt;gr-dropdown error=&quot;There is an error here&quot; helper=&quot;Helper&quot; invalid label=&quot;Label&quot; placeholder=&quot;Organizer&quot;&gt;&lt;/gr-dropdown&gt;
+
+&lt;gr-dropdown helper=&quot;Helper&quot; label=&quot;Label&quot; placeholder=&quot;Organizer&quot;&gt;
+  &lt;gr-link label=&quot;Send email&quot; slot=&quot;before&quot;&gt;&lt;/gr-link&gt;
+  &lt;gr-label text=&quot;10/100&quot; slot=&quot;after&quot;&gt;&lt;/gr-label&gt;
+&lt;/gr-dropdown&gt;
+
+&lt;gr-dropdown helper=&quot;Helper&quot; label=&quot;Label&quot; placeholder=&quot;Organizer&quot; read-only&gt;&lt;/gr-dropdown&gt;
+
+&lt;gr-dropdown disabled helper=&quot;Helper&quot; label=&quot;Label&quot; placeholder=&quot;Organizer&quot;&gt;
+  &lt;gr-link label=&quot;Send email&quot; slot=&quot;before&quot;&gt;&lt;/gr-link&gt;      
+  &lt;gr-label slot=&quot;after&quot; text=&quot;10/100&quot;&gt;&lt;/gr-label&gt;
+&lt;/gr-dropdown&gt;
     </pre>
 
     <script src="../components/dropdown.js" type="module"></script>
-    <script src="../components/select.js" type="module"></script>
+    <script src="../components/label.js" type="module"></script>
+    <script src="../components/link.js" type="module"></script>
 
     <script>
       const dropdown = document.querySelector( 'gr-dropdown' );
       dropdown.data = [
-        {label: 'One', value: 1},
-        {label: 'Two', value: 2},
-        {label: 'Three', value: 3}        
+        {label: 'Kevin', value: 1},
+        {label: 'Marna', value: 2},
+        {label: 'Paige', value: 3}        
       ];
     </script>
 
