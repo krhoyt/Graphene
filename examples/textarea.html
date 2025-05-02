@@ -10,12 +10,39 @@
 
     <link href="../graphene.css" rel="stylesheet">    
 
+    <style>
+      gr-textarea {
+        margin: 0 0 16px 0;
+      }
+    </style>    
+
   </head>
   <body>
 
+    <gr-textarea></gr-textarea>
+
+    <gr-textarea label="Notes" placeholder="Notes"></gr-textarea>
+
+    <gr-textarea helper="Helper" label="Notes" placeholder="Notes"></gr-textarea>
+
     <gr-textarea helper="Helper" label="Notes" placeholder="Notes">
-      <gr-link label="Show formatting"></gr-link>
+      <gr-link label="Show formatting" slot="before"></gr-link>
     </gr-textarea>
+
+    <gr-textarea helper="Helper" label="Notes" placeholder="Notes">
+      <gr-link label="Show formatting" slot="before"></gr-link>
+      <gr-label text="0/100" slot="after"></gr-label>
+    </gr-textarea>    
+
+    <gr-textarea helper="Helper" label="Notes" placeholder="Notes" read-only>
+      <gr-link label="Show formatting" slot="before"></gr-link>
+      <gr-label text="0/100" slot="after"></gr-label>
+    </gr-textarea>        
+
+    <gr-textarea disabled helper="Helper" label="Notes" placeholder="Notes">
+      <gr-link label="Show formatting" slot="before"></gr-link>
+      <gr-label text="0/100" slot="after"></gr-label>
+    </gr-textarea>        
     
     <pre>
 &lt;gr-textarea helper=&quot;Helper&quot; label=&quot;Notes&quot; placeholder=&quot;Notes&quot;&gt;
@@ -23,8 +50,9 @@
 &lt;/gr-textarea&gt;
     </pre>
 
-    <script src="../components/textarea.js" type="module"></script>
+    <script src="../components/label.js" type="module"></script>
     <script src="../components/link.js" type="module"></script>
+    <script src="../components/textarea.js" type="module"></script>
 
   </body>
 </html>

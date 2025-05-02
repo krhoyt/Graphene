@@ -53,6 +53,7 @@ export default class GRSearch extends HTMLElement {
           background: none;
           border: none;
           box-sizing: border-box;
+          color: #161616;
           flex-basis: 0;
           flex-grow: 1;
           font-family: 'IBM Plex Sans', sans-serif;
@@ -69,7 +70,7 @@ export default class GRSearch extends HTMLElement {
         }
 
         input::placeholder {
-          color: #a8a8a8;          
+          color: #c6c6c6;          
           opacity: 1.0;
         }        
 
@@ -139,6 +140,32 @@ export default class GRSearch extends HTMLElement {
           margin: 0 14px 0 0;
           width: 20px; 
         }
+
+        :host( [size=md] ) button[part=clear] {
+          margin: 0 10px 0 0;
+        }
+
+        :host( [size=md] ) i[part=search] {
+          margin: 0 10px 0 10px;
+        }
+
+        :host( [size=md] ) input {
+          height: 40px;
+          min-height: 40px;
+        }     
+
+        :host( [size=sm] ) button[part=clear] {
+          margin: 0 6px 0 0;
+        }
+
+        :host( [size=sm] ) i[part=search] {
+          margin: 0 6px 0 6px;
+        }
+
+        :host( [size=sm] ) input {
+          height: 32px;
+          min-height: 32px;
+        }        
 
         :host( [disabled] ) i {
           color: #c6c6c6;   
@@ -245,6 +272,7 @@ export default class GRSearch extends HTMLElement {
     this._upgrade( 'icon' );
     this._upgrade( 'name' );
     this._upgrade( 'placeholder' );
+    this._upgrade( 'size' );    
     this._upgrade( 'value' );
     this._render();
   }
@@ -258,6 +286,7 @@ export default class GRSearch extends HTMLElement {
       'icon',
       'name',
       'placeholder',
+      'size',
       'value'
     ];
   }
@@ -377,6 +406,22 @@ export default class GRSearch extends HTMLElement {
       this.removeAttribute( 'placeholder' );
     }
   }
+
+  get size() {
+    if( this.hasAttribute( 'size' ) ) {
+      return this.getAttribute( 'size' );
+    }
+
+    return null;
+  }
+
+  set size( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'size', value );
+    } else {
+      this.removeAttribute( 'size' );
+    }
+  }  
 
   get value() {
     let result = null;

@@ -10,60 +10,132 @@
 
     <link href="../graphene.css" rel="stylesheet">    
 
+    <style>
+      gr-select {
+        margin: 0 0 16px 0;
+        width: 150px;
+      }
+    </style>    
+
   </head>
   <body>
 
-    <div style="display: flex; flex-direction: row; gap: 16px;">
-      <gr-select>
-        <option disabled selected>Organizer</option>      
-        <option value="Kevin">Kevin</option>
-        <option value="Marna">Marna</option>
-        <option value="Paige">Paige</option>
-      </gr-select>
-      <gr-date-picker label="Birthday" placeholder="Birthday">
-        <gr-label text="2 yr. ago" slot="counter"></gr-label>        
-      </gr-date-picker>
-      <gr-input style="width: 150px;" label="Full name" placeholder="Full name">
-        <gr-link label="Email" slot="counter"></gr-link>
-      </gr-input>
-      <gr-textarea label="Notes" placeholder="Notes">
-        <gr-link label="Show preview" slot="counter"></gr-link>
-      </gr-textarea>
-      <gr-avatar>
-        <gr-icon name="person"></gr-icon>
-      </gr-avatar>
-      <gr-checkbox inline helper="Private" label="Private"></gr-checkbox>
-      <gr-radio-group label="Color" toggle>
-        <gr-radio-button label="Red" value="red"></gr-radio-button>
-        <gr-radio-button label="Blue" value="blue"></gr-radio-button>        
-        <gr-radio-button disabled label="Green" value="green"></gr-radio-button>
-      </gr-radio-group>
-    </div>
-    <div style="display: flex; flex-direction: row; gap: 16px;">
-      <gr-button label="Organizer">
-        <gr-icon name="settings"></gr-icon>
-      </gr-button>      
-      <gr-search style="width: 150px;"></gr-search>
-      <gr-button label="Settings"></gr-button>      
-    </div>
+    <gr-select placeholder="Organizer">
+      <option value="Kevin">Kevin</option>
+      <option value="Marna">Marna</option>
+      <option value="Paige">Paige</option>
+    </gr-select><br>
+
+    <gr-select label="First name" placeholder="Organizer">
+      <option value="Kevin">Kevin</option>
+      <option value="Marna">Marna</option>
+      <option value="Paige">Paige</option>
+    </gr-select><br>
+    
+    <gr-select helper="Of a person" label="First name" placeholder="Organizer">
+      <option value="Kevin">Kevin</option>
+      <option value="Marna">Marna</option>
+      <option value="Paige">Paige</option>
+    </gr-select><br>
+
+    <gr-select error="There is a problem" helper="Of a person" invalid label="First name" placeholder="Organizer">
+      <option value="Kevin">Kevin</option>
+      <option value="Marna">Marna</option>
+      <option value="Paige">Paige</option>
+    </gr-select><br>    
+
+    <gr-select helper="Of a person" label="First name" placeholder="Organizer">
+      <option value="Kevin">Kevin</option>
+      <option value="Marna">Marna</option>
+      <option value="Paige">Paige</option>
+      <gr-link label="Email" slot="before"></gr-link>
+    </gr-select><br>
+
+    <gr-select helper="Of a person" label="First name" placeholder="Organizer">
+      <option value="Kevin">Kevin</option>
+      <option value="Marna">Marna</option>
+      <option value="Paige">Paige</option>
+      <gr-link label="Email" slot="before"></gr-link>
+      <gr-label text="0/100" slot="after"></gr-label>
+    </gr-select><br>
+    
+    <gr-select helper="Of a person" label="First name" read-only placeholder="Organizer">
+      <option value="Kevin">Kevin</option>
+      <option value="Marna">Marna</option>
+      <option value="Paige">Paige</option>
+      <gr-link label="Email" slot="before"></gr-link>
+      <gr-label text="0/100" slot="after"></gr-label>
+    </gr-select><br>
+    
+    <gr-select disabled helper="Of a person" label="First name" placeholder="Organizer">
+      <option value="Kevin">Kevin</option>
+      <option value="Marna">Marna</option>
+      <option value="Paige">Paige</option>
+      <gr-link label="Email" slot="before"></gr-link>
+      <gr-label text="0/100" slot="after"></gr-label>
+    </gr-select>    
     
     <pre>
-&lt;gr-label text=&quot;Label&quot;&gt;&lt;/gr-label&gt;
+&lt;gr-select&gt;
+  &lt;option selected&gt;Organizer&lt;/option&gt;      
+  &lt;option value=&quot;Kevin&quot;&gt;Kevin&lt;/option&gt;
+  &lt;option value=&quot;Marna&quot;&gt;Marna&lt;/option&gt;
+  &lt;option value=&quot;Paige&quot;&gt;Paige&lt;/option&gt;
+&lt;/gr-select&gt;
+
+&lt;gr-select label=&quot;First name&quot;&gt;
+  &lt;option selected&gt;Organizer&lt;/option&gt;      
+  &lt;option value=&quot;Kevin&quot;&gt;Kevin&lt;/option&gt;
+  &lt;option value=&quot;Marna&quot;&gt;Marna&lt;/option&gt;
+  &lt;option value=&quot;Paige&quot;&gt;Paige&lt;/option&gt;
+&lt;/gr-select&gt;
+
+&lt;gr-select helper=&quot;Of a person&quot; label=&quot;First name&quot;&gt;
+  &lt;option selected&gt;Organizer&lt;/option&gt;      
+  &lt;option value=&quot;Kevin&quot;&gt;Kevin&lt;/option&gt;
+  &lt;option value=&quot;Marna&quot;&gt;Marna&lt;/option&gt;
+  &lt;option value=&quot;Paige&quot;&gt;Paige&lt;/option&gt;
+&lt;/gr-select&gt;
+
+&lt;gr-select helper=&quot;Of a person&quot; label=&quot;First name&quot;&gt;
+  &lt;option selected&gt;Organizer&lt;/option&gt;      
+  &lt;option value=&quot;Kevin&quot;&gt;Kevin&lt;/option&gt;
+  &lt;option value=&quot;Marna&quot;&gt;Marna&lt;/option&gt;
+  &lt;option value=&quot;Paige&quot;&gt;Paige&lt;/option&gt;
+  &lt;gr-link label=&quot;Email&quot; slot=&quot;before&quot;&gt;&lt;/gr-link&gt;
+&lt;/gr-select&gt;
+
+&lt;gr-select helper=&quot;Of a person&quot; label=&quot;First name&quot;&gt;
+  &lt;option selected&gt;Organizer&lt;/option&gt;      
+  &lt;option value=&quot;Kevin&quot;&gt;Kevin&lt;/option&gt;
+  &lt;option value=&quot;Marna&quot;&gt;Marna&lt;/option&gt;
+  &lt;option value=&quot;Paige&quot;&gt;Paige&lt;/option&gt;
+  &lt;gr-link label=&quot;Email&quot; slot=&quot;before&quot;&gt;&lt;/gr-link&gt;
+  &lt;gr-label text=&quot;0/100&quot; slot=&quot;after&quot;&gt;&lt;/gr-label&gt;
+&lt;/gr-select&gt;
+
+&lt;gr-select helper=&quot;Of a person&quot; label=&quot;First name&quot; read-only&gt;
+  &lt;option selected&gt;Organizer&lt;/option&gt;      
+  &lt;option value=&quot;Kevin&quot;&gt;Kevin&lt;/option&gt;
+  &lt;option value=&quot;Marna&quot;&gt;Marna&lt;/option&gt;
+  &lt;option value=&quot;Paige&quot;&gt;Paige&lt;/option&gt;
+  &lt;gr-link label=&quot;Email&quot; slot=&quot;before&quot;&gt;&lt;/gr-link&gt;
+  &lt;gr-label text=&quot;0/100&quot; slot=&quot;after&quot;&gt;&lt;/gr-label&gt;
+&lt;/gr-select&gt;
+
+&lt;gr-select disabled helper=&quot;Of a person&quot; label=&quot;First name&quot;&gt;
+  &lt;option selected&gt;Organizer&lt;/option&gt;      
+  &lt;option value=&quot;Kevin&quot;&gt;Kevin&lt;/option&gt;
+  &lt;option value=&quot;Marna&quot;&gt;Marna&lt;/option&gt;
+  &lt;option value=&quot;Paige&quot;&gt;Paige&lt;/option&gt;
+  &lt;gr-link label=&quot;Email&quot; slot=&quot;before&quot;&gt;&lt;/gr-link&gt;
+  &lt;gr-label text=&quot;0/100&quot; slot=&quot;after&quot;&gt;&lt;/gr-label&gt;
+&lt;/gr-select&gt;
     </pre>
 
-    <script src="../components/icon.js" type="module"></script>
-    <script src="../components/button.js" type="module"></script>
-    <script src="../components/select.js" type="module"></script>
     <script src="../components/label.js" type="module"></script>
     <script src="../components/link.js" type="module"></script>
-    <script src="../components/input.js" type="module"></script>
-    <script src="../components/date-picker.js" type="module"></script>
-    <script src="../components/checkbox.js" type="module"></script>
-    <script src="../components/avatar.js" type="module"></script>
-    <script src="../components/icon.js" type="module"></script>
-    <script src="../components/search.js" type="module"></script>
-    <script src="../components/radio-button.js" type="module"></script>
-    <script src="../components/textarea.js" type="module"></script>
+    <script src="../components/select.js" type="module"></script>
 
   </body>
 </html>

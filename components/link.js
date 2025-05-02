@@ -72,8 +72,8 @@ export default class GRLink extends HTMLElement {
         }
       </style>
       <button part="button" type="button">
-        <p>
-          <span part="label"></span>
+        <p part="label">
+          <span part="text"></span>
           <slot></slot>
         </p>
         <slot name="icon"></slot>

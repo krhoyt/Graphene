@@ -20,6 +20,21 @@ export default class GRSelect extends HTMLElement {
           display: none;
         }
 
+        div:not( [part=options] ) {
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+        }
+
+        div[part=after] {
+          padding: 4px 0 0 0;
+        }
+
+        div[part=before] {
+          padding: 0 0 4px 0;
+        }                
+
         div[part=options] {
           display: none;
         }        
@@ -52,6 +67,23 @@ export default class GRSelect extends HTMLElement {
           word-wrap: normal;                            
         }
 
+        i[part=invalid] {
+          color: #da1e28;
+          font-variation-settings:
+            'FILL' 1.0,
+            'wght' 700;
+          margin: 0;
+          min-width: 0;
+          opacity: 0;
+          overflow: hidden;
+          transition:
+            margin 300ms ease-out,
+            min-width 300ms ease-out,
+            opacity 300ms ease-out,
+            width 300ms ease-out;              
+          width: 0;
+        }
+
         label {
           align-items: center;
           background-color: #f4f4f4;          
@@ -59,20 +91,14 @@ export default class GRSelect extends HTMLElement {
           box-sizing: border-box;
           display: flex;
           flex-direction: row;
+          height: 40px;
           margin: 0;
           outline: solid 2px transparent;
           outline-offset: -2px;
-          padding: 0;
+          padding: 0 10px 0 16px;
           position: relative;
           transition: background-color 150ms ease-in-out;          
         }        
-
-        label i {
-          margin: 10px 14px 9px 14px;
-          position: absolute;
-          right: 0;
-          top: 0;
-        }
 
         label:hover {
           background-color: #e8e8e8;
@@ -82,28 +108,69 @@ export default class GRSelect extends HTMLElement {
           outline: solid 2px #0f62fe;          
         }        
 
+        p {
+          color: #525252;
+          cursor: default;
+          flex-basis: 0;
+          flex-grow: 1;
+          font-family: 'IBM Plex Sans', sans-serif;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 16px;
+          margin: 0;
+          padding: 0;
+        }
+
+        p[part=value] {
+          color: #161616;
+          font-size: 14px;
+          line-height: 20px;
+        }
+
         select {
           appearance: none;
           background: none;
           border: none;
           box-sizing: border-box; 
-          color: #161616;
           cursor: pointer;
-          flex-basis: 0;
-          flex-grow: 1;
-          font-family: 'IBM Plex Sans', sans-serif;
-          font-size: 14px;
           height: 39px;
+          left: 0;
           margin: 0;
-          padding: 0 48px 0 16px;
-          text-overflow: ellipsis;
-          text-rendering: optimizeLegibility;
+          opacity: 0;
+          padding: 0;
+          position: absolute;
+          right: 0;
+          top: 0;
           -webkit-tap-highlight-color: transparent;                    
         }
 
-        select.placeholder {
+        p[part=value].placeholder {
           color: #a8a8a8;
-        }     
+        }    
+        
+        :host( [invalid] ) label {
+          outline: solid 2px #da1e28;
+        }
+
+        :host( [invalid] ) label:focus-within {
+          outline: solid 2px #0f62fe;
+        }
+
+        :host( [invalid] ) i[part=invalid] {
+          min-width: 20px;
+          opacity: 1.0;
+          margin: 0 10px 0 0;
+          width: 20px;
+        }
+
+        :host( [invalid] ) p[part=helper] {
+          color: #da1e28;
+        }
+
+        :host( :not( :has( [slot=before] ) ):not( [label] ) ) div[part=before],
+        :host( :not( [label] ) ) p[part=label] {
+          display: none;
+        }        
 
         :host( [read-only] ) label {
           border-bottom: solid 1px transparent;
@@ -143,14 +210,28 @@ export default class GRSelect extends HTMLElement {
           cursor: not-allowed;
         }
 
+        :host( [disabled] ) p {
+          color: #16161640;
+        }        
+
         :host( [light] ) label {
           background-color: #ffffff;
         }        
       </style>
+      <div part="before">
+        <p part="label"></p>
+        <slot name="before"></slot>
+      </div>
       <label>
-        <select></select>
+        <p part="value"></p>
+        <i part="invalid">error</i>
         <i>expand_more</i>
+        <select></select>        
       </label>
+      <div part="after">
+        <p part="helper"></p>
+        <slot name="after"></slot>
+      </div>      
       <div part="options">
         <slot></slot>
       </div>
@@ -165,7 +246,9 @@ export default class GRSelect extends HTMLElement {
     this.shadowRoot.appendChild( template.content.cloneNode( true ) );
 
     // Elements
-    this.$options = this.shadowRoot.querySelector( 'slot' );
+    this.$helper = this.shadowRoot.querySelector( 'p[part=helper]' );
+    this.$label = this.shadowRoot.querySelector( 'p[part=label]' );    
+    this.$options = this.shadowRoot.querySelector( 'slot:not( [name] )' );
     this.$options.addEventListener( 'slotchange', () => {
       while( this.$select.children.length > 0 ) {
         this.$select.children[0].remove();
@@ -183,7 +266,7 @@ export default class GRSelect extends HTMLElement {
     } );
     this.$select = this.shadowRoot.querySelector( 'select' );
     this.$select.addEventListener( 'change', () => {
-      this.value = this.$select.value;
+      this.value = this.$select.selectedOptions[0].text;
       this.selectedIndex = this.$select.selectedIndex;
 
       this.dispatchEvent( new CustomEvent( 'gr-change', {
@@ -193,6 +276,7 @@ export default class GRSelect extends HTMLElement {
         }
       } ) );
     } );
+    this.$value = this.shadowRoot.querySelector( 'p[part=value]' );
   }
 
   blur() {
@@ -200,11 +284,18 @@ export default class GRSelect extends HTMLElement {
   }
 
   build( items ) {
+    const defaulted = document.createElement( 'option' );
+    defaulted.value = null;
+    defaulted.text = this.placeholder === null ? '' : this.placeholder;    
+    defaulted.disabled = true;
+    defaulted.selected = true;
+    this.$select.appendChild( defaulted );
+
     for( let i = 0; i < items.length; i++ ) {
       const option = document.createElement( items[i].tagName );
       
       for( let a = 0; a < items[i].attributes.length; a++ ) {
-        option.setAttribute( items[i].attributes[a].name, items[i].attributes[a].name );
+        option.setAttribute( items[i].attributes[a].name, items[i][items[i].attributes[a].name] );
         option.innerText = this.labelFunction === null ? items[i].innerText : this.labelFunction( items[i] );
         this.$select.appendChild( option );
       }
@@ -225,12 +316,25 @@ export default class GRSelect extends HTMLElement {
 
     this.$select.multiple = this.multiple;
 
-    if( this.$select.selectedIndex === 0 && 
-      this.$select.children[0].selected && 
-      this.$select.children[0].disabled ) {
-      this.$select.classList.add( 'placeholder' );
+    this.$label.textContent = this.label === null ? '' : this.label;
+    this.$helper.textContent = this.helper === null ? '' : this.helper;
+
+    if( this.$select.selectedIndex === -1 ) {
+      this.$value.classList.add( 'placeholder' );      
+      this.$value.textContent = this.placeholder === null ? '' : this.placeholder;
     } else {
-      this.$select.classList.remove( 'placeholder' );
+      this.$value.classList.remove( 'placeholder' );      
+      this.$value.textContent = this.value === null ? '' : this.value;
+    }
+
+    if( this.invalid ) {
+      if( this.error === null ) {
+        this.$helper.textContent = this.helper === null ? '' : this.helper;    
+      } else {
+        this.$helper.textContent = this.error === null ? '' : this.error;            
+      }
+    } else {
+      this.$helper.textContent = this.helper === null ? '' : this.helper;          
     }    
   }
 
@@ -249,12 +353,16 @@ export default class GRSelect extends HTMLElement {
     this._upgrade( 'concealed' );      
     this._upgrade( 'data' );      
     this._upgrade( 'disabled' );  
+    this._upgrade( 'error' );      
+    this._upgrade( 'helper' );      
     this._upgrade( 'hidden' );    
     this._upgrade( 'invalid' );        
+    this._upgrade( 'label' );      
     this._upgrade( 'labelFunction' );
     this._upgrade( 'light' );        
     this._upgrade( 'multiple' );                
     this._upgrade( 'name' );            
+    this._upgrade( 'placeholder' );                
     this._upgrade( 'readOnly' );    
     this._upgrade( 'selectedIndex' );   
     this._upgrade( 'selectedOptions' );       
@@ -267,11 +375,15 @@ export default class GRSelect extends HTMLElement {
     return [
       'concealed',
       'disabled',
+      'error',
+      'helper',
       'hidden',
       'invalid',
+      'label',
       'light',
       'multiple',
       'name',
+      'placeholder',
       'read-only',
       'value'
     ];
@@ -357,6 +469,38 @@ export default class GRSelect extends HTMLElement {
     }
   }  
 
+  get error() {
+    if( this.hasAttribute( 'error' ) ) {
+      return this.getAttribute( 'error' );
+    }
+
+    return null;
+  }
+
+  set error( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'error', value );
+    } else {
+      this.removeAttribute( 'error' );
+    }
+  }  
+
+  get helper() {
+    if( this.hasAttribute( 'helper' ) ) {
+      return this.getAttribute( 'helper' );
+    }
+
+    return null;
+  }
+
+  set helper( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'helper', value );
+    } else {
+      this.removeAttribute( 'helper' );
+    }
+  }    
+
   get hidden() {
     return this.hasAttribute( 'hidden' );
   }
@@ -396,6 +540,22 @@ export default class GRSelect extends HTMLElement {
       this.removeAttribute( 'invalid' );
     }
   }
+
+  get label() {
+    if( this.hasAttribute( 'label' ) ) {
+      return this.getAttribute( 'label' );
+    }
+
+    return null;
+  }
+
+  set label( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'label', value );
+    } else {
+      this.removeAttribute( 'label' );
+    }
+  }   
 
   get light() {
     return this.hasAttribute( 'light' );
@@ -437,6 +597,22 @@ export default class GRSelect extends HTMLElement {
     }
   }  
   
+  get placeholder() {
+    if( this.hasAttribute( 'placeholder' ) ) {
+      return this.getAttribute( 'placeholder' );
+    }
+
+    return null;
+  }
+
+  set placeholder( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'placeholder', value );
+    } else {
+      this.removeAttribute( 'placeholder' );
+    }
+  }
+
   get readOnly() {
     return this.hasAttribute( 'read-only' );
   }

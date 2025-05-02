@@ -137,7 +137,52 @@ gr-link gr-icon::part( font ) {
   cursor: pointer;
 }
 
+/* Select */
+
+gr-select gr-label[slot=after],
+gr-select gr-link[slot=after] {
+  padding: 4px 0 0 0;
+}
+
+gr-select gr-label[slot=before],
+gr-select gr-link[slot=before] {
+  padding: 0 0 4px 0;
+}
+
+gr-select gr-label::part( text ) {
+  color: #525252;
+}
+
+gr-select gr-label::part( text ),
+gr-select gr-link::part( label ),
+gr-select gr-link::part( text ) {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+gr-select[disabled] gr-label::part( text ) {
+  color: #16161640;
+}
+
+/* Text area */
+
+gr-textarea gr-label::part( text ) {
+  color: #525252;
+}
+
+gr-textarea gr-label::part( text ),
+gr-textarea gr-link::part( label ),
+gr-textarea gr-link::part( text ) {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+gr-textarea[disabled] gr-label::part( text ) {
+  color: #16161640;
+}
+
 /* Text Input */
+
 gr-text-input gr-label[slot=after],
 gr-text-input gr-link[slot=after] {
   padding: 4px 0 0 0;
@@ -153,7 +198,8 @@ gr-text-input gr-label::part( text ) {
 }
 
 gr-text-input gr-label::part( text ),
-gr-text-input gr-link::part( label ) {
+gr-text-input gr-link::part( label ),
+gr-text-input gr-link::part( text ) {
   font-size: 12px;
   line-height: 16px;
 }

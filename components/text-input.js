@@ -48,7 +48,16 @@ export default class GRTextInput extends HTMLElement {
           align-items: center;
           display: flex;
           flex-direction: row;
+          justify-content: flex-end;          
         }
+
+        div[part=after] {
+          padding: 4px 0 0 0;
+        }
+
+        div[part=before] {
+          padding: 0 0 4px 0;
+        }        
 
         input {
           appearance: none;
@@ -113,12 +122,8 @@ export default class GRTextInput extends HTMLElement {
         }
 
         p[part=helper] {
-          padding: 4px 0 0 0;
-        }
-
-        p[part=label] {
-          padding: 0 0 4px 0;
-        }
+          height: 16px;
+        }        
 
         i {
           box-sizing: border-box;
@@ -185,6 +190,11 @@ export default class GRTextInput extends HTMLElement {
 
         :host( [invalid] ) p[part=helper] {
           color: #da1e28;
+        }
+
+        :host( :not( :has( [slot=before] ) ):not( [label] ) ) div[part=before],
+        :host( :not( [label] ) ) p[part=label] {
+          display: none;
         }
 
         :host( [light] ) label {
@@ -280,7 +290,7 @@ export default class GRTextInput extends HTMLElement {
           color: #16161640;
         }
       </style>
-      <div>
+      <div part="before">
         <p part="label"></p>      
         <slot name="before"></slot>
       </div>
@@ -294,7 +304,7 @@ export default class GRTextInput extends HTMLElement {
           <i>close</i>
         </button>
       </label>
-      <div>
+      <div part="after">
         <p part="helper"></p>
         <slot name="after"></slot>
       </div>

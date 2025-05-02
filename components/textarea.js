@@ -10,7 +10,6 @@ export default class GRTextarea extends HTMLElement {
           display: flex;
           flex-direction: column;
           position: relative;
-          height: 100%;
         }
 
         :host( [concealed] ) {
@@ -19,6 +18,21 @@ export default class GRTextarea extends HTMLElement {
 
         :host( [hidden] ) {
           display: none;
+        }
+
+        div {
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+        }
+
+        div[part=after] {
+          padding: 4px 0 0 0;
+        }
+
+        div[part=before] {
+          padding: 0 0 4px 0;
         }
 
         i {
@@ -61,14 +75,37 @@ export default class GRTextarea extends HTMLElement {
           outline-offset: -2px;
           padding: 0;
           position: relative;
+          transition: background-color 150ms ease-in-out;          
           -webkit-tap-highlight-color: transparent;
         }
 
+        label:hover {
+          background-color: #e8e8e8;          
+        }
+
         label:focus-within {
+          background-color: #f4f4f4;
           outline: solid 2px #0f62fe;
         }
 
+        p {
+          color: #525252;
+          cursor: default;
+          flex-basis: 0;
+          flex-grow: 1;
+          font-family: 'IBM Plex Sans', sans-serif;
+          font-size: 12px;
+          line-height: 16px;
+          margin: 0;
+          padding: 0;
+        }
+
+        p[part=helper] {
+          height: 16px;
+        }
+
         textarea {
+          appearance: none;
           background: none;
           border: none;
           box-sizing: border-box;
@@ -78,10 +115,10 @@ export default class GRTextarea extends HTMLElement {
           font-size: 14px;
           font-weight: 400;
           height: 100%;
-          margin: 0;
-          min-height: 40px;
+          line-height: 20px;
+          margin: 0;          
           outline: none;
-          padding: 11px 40px 11px 16px;
+          padding: 10px 40px 0 16px;
           resize: none;
           text-rendering: optimizeLegibility;
           -webkit-tap-highlight-color: transparent;
@@ -110,6 +147,11 @@ export default class GRTextarea extends HTMLElement {
           --icon-color: #da1e28;
         }
 
+        :host( :not( :has( [slot=before] ) ):not( [label] ) ) div[part=before],
+        :host( :not( [label] ) ) p[part=label] {
+          display: none;
+        }
+
         :host( :not( [invalid] ) ) i {
           display: none;
         }
@@ -120,7 +162,16 @@ export default class GRTextarea extends HTMLElement {
 
         :host( [read-only] ) label {
           border-bottom: solid 1px transparent;
+          cursor: default;
         }        
+
+        :host( [read-only] ) label:hover {
+          background-color: #f4f4f4;
+        }                
+        
+        :host( [read-only][light] ) label:hover {
+          background-color: #ffffff;
+        }                               
 
         :host( [read-only] ) label:focus-within {        
           outline: solid 2px transparent;
@@ -134,15 +185,35 @@ export default class GRTextarea extends HTMLElement {
           border-bottom: solid 1px transparent;
         }
 
+        :host( [disabled] ) label:hover {
+          background-color: #f4f4f4;
+        }                
+
+        :host( [disabled] ) p {
+          color: #16161640;
+        }
+
         :host( [disabled] ) textarea {
           color: #c6c6c6;
           cursor: not-allowed;
         }
+
+        :host( [disabled] ) textarea::placeholder {        
+          color: #c6c6c6;
+        }        
       </style>
+      <div part="before">
+        <p part="label"></p>
+        <slot name="before"></slot>
+      </div>
       <label part="field">
         <textarea part="input"></textarea>
         <i part="invalid">error</i>        
       </label>
+      <div part="after">
+        <p part="helper"></p>
+        <slot name="after"></slot>
+      </div>
     `;
 
     // Root
@@ -150,6 +221,8 @@ export default class GRTextarea extends HTMLElement {
     this.shadowRoot.appendChild( template.content.cloneNode( true ) );
 
     // Elements
+    this.$helper = this.shadowRoot.querySelector( 'p[part=helper]' );
+    this.$label = this.shadowRoot.querySelector( 'p[part=label]' );
     this.$textarea = this.shadowRoot.querySelector( 'textarea' );
     this.$textarea.addEventListener( 'input', ( evt ) => {
       this.value = evt.currentTarget.value;
@@ -166,9 +239,13 @@ export default class GRTextarea extends HTMLElement {
     this.$textarea.blur();
   }
 
-  clear() {
+  clear( focus = false ) {
     this.$textarea.value = '';
     this.value = null;
+
+    if( focus ) {
+      this.$textarea.focus();
+    }
   }
 
   focus() {
@@ -177,11 +254,15 @@ export default class GRTextarea extends HTMLElement {
 
   // When things change
   _render() {
+    this.$label.textContent = this.label === null ? '' : this.label;
+
     this.$textarea.disabled = this.disabled;
     this.$textarea.inputMode = this.mode === null ? '' : this.mode;
     this.$textarea.placeholder = this.placeholder === null ? '' : this.placeholder;
     this.$textarea.readOnly = this.readOnly;
     this.$textarea.value = this.value === null ? '' : this.value;
+
+    this.$helper.textContent = this.helper === null ? '' : this.helper;    
   }
 
   // Promote properties
@@ -199,8 +280,11 @@ export default class GRTextarea extends HTMLElement {
     this._upgrade( 'concealed' );
     this._upgrade( 'data' );
     this._upgrade( 'disabled' );
+    this._upgrade( 'error' );
+    this._upgrade( 'helper' );
     this._upgrade( 'hidden' );
     this._upgrade( 'invalid' );
+    this._upgrade( 'label' );
     this._upgrade( 'light' );
     this._upgrade( 'mode' );
     this._upgrade( 'name' );    
@@ -215,8 +299,11 @@ export default class GRTextarea extends HTMLElement {
     return [
       'concealed',
       'disabled',
+      'error',
+      'helper',
       'hidden',
       'invalid',
+      'label',
       'light',
       'mode',
       'name',
@@ -285,6 +372,38 @@ export default class GRTextarea extends HTMLElement {
     }
   }
 
+  get error() {
+    if( this.hasAttribute( 'error' ) ) {
+      return this.getAttribute( 'error' );
+    }
+
+    return null;
+  }
+
+  set error( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'error', value );
+    } else {
+      this.removeAttribute( 'error' );
+    }
+  }  
+
+  get helper() {
+    if( this.hasAttribute( 'helper' ) ) {
+      return this.getAttribute( 'helper' );
+    }
+
+    return null;
+  }
+
+  set helper( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'helper', value );
+    } else {
+      this.removeAttribute( 'helper' );
+    }
+  }    
+
   get hidden() {
     return this.hasAttribute( 'hidden' );
   }
@@ -324,6 +443,22 @@ export default class GRTextarea extends HTMLElement {
       this.removeAttribute( 'invalid' );
     }
   }
+
+  get label() {
+    if( this.hasAttribute( 'label' ) ) {
+      return this.getAttribute( 'label' );
+    }
+
+    return null;
+  }
+
+  set label( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'label', value );
+    } else {
+      this.removeAttribute( 'label' );
+    }
+  }  
 
   get light() {
     return this.hasAttribute( 'light' );
