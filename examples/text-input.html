@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Set of standard web components (Vanilla) based on the IBM Carbon Design System.">
+
+    <title>Text Input - Graphene</title>
+
+    <link href="../graphene.css" rel="stylesheet">    
+
+    <style>
+      gr-text-input {
+        margin: 0 0 16px 0;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <gr-text-input helper="Optional help text" label="Text input label" placeholder="Text input"></gr-text-input><br>
+    
+    <gr-text-input error="There is an error here" helper="Optional help text" invalid label="Text input label" placeholder="Text input"></gr-text-input><br>    
+
+    <gr-text-input helper="Helper" label="Email" value="hello@world.com">
+      <gr-link label="Send email" slot="before"></gr-link>
+      <gr-label text="10/100" slot="after"></gr-label>
+    </gr-text-input>
+
+    <gr-text-input helper="Optional help text" label="Text input label" read-only value="This is read only"></gr-text-input><br>
+
+    <gr-text-input disabled helper="Optional help text" label="Text input label" placeholder="Text input" value="This is disabled">
+      <gr-link label="Send email" slot="before"></gr-link>      
+      <gr-label slot="after" text="10/100"></gr-label>
+    </gr-text-input><br>    
+
+    <gr-text-input helper="Optional help text" label="Text input label" type="password"></gr-text-input><br>    
+    
+    <pre>
+&lt;gr-input helper=&quot;Optional help text&quot; label=&quot;Text input label&quot;&gt;&lt;/gr-input&gt;
+
+&lt;gr-input helper=&quot;Optional help text&quot; label=&quot;Text input label&quot; read-only value=&quot;This is read only, you can't type more&quot;&gt;&lt;/gr-input&gt;
+
+&lt;gr-input helper=&quot;Optional help text&quot; label=&quot;Text input label&quot; type=&quot;password&quot;&gt;&lt;/gr-input&gt;
+
+&lt;gr-input label=&quot;Email&quot; value=&quot;hello@world.com&quot;&gt;
+  &lt;gr-link label=&quot;Send email&quot;&gt;&lt;/gr-link&gt;
+&lt;/gr-input&gt;
+    </pre>
+
+    <script src="../components/label.js" type="module"></script>
+    <script src="../components/link.js" type="module"></script>
+    <script src="../components/text-input.js" type="module"></script>    
+
+  </body>
+</html>

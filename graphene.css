@@ -137,6 +137,31 @@ gr-link gr-icon::part( font ) {
   cursor: pointer;
 }
 
+/* Text Input */
+gr-text-input gr-label[slot=after],
+gr-text-input gr-link[slot=after] {
+  padding: 4px 0 0 0;
+}
+
+gr-text-input gr-label[slot=before],
+gr-text-input gr-link[slot=before] {
+  padding: 0 0 4px 0;
+}
+
+gr-text-input gr-label::part( text ) {
+  color: #525252;
+}
+
+gr-text-input gr-label::part( text ),
+gr-text-input gr-link::part( label ) {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+gr-text-input[disabled] gr-label::part( text ) {
+  color: #16161640;
+}
+
 /*
 gr-avatar gr-icon::part( font ) {
   cursor: pointer;

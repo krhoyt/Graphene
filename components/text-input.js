@@ -1,4 +1,4 @@
-export default class GRInput extends HTMLElement {
+export default class GRTextInput extends HTMLElement {
   constructor() {
     super();
 
@@ -42,6 +42,12 @@ export default class GRInput extends HTMLElement {
             width 300ms ease-out;  
           width: 0; 
           -webkit-tap-highlight-color: transparent;
+        }
+
+        div {
+          align-items: center;
+          display: flex;
+          flex-direction: row;
         }
 
         input {
@@ -91,6 +97,27 @@ export default class GRInput extends HTMLElement {
         label:focus-within {
           background-color: #f4f4f4;
           outline: solid 2px #0f62fe;
+        }
+
+        p {
+          color: #525252;
+          cursor: default;
+          flex-basis: 0;
+          flex-grow: 1;
+          font-family: 'IBM Plex Sans', sans-serif;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 16px;
+          margin: 0;
+          padding: 0;
+        }
+
+        p[part=helper] {
+          padding: 4px 0 0 0;
+        }
+
+        p[part=label] {
+          padding: 0 0 4px 0;
         }
 
         i {
@@ -154,6 +181,10 @@ export default class GRInput extends HTMLElement {
           opacity: 1.0;
           margin: 0 12px 0 0;
           width: 20px;
+        }
+
+        :host( [invalid] ) p[part=helper] {
+          color: #da1e28;
         }
 
         :host( [light] ) label {
@@ -243,8 +274,16 @@ export default class GRInput extends HTMLElement {
 
         :host( [disabled] ) label:hover {
           background-color: #f4f4f4;
-        }        
+        }
+        
+        :host( [disabled] ) p {
+          color: #16161640;
+        }
       </style>
+      <div>
+        <p part="label"></p>      
+        <slot name="before"></slot>
+      </div>
       <label part="field">
         <input part="input" type="text">
         <i part="invalid">error</i>
@@ -255,7 +294,14 @@ export default class GRInput extends HTMLElement {
           <i>close</i>
         </button>
       </label>
+      <div>
+        <p part="helper"></p>
+        <slot name="after"></slot>
+      </div>
     `;
+
+    // Private
+    this._data = null;
 
     // Root
     this.attachShadow( {mode: 'open'} );
@@ -269,6 +315,7 @@ export default class GRInput extends HTMLElement {
 
       this.dispatchEvent( new CustomEvent( 'gr-clear' ) );
     } );
+    this.$helper = this.shadowRoot.querySelector( 'p[part=helper]' );    
     this.$input = this.shadowRoot.querySelector( 'input' );
     this.$input.addEventListener( 'input', ( evt ) => {
       this.value = evt.currentTarget.value;
@@ -286,6 +333,7 @@ export default class GRInput extends HTMLElement {
         } ) );
       }
     } );
+    this.$label = this.shadowRoot.querySelector( 'p[part=label]' );
     this.$reveal = this.shadowRoot.querySelector( 'button[part=reveal]' );
     this.$reveal_icon = this.shadowRoot.querySelector( 'button[part=reveal] i' );
     this.$reveal.addEventListener( 'click', () => {
@@ -299,9 +347,13 @@ export default class GRInput extends HTMLElement {
     this.$input.blur();
   }
 
-  clear() {
+  clear( focus = false ) {
     this.$input.value = '';
     this.value = null;
+
+    if( focus ) {
+      this.$input.focus();
+    }
   }
 
   focus() {
@@ -310,6 +362,8 @@ export default class GRInput extends HTMLElement {
 
   // When things change
   _render() {
+    this.$label.textContent = this.label === null ? '' : this.label;
+
     this.$input.disabled = this.disabled;
     this.$input.inputMode = this.mode === null ? 'text' : this.mode;
     this.$input.placeholder = this.placeholder === null ? '' : this.placeholder;
@@ -320,6 +374,16 @@ export default class GRInput extends HTMLElement {
       this.$input.type = this.$reveal_icon.innerText === 'visibility' ? 'password' : 'text';      
     } else {
       this.$input.type = this.type === null ? 'text' : this.type;      
+    }
+
+    if( this.invalid ) {
+      if( this.error === null ) {
+        this.$helper.textContent = this.helper === null ? '' : this.helper;    
+      } else {
+        this.$helper.textContent = this.error === null ? '' : this.error;            
+      }
+    } else {
+      this.$helper.textContent = this.helper === null ? '' : this.helper;          
     }
   }
 
@@ -338,13 +402,17 @@ export default class GRInput extends HTMLElement {
     this._upgrade( 'concealed' );    
     this._upgrade( 'data' );
     this._upgrade( 'disabled' );
+    this._upgrade( 'error' );    
+    this._upgrade( 'helper' );    
     this._upgrade( 'hidden' );
     this._upgrade( 'invalid' );
+    this._upgrade( 'label' );    
     this._upgrade( 'light' );
     this._upgrade( 'mode' );
     this._upgrade( 'name' );
     this._upgrade( 'placeholder' );
     this._upgrade( 'readOnly' );
+    this._upgrade( 'size' );    
     this._upgrade( 'type' );
     this._upgrade( 'value' );
     this._render();
@@ -355,13 +423,17 @@ export default class GRInput extends HTMLElement {
     return [
       'concealed',
       'disabled',
+      'error',
+      'helper',
       'hidden',
       'invalid',
+      'label',
       'light',
       'mode',
       'name',
       'placeholder',
       'read-only',
+      'size',
       'type',
       'value'
     ];
@@ -427,6 +499,38 @@ export default class GRInput extends HTMLElement {
     }
   }
 
+  get error() {
+    if( this.hasAttribute( 'error' ) ) {
+      return this.getAttribute( 'error' );
+    }
+
+    return null;
+  }
+
+  set error( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'error', value );
+    } else {
+      this.removeAttribute( 'error' );
+    }
+  }
+
+  get helper() {
+    if( this.hasAttribute( 'helper' ) ) {
+      return this.getAttribute( 'helper' );
+    }
+
+    return null;
+  }
+
+  set helper( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'helper', value );
+    } else {
+      this.removeAttribute( 'helper' );
+    }
+  }  
+
   get hidden() {
     return this.hasAttribute( 'hidden' );
   }
@@ -466,6 +570,22 @@ export default class GRInput extends HTMLElement {
       this.removeAttribute( 'invalid' );
     }
   }
+
+  get label() {
+    if( this.hasAttribute( 'label' ) ) {
+      return this.getAttribute( 'label' );
+    }
+
+    return null;
+  }
+
+  set label( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'label', value );
+    } else {
+      this.removeAttribute( 'label' );
+    }
+  }  
 
   get light() {
     return this.hasAttribute( 'light' );
@@ -555,6 +675,22 @@ export default class GRInput extends HTMLElement {
     }
   }
 
+  get size() {
+    if( this.hasAttribute( 'size' ) ) {
+      return this.getAttribute( 'size' );
+    }
+
+    return null;
+  }
+
+  set size( value ) {
+    if( value !== null ) {
+      this.setAttribute( 'size', value );
+    } else {
+      this.removeAttribute( 'size' );
+    }
+  }
+
   get type() {
     if( this.hasAttribute( 'type' ) ) {
       return this.getAttribute( 'type' );
@@ -596,4 +732,4 @@ export default class GRInput extends HTMLElement {
   }
 }
 
-window.customElements.define( 'gr-input', GRInput );
+window.customElements.define( 'gr-text-input', GRTextInput );
